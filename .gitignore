@@ -4,6 +4,7 @@
 .idea/
 .vscode
 
+tempCodeRunnerFile.py
 *.db
 ### Also any macOS specific files
 .DS_Store
