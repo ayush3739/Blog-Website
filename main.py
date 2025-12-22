@@ -120,8 +120,7 @@ def send_contact_email(user_name: str, user_email: str, user_phone: str, user_me
     msg.set_content(f"Name: {user_name}\nEmail: {user_email}\nPhone: {user_phone}\n\nMessage:\n{user_message}")
 
     try:
-        with smtplib.SMTP("smtp.gmail.com", 587, timeout=10) as connection:
-            connection.starttls()
+        with smtplib.SMTP("smtp.gmail.com", 465, timeout=10) as connection:
             connection.login(user=from_email, password=app_password)
             connection.send_message(msg)
         return True, None
