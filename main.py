@@ -25,7 +25,9 @@ def admin_only(f):
         return f(*args,**kwargs)
     return decorated_function
 
-app = Flask(__name__, instance_path='/tmp')
+import tempfile
+_instance_path = '/tmp' if os.name != 'nt' else tempfile.gettempdir()
+app = Flask(__name__, instance_path=_instance_path)
 app.config['SECRET_KEY'] = os.getenv('secret_key')
 app.config['CKEDITOR_SERVE_LOCAL'] = True 
 app.config['CKEDITOR_PKG_TYPE'] = 'standard' 
@@ -51,13 +53,14 @@ class Base(DeclarativeBase):
     pass
 
 # Neon integration may set POSTGRES_URL, POSTGRES_PRISMA_URL, DATABASE_URL, or STORAGE_URL
+_sqlite_fallback = f"sqlite:///{_instance_path}/posts.db"
 _db_uri = (
     os.getenv("DB_URI") or
     os.getenv("POSTGRES_URL") or
     os.getenv("POSTGRES_PRISMA_URL") or
     os.getenv("DATABASE_URL") or
     os.getenv("STORAGE_URL") or
-    "sqlite:////tmp/posts.db"
+    _sqlite_fallback
 )
 # SQLAlchemy requires 'postgresql://' not 'postgres://'
 if _db_uri.startswith("postgres://"):
