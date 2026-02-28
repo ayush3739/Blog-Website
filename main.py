@@ -41,10 +41,9 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    # Return None if user not found; avoid aborting from user loader
     try:
         return db.session.get(User, int(user_id))
-    except (TypeError, ValueError):
+    except Exception:
         return None
 
 
@@ -290,9 +289,6 @@ def about():
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
-        if not current_user.is_authenticated:
-            flash("You need to login or register to send a message.", "warning")
-            return redirect(url_for("login"))
         name = request.form.get("name", "").strip()
         email = request.form.get("email", "").strip()
         phone = request.form.get("phone", "").strip()
