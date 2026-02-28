@@ -15,7 +15,7 @@ import smtplib
 from email.message import EmailMessage
 from dotenv import load_dotenv
 
-
+load_dotenv('.env')
 
 def admin_only(f):
     @wraps(f)
@@ -63,7 +63,7 @@ class BlogPost(db.Model):
     date: Mapped[str] = mapped_column(String(250), nullable=False)
     body: Mapped[str] = mapped_column(Text, nullable=False)
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
-    comments=relationship("Comments",back_populates="parent_post")
+    comments=relationship("Comments",back_populates="parent_post", cascade="all, delete-orphan")
     
 class User(UserMixin,db.Model):
     __tablename__ = "users"  
@@ -304,4 +304,4 @@ def debug_user(user_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
