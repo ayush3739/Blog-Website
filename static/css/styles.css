@@ -11036,6 +11036,57 @@ header.masthead .post-heading .meta a {
   color: #e4e4e7;
 }
 
+/* Form Floating in Dark Mode */
+[data-theme="dark"] .form-floating > .form-control,
+[data-theme="dark"] .form-floating > .form-select {
+  background-color: #1e3640 !important;
+  border-color: #2d4a52;
+  color: #e4e4e7 !important;
+}
+
+[data-theme="dark"] .form-floating > label {
+  color: #9ca3af;
+}
+
+[data-theme="dark"] .form-floating > .form-control:focus ~ label,
+[data-theme="dark"] .form-floating > .form-control:not(:placeholder-shown) ~ label,
+[data-theme="dark"] .form-floating > .form-select ~ label {
+  color: #14b8a6;
+  background-color: #1e3640;
+  padding: 0 0.5rem;
+}
+
+[data-theme="dark"] .form-floating > .form-control::placeholder {
+  color: transparent;
+}
+
+[data-theme="dark"] .form-floating > .form-control:focus,
+[data-theme="dark"] .form-floating > .form-select:focus {
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 0.25rem rgba(20, 184, 166, 0.25);
+}
+
+/* Fix autofill background in dark mode */
+[data-theme="dark"] input:-webkit-autofill,
+[data-theme="dark"] input:-webkit-autofill:hover,
+[data-theme="dark"] input:-webkit-autofill:focus,
+[data-theme="dark"] input:-webkit-autofill:active,
+[data-theme="dark"] textarea:-webkit-autofill,
+[data-theme="dark"] textarea:-webkit-autofill:hover,
+[data-theme="dark"] textarea:-webkit-autofill:focus,
+[data-theme="dark"] textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #1e3640 inset !important;
+  -webkit-text-fill-color: #e4e4e7 !important;
+  background-color: #1e3640 !important;
+  caret-color: #e4e4e7;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+[data-theme="dark"] .form-control:not(:placeholder-shown) {
+  background-color: #1e3640 !important;
+  color: #e4e4e7 !important;
+}
+
 /* Cards */
 [data-theme="dark"] .card {
   background-color: #1e3640;
@@ -11559,4 +11610,267 @@ html {
 
 [data-theme="dark"] .error-icon i {
   color: #14b8a6 !important;
+}
+
+/* ================================
+   TOAST NOTIFICATION STYLES
+   ================================ */
+.toast {
+  background: #ffffff;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.toast-header {
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 12px 15px;
+}
+
+.toast-header strong {
+  color: #28a745;
+}
+
+.toast-body {
+  padding: 15px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.toast-body i {
+  color: #0085a1;
+}
+
+/* Toast slide-in animation */
+.toast.showing {
+  animation: slideInRight 0.4s ease-out;
+}
+
+.toast.hide {
+  animation: slideOutRight 0.3s ease-in;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Dark mode toast styles */
+[data-theme="dark"] .toast {
+  background: #243b44;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .toast-header {
+  background: linear-gradient(135deg, #1e3640, #243b44);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .toast-header strong {
+  color: #5eead4;
+}
+
+[data-theme="dark"] .toast-header small {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .toast-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+[data-theme="dark"] .toast-body {
+  color: #e4e4e7;
+}
+
+[data-theme="dark"] .toast-body i {
+  color: #14b8a6;
+}
+
+/* ================================
+   FORM LOADING ANIMATION
+   ================================ */
+#submitButton {
+  min-width: 180px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+#submitButton:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+#submitButton .btn-loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#submitButton .fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pulse animation for loading state */
+#submitButton:disabled .btn-loader {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ================================
+   FLASH MESSAGES STYLES
+   ================================ */
+.flash-messages-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.flash-message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  animation: slideInRight 0.4s ease-out;
+  min-width: 300px;
+}
+
+.flash-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.flash-icon {
+  font-size: 1.25rem;
+}
+
+.flash-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.flash-close {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+.flash-close:hover {
+  color: #333;
+}
+
+/* Flash message types */
+.flash-success {
+  border-left: 4px solid #28a745;
+}
+
+.flash-success .flash-icon {
+  color: #28a745;
+}
+
+.flash-error, .flash-danger {
+  border-left: 4px solid #dc3545;
+}
+
+.flash-error .flash-icon, .flash-danger .flash-icon {
+  color: #dc3545;
+}
+
+.flash-warning {
+  border-left: 4px solid #ffc107;
+}
+
+.flash-warning .flash-icon {
+  color: #ffc107;
+}
+
+.flash-info, .flash-message:not(.flash-success):not(.flash-error):not(.flash-danger):not(.flash-warning) {
+  border-left: 4px solid #17a2b8;
+}
+
+.flash-info .flash-icon {
+  color: #17a2b8;
+}
+
+/* Auto-dismiss animation */
+.flash-message {
+  animation: slideInRight 0.4s ease-out, fadeOut 0.5s ease-in 4.5s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+}
+
+/* Dark mode flash messages */
+[data-theme="dark"] .flash-message {
+  background: #243b44;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .flash-text {
+  color: #e4e4e7;
+}
+
+[data-theme="dark"] .flash-close {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .flash-close:hover {
+  color: #e4e4e7;
+}
+
+/* Mobile responsive */
+@media (max-width: 576px) {
+  .flash-messages-container {
+    left: 10px;
+    right: 10px;
+    max-width: none;
+  }
+  
+  .flash-message {
+    min-width: auto;
+  }
 }

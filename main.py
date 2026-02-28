@@ -120,7 +120,7 @@ def send_contact_email(user_name: str, user_email: str, user_phone: str, user_me
     msg.set_content(f"Name: {user_name}\nEmail: {user_email}\nPhone: {user_phone}\n\nMessage:\n{user_message}")
 
     try:
-        with smtplib.SMTP("smtp.gmail.com", 465, timeout=10) as connection:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as connection:
             connection.login(user=from_email, password=app_password)
             connection.send_message(msg)
         return True, None
@@ -274,7 +274,7 @@ def about():
 def contact():
     if request.method == "POST":
         if not current_user.is_authenticated:
-            flash("You need to login or register to send a message.")
+            flash("You need to login or register to send a message.", "warning")
             return redirect(url_for("login"))
         name = request.form.get("name", "").strip()
         email = request.form.get("email", "").strip()
@@ -283,10 +283,10 @@ def contact():
 
         ok, err = send_contact_email(name, email, phone, message)
         if ok:
-            flash("Message sent.")
-            return render_template("contact.html", logged_in=current_user.is_authenticated, msg_sent=True)
+            flash("Your message has been sent successfully! We'll get back to you soon.", "success")
+            return redirect(url_for("contact"))
         else:
-            flash(f"Could not send message. {err}")
+            flash(f"Could not send message. {err}", "error")
             return render_template("contact.html", logged_in=current_user.is_authenticated, msg_sent=False)
 
     return render_template("contact.html", logged_in=current_user.is_authenticated, msg_sent=False)

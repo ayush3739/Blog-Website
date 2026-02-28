@@ -91,7 +91,10 @@
               type="submit"
               {% if not logged_in %}disabled{% endif %}
             >
-              Send Message
+              <span class="btn-text">Send Message</span>
+              <span class="btn-loader" style="display: none;">
+                <i class="fas fa-spinner fa-spin me-2"></i>Sending...
+              </span>
             </button>
           </form>
         </div>
@@ -99,5 +102,25 @@
     </div>
   </div>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var contactForm = document.getElementById('contactForm');
+    var submitBtn = document.getElementById('submitButton');
+    
+    if (contactForm && submitBtn) {
+      contactForm.addEventListener('submit', function() {
+        var btnText = submitBtn.querySelector('.btn-text');
+        var btnLoader = submitBtn.querySelector('.btn-loader');
+        
+        if (btnText && btnLoader) {
+          btnText.style.display = 'none';
+          btnLoader.style.display = 'inline';
+        }
+        submitBtn.disabled = true;
+      });
+    }
+  });
+</script>
 
 {% include "footer.html" %}

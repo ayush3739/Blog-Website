@@ -28,6 +28,64 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     // ================================
+    // GLOBAL NOTIFICATION SYSTEM
+    // ================================
+    function showNotification(notification) {
+        const toastEl = document.getElementById('globalToast');
+        const toastTitle = document.getElementById('toastTitle');
+        const toastMessage = document.getElementById('toastMessage');
+        const toastIcon = document.getElementById('toastIcon');
+        
+        if (!toastEl || !toastTitle || !toastMessage) return;
+        
+        // Set notification content
+        toastTitle.textContent = notification.title || 'Notification';
+        toastMessage.innerHTML = notification.message || '';
+        
+        // Set icon based on type
+        if (toastIcon) {
+            toastIcon.className = 'fas me-2';
+            if (notification.type === 'success') {
+                toastIcon.classList.add('fa-check-circle', 'text-success');
+            } else if (notification.type === 'error') {
+                toastIcon.classList.add('fa-exclamation-circle', 'text-danger');
+            } else if (notification.type === 'warning') {
+                toastIcon.classList.add('fa-exclamation-triangle', 'text-warning');
+            } else {
+                toastIcon.classList.add('fa-info-circle', 'text-info');
+            }
+        }
+        
+        // Show the toast
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    }
+    
+    function checkPendingNotifications() {
+        const pending = localStorage.getItem('pendingNotification');
+        if (pending) {
+            try {
+                const notification = JSON.parse(pending);
+                // Small delay to ensure page is fully rendered
+                setTimeout(() => {
+                    showNotification(notification);
+                }, 300);
+                // Clear the notification
+                localStorage.removeItem('pendingNotification');
+            } catch (e) {
+                console.error('Error parsing notification:', e);
+                localStorage.removeItem('pendingNotification');
+            }
+        }
+    }
+    
+    // Check for pending notifications on page load
+    checkPendingNotifications();
+    
+    // Listen for immediate notification requests (same-page)
+    window.addEventListener('showPendingNotification', checkPendingNotifications);
+
+    // ================================
     // DARK THEME TOGGLE FUNCTIONALITY
     // ================================
     const themeToggle = document.getElementById('themeToggle');
