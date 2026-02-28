@@ -30,6 +30,9 @@ app.config['SECRET_KEY'] = os.getenv('secret_key')
 app.config['CKEDITOR_SERVE_LOCAL'] = True 
 app.config['CKEDITOR_PKG_TYPE'] = 'standard' 
 app.config['CKEDITOR_CONFIG'] = {'versionCheck': False} 
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_HTTPONLY'] = True
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
