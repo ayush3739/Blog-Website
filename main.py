@@ -50,7 +50,21 @@ def load_user(user_id):
 
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URI", "sqlite:////tmp/posts.db")
+
+# Neon integration may set POSTGRES_URL, POSTGRES_PRISMA_URL, DATABASE_URL, or STORAGE_URL
+_db_uri = (
+    os.getenv("DB_URI") or
+    os.getenv("POSTGRES_URL") or
+    os.getenv("POSTGRES_PRISMA_URL") or
+    os.getenv("DATABASE_URL") or
+    os.getenv("STORAGE_URL") or
+    "sqlite:////tmp/posts.db"
+)
+# SQLAlchemy requires 'postgresql://' not 'postgres://'
+if _db_uri.startswith("postgres://"):
+    _db_uri = _db_uri.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = _db_uri
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
