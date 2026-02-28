@@ -25,7 +25,7 @@ def admin_only(f):
         return f(*args,**kwargs)
     return decorated_function
 
-app = Flask(__name__)
+app = Flask(__name__, instance_path='/tmp')
 app.config['SECRET_KEY'] = os.getenv('secret_key')
 app.config['CKEDITOR_SERVE_LOCAL'] = True 
 app.config['CKEDITOR_PKG_TYPE'] = 'standard' 
@@ -47,7 +47,7 @@ def load_user(user_id):
 
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URI", "sqlite:///posts.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URI", "sqlite:////tmp/posts.db")
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
