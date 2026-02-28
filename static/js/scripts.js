@@ -151,4 +151,119 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     initCodeBlocks();
+
+    // ================================
+    // VISUAL IMPROVEMENTS
+    // ================================
+
+    // 3. Reading Progress Bar
+    const progressBar = document.getElementById('readingProgress');
+    if (progressBar) {
+        window.addEventListener('scroll', () => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / documentHeight) * 100;
+            progressBar.style.width = Math.min(progress, 100) + '%';
+        });
+    }
+
+    // 4. Back to Top Button
+    const backToTopBtn = document.getElementById('backToTop');
+    if (backToTopBtn) {
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top on click
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // 5. Image Lazy Loading
+    function initLazyLoading() {
+        const images = document.querySelectorAll('img[data-src]');
+        
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.addEventListener('load', () => {
+                            img.classList.add('loaded');
+                            img.classList.remove('img-placeholder');
+                        });
+                        observer.unobserve(img);
+                    }
+                });
+            }, {
+                rootMargin: '50px 0px',
+                threshold: 0.01
+            });
+
+            images.forEach(img => {
+                img.classList.add('img-placeholder');
+                imageObserver.observe(img);
+            });
+        } else {
+            // Fallback for older browsers
+            images.forEach(img => {
+                img.src = img.dataset.src;
+                img.classList.add('loaded');
+            });
+        }
+    }
+
+    initLazyLoading();
+
+    // ================================
+    // SHARE BUTTONS - COPY LINK
+    // ================================
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    if (copyLinkBtn) {
+        copyLinkBtn.addEventListener('click', async () => {
+            const url = window.location.href;
+            
+            try {
+                await navigator.clipboard.writeText(url);
+                copyLinkBtn.innerHTML = '<i class="fas fa-check"></i>';
+                copyLinkBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyLinkBtn.innerHTML = '<i class="fas fa-link"></i>';
+                    copyLinkBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    copyLinkBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    copyLinkBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyLinkBtn.innerHTML = '<i class="fas fa-link"></i>';
+                        copyLinkBtn.classList.remove('copied');
+                    }, 2000);
+                } catch (e) {
+                    console.error('Failed to copy link');
+                }
+                document.body.removeChild(textArea);
+            }
+        });
+    }
 })

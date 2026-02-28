@@ -11218,3 +11218,345 @@ h1, h2, h3, h4, h5, h6,
 .card {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+/* ================================
+   VISUAL IMPROVEMENTS
+   ================================ */
+
+/* 1. Animated Page Transitions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-transition {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+header.masthead {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* 2. Post Cards with Hover Effects */
+.post-preview {
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.post-preview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 133, 161, 0.03);
+}
+
+[data-theme="dark"] .post-preview:hover {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  background-color: rgba(20, 184, 166, 0.05);
+}
+
+.post-preview::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 0;
+  background: linear-gradient(180deg, #0085A1, #00b4d8);
+  border-radius: 2px;
+  transition: height 0.3s ease;
+}
+
+[data-theme="dark"] .post-preview::before {
+  background: linear-gradient(180deg, #14b8a6, #5eead4);
+}
+
+.post-preview:hover::before {
+  height: 60%;
+}
+
+.post-preview > a > .post-title {
+  transition: color 0.3s ease;
+}
+
+.post-preview > a > .post-subtitle {
+  transition: color 0.3s ease;
+}
+
+/* 3. Reading Progress Bar */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #0085A1, #00b4d8);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+[data-theme="dark"] .reading-progress-bar {
+  background: linear-gradient(90deg, #14b8a6, #5eead4);
+}
+
+/* 4. Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #0085A1, #00b4d8);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 15px rgba(0, 133, 161, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 133, 161, 0.4);
+}
+
+[data-theme="dark"] .back-to-top {
+  background: linear-gradient(135deg, #14b8a6, #5eead4);
+  box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+}
+
+[data-theme="dark"] .back-to-top:hover {
+  box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+}
+
+/* 5. Image Lazy Loading */
+img[data-src] {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+.img-placeholder {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+[data-theme="dark"] .img-placeholder {
+  background: linear-gradient(90deg, #2d4a52 25%, #3d5a62 50%, #2d4a52 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Post image hover effect */
+.masthead {
+  transition: transform 0.3s ease;
+}
+
+/* Staggered animation for post list */
+.post-preview:nth-child(1) { animation-delay: 0.1s; }
+.post-preview:nth-child(2) { animation-delay: 0.2s; }
+.post-preview:nth-child(3) { animation-delay: 0.3s; }
+.post-preview:nth-child(4) { animation-delay: 0.4s; }
+.post-preview:nth-child(5) { animation-delay: 0.5s; }
+
+.post-preview {
+  animation: fadeInUp 0.6s ease-out backwards;
+}
+
+/* ================================
+   SHARE BUTTONS
+   ================================ */
+
+.share-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.share-label {
+  font-weight: 600;
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+[data-theme="dark"] .share-label {
+  color: #9ca3af;
+}
+
+.share-icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: #fff;
+}
+
+.share-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.share-twitter {
+  background: linear-gradient(135deg, #1da1f2, #0d8ecf);
+}
+
+.share-twitter:hover {
+  background: linear-gradient(135deg, #0d8ecf, #1da1f2);
+}
+
+.share-linkedin {
+  background: linear-gradient(135deg, #0077b5, #005885);
+}
+
+.share-linkedin:hover {
+  background: linear-gradient(135deg, #005885, #0077b5);
+}
+
+.share-facebook {
+  background: linear-gradient(135deg, #1877f2, #0d5bc4);
+}
+
+.share-facebook:hover {
+  background: linear-gradient(135deg, #0d5bc4, #1877f2);
+}
+
+.share-whatsapp {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+}
+
+.share-whatsapp:hover {
+  background: linear-gradient(135deg, #128c7e, #25d366);
+}
+
+.share-copy {
+  background: linear-gradient(135deg, #6c757d, #495057);
+}
+
+.share-copy:hover {
+  background: linear-gradient(135deg, #495057, #6c757d);
+}
+
+.share-copy.copied {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+/* ================================
+   ERROR PAGES
+   ================================ */
+
+.error-content {
+  padding: 2rem 0;
+}
+
+.error-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.error-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.error-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.error-actions {
+  margin-top: 2rem;
+}
+
+.error-actions .btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.error-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .error-content h2 {
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] .error-icon i {
+  color: #14b8a6 !important;
+}

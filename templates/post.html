@@ -26,6 +26,41 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         {{ post.body|safe }}
+        
+        <!-- Share Buttons -->
+        <div class="share-buttons my-4 py-3 border-top border-bottom">
+          <span class="share-label me-3">Share this post:</span>
+          <div class="share-icons d-inline-flex gap-2">
+            <a href="https://twitter.com/intent/tweet?text={{ post.title|urlencode }}&url={{ request.url|urlencode }}" 
+               target="_blank" rel="noopener noreferrer" 
+               class="share-btn share-twitter" 
+               title="Share on Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.url|urlencode }}" 
+               target="_blank" rel="noopener noreferrer" 
+               class="share-btn share-linkedin" 
+               title="Share on LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url|urlencode }}" 
+               target="_blank" rel="noopener noreferrer" 
+               class="share-btn share-facebook" 
+               title="Share on Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://wa.me/?text={{ post.title|urlencode }}%20{{ request.url|urlencode }}" 
+               target="_blank" rel="noopener noreferrer" 
+               class="share-btn share-whatsapp" 
+               title="Share on WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <button class="share-btn share-copy" id="copyLinkBtn" title="Copy link">
+              <i class="fas fa-link"></i>
+            </button>
+          </div>
+        </div>
+
         {% if current_user.is_authenticated and current_user.is_admin: %}
         <div class="d-flex justify-content-end mb-4">
           <a
