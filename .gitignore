@@ -24,7 +24,6 @@ __pycache__/
 # C extensions
 *.so
 
-vercel.json
 FEATURE_IDEAS.md
 # Distribution / packaging
 .Python
