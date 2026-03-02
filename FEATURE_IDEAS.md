@@ -60,11 +60,11 @@ A curated list of potential design and functionality improvements for the BlogPy
 - [x] Back to Top Button
 - [ ] Reading Time Estimate
 - [ ] Toast Notifications
-- [ ] Custom Error Pages
+- [x] Custom Error Pages
 
 ### Medium Effort
-- [ ] Post Cards Hover Effects
-- [ ] Share Buttons
+- [x] Post Cards Hover Effects
+- [x] Share Buttons
 - [ ] Pagination
 - [ ] Search Functionality
 
