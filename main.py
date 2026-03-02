@@ -25,9 +25,15 @@ def admin_only(f):
         return f(*args,**kwargs)
     return decorated_function
 
-import tempfile
-_instance_path = '/tmp' if os.name != 'nt' else tempfile.gettempdir()
-app = Flask(__name__, instance_path=_instance_path)
+# On Vercel (Linux, read-only FS except /tmp), use /tmp for SQLite.
+# Locally, use Flask's default instance/ folder so existing data is picked up.
+if os.getenv('VERCEL'):
+    _instance_path = '/tmp'
+    app = Flask(__name__, instance_path=_instance_path)
+else:
+    app = Flask(__name__)
+    _instance_path = app.instance_path
+    os.makedirs(_instance_path, exist_ok=True)
 app.config['SECRET_KEY'] = os.getenv('secret_key')
 app.config['CKEDITOR_SERVE_LOCAL'] = True 
 app.config['CKEDITOR_PKG_TYPE'] = 'standard' 
