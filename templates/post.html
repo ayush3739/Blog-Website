@@ -72,8 +72,6 @@
         {% endif %}
         <!-- Comments Area -->
        
-        {{ ckeditor.load() }}
-        {{ ckeditor.config(name='comment') }}
         {{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
         <div class="comment">
           <ul class="commentList">
@@ -83,7 +81,7 @@
                 <img src="{{ comment.comment_author.email | gravatar }}" />
               </div>
               <div class="commentText">
-                <p>{{ comment.text|safe }}</p>
+                <p>{{ comment.text }}</p>
                 <span class="date sub-text">
                   {{ comment.comment_author.name }} • {{ comment.created_at.strftime('%b %d, %Y %I:%M %p') }}
                 </span>
