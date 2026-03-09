@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, TextAreaField
-from wtforms.validators import DataRequired, URL, Email, Length
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired, URL, Email
 from flask_ckeditor import CKEditorField
 
 
@@ -30,5 +30,5 @@ class LoginForm(FlaskForm):
 
 # TODO: Create a CommentForm so users can leave comments below posts
 class CommentForm(FlaskForm):
-    comment=TextAreaField("Comments", validators=[DataRequired(), Length(min=1, max=1000)])
+    comment=CKEditorField("Comments", validators=[DataRequired()])
     submit=SubmitField('Submit Comments')
