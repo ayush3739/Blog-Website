@@ -72,7 +72,7 @@
         {% endif %}
         <!-- Comments Area -->
         {{ ckeditor.load() }}
-        {{ ckeditor.config(name='comment', custom_config='toolbar: [["Bold", "Italic", "Underline", "-", "NumberedList", "BulletedList"]], removePlugins: "image,uploadimage,uploadfile,filetools,filebrowser,elementspath", height: 150') }}
+        {{ ckeditor.config(name='comment', custom_config='customConfig: "", toolbar: [["Bold", "Italic", "Underline", "-", "NumberedList", "BulletedList"]], removePlugins: "image,uploadimage,uploadfile,filetools,filebrowser,elementspath,sourcearea", height: 150') }}
         {{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
         <div class="comment">
           <ul class="commentList">
