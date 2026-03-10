@@ -215,9 +215,9 @@ def logout():
 
 @app.route('/')
 def get_all_posts():
-    result = db.session.execute(db.select(BlogPost).order_by(BlogPost.date.desc()))
-    posts = result.scalars().all()
-    return render_template("index.html", all_posts=posts,logged_in=current_user.is_authenticated)
+    # result = db.session.execute(db.select(BlogPost).order_by(BlogPost.date.desc()))
+    result = db.paginate(db.select(BlogPost).order_by(BlogPost.date.desc()),per_page=5)
+    return render_template("index.html", all_posts=result,logged_in=current_user.is_authenticated)
 
 
 @app.route("/post/<int:post_id>",methods=["GET","POST"])
