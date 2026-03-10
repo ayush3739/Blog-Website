@@ -11874,3 +11874,23 @@ html {
     min-width: auto;
   }
 }
+
+/* Dark mode pagination */
+[data-theme="dark"] .page-link {
+  background-color: #1e2d35;
+  border-color: #3a5260;
+  color: #e4e4e7;
+}
+
+[data-theme="dark"] .page-link:hover {
+  background-color: #2a3f4d;
+  border-color: #0085A1;
+  color: #fff;
+}
+
+[data-theme="dark"] .page-link.active,
+[data-theme="dark"] .active > .page-link {
+  background-color: #0085A1;
+  border-color: #0085A1;
+  color: #fff;
+}
