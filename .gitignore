@@ -23,7 +23,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+design.md
 FEATURE_IDEAS.md
 # Distribution / packaging
 .Python
