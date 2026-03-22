@@ -20,7 +20,7 @@ Icon
 __pycache__/
 *.py[cod]
 *$py.class
-
+/stitch_blog_landing_page
 # C extensions
 *.so
 design.md
