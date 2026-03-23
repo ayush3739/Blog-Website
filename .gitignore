@@ -44,6 +44,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+/stitch_blog_landing_page
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
