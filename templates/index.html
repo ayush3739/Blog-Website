@@ -1,50 +1,793 @@
-{% include "header.html" %}
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlogPy | The Editorial Agency</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          /* ── Light theme tokens ── */
+          "outline-variant": "var(--color-outline-variant)",
+          "inverse-surface": "#0c0e10",
+          "inverse-on-surface": "#9c9d9f",
+          "primary-dim": "#a36e00",
+          "on-secondary-fixed-variant": "#5c5b5b",
+          "background": "var(--color-background)",
+          "primary-fixed": "#F5A500",
+          "inverse-primary": "#F5A500",
+          "on-surface": "var(--color-on-surface)",
+          "primary-container": "#F5A500",
+          "surface-dim": "#d2d4d8",
+          "tertiary-container": "#d5f976",
+          "surface-tint": "#b87c00",
+          "error": "#b02500",
+          "outline": "var(--color-outline)",
+          "on-tertiary": "#e0ff8c",
+          "on-error-container": "#520c00",
+          "tertiary-dim": "#425700",
+          "tertiary": "#4d6300",
+          "secondary-fixed-dim": "#d6d4d3",
+          "surface-container-low": "var(--color-surface-container-low)",
+          "on-tertiary-fixed-variant": "#516900",
+          "tertiary-fixed-dim": "#c8ea69",
+          "secondary-dim": "#504f4f",
+          "primary": "#b87c00",
+          "on-tertiary-container": "#495e00",
+          "secondary-container": "#e5e2e1",
+          "on-primary-fixed-variant": "#926300",
+          "surface": "var(--color-surface)",
+          "surface-bright": "var(--color-surface)",
+          "secondary": "var(--color-secondary)",
+          "surface-container-highest": "var(--color-surface-container-highest)",
+          "on-secondary": "#f5f2f1",
+          "tertiary-fixed": "#d5f976",
+          "surface-container-lowest": "var(--color-surface-container-lowest)",
+          "on-tertiary-fixed": "#394b00",
+          "secondary-fixed": "#e5e2e1",
+          "on-secondary-container": "#525151",
+          "on-error": "#ffefec",
+          "error-container": "#f95630",
+          "on-background": "var(--color-on-surface)",
+          "on-primary-fixed": "#402b00",
+          "on-surface-variant": "var(--color-on-surface-variant)",
+          "surface-container-high": "var(--color-surface-container-high)",
+          "surface-variant": "var(--color-surface-variant)",
+          "on-primary-container": "#4d3400",
+          "on-primary": "#fff2ce",
+          "surface-container": "#e7e8ea",
+          "on-secondary-fixed": "#403f3f",
+          "error-dim": "#b92902",
+          "primary-fixed-dim": "#e09700"
+        },
+        fontFamily: {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        },
+        borderRadius: {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+      },
+    },
+  }
+</script>
+<style>
+  /* ══════════════════════════════════════════
+     LIGHT THEME CSS VARIABLES (default)
+  ══════════════════════════════════════════ */
+  :root,
+  html.light {
+    --color-background:              #f6f6f8;
+    --color-surface:                 #f6f6f8;
+    --color-surface-variant:         #dbdde0;
+    --color-surface-container-low:   #f0f1f3;
+    --color-surface-container-high:  #e1e2e5;
+    --color-surface-container-highest: #dbdde0;
+    --color-surface-container-lowest: #ffffff;
+    --color-on-surface:              #2d2f31;
+    --color-on-surface-variant:      #5a5c5d;
+    --color-outline:                 #757779;
+    --color-outline-variant:         #acadaf;
+    --color-secondary:               #5c5b5b;
 
-<!-- Page Header-->
-<header
-  class="masthead"
-  style="background-image: url('../static/assets/img/home-bg.jpg')"
->
-  <div class="container position-relative px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-7">
-        <div class="site-heading">
-          <h1>BlogPy</h1>
-          <span class="subheading">Thoughts on tech, learning, and growth.
-</span>
+    --nav-bg:                        rgba(255,255,255,0.70);
+    --nav-border:                    none;
+    --nav-shadow:                    0 24px 48px -12px rgba(45,47,49,0.08);
+    --nav-logo-color:                #111827;
+    --nav-link-active-color:         #111827;
+    --nav-link-color:                #6b7280;
+    --nav-link-hover:                #111827;
+    --nav-icon-color:                #6b7280;
+
+    --trending-bg:                   #ffffff;
+    --trending-border:               rgba(172,173,175,0.10);
+    --trending-number-color:         rgba(219,221,224,0.40);
+    --trending-number-hover:         #F5A500;
+
+    --dispatches-bg:                 #f0f1f3;
+    --card-bg:                       #ffffff;
+    --card-bg-alt:                   rgba(225,226,229,0.50);
+    --card-border:                   transparent;
+    --card-shadow:                   0 24px 48px -12px rgba(45,47,49,0.08);
+
+    --tag-bg:                        rgba(245,165,0,0.20);
+    --tag-color:                     #4d3400;
+    --tag-border:                    none;
+    --tag-outline-color:             #4d3400;
+
+    --newsletter-bg:                 #ffffff;
+    --newsletter-border:             rgba(172,173,175,0.10);
+    --input-bg:                      #f0f1f3;
+    --input-border:                  transparent;
+    --input-text:                    #2d2f31;
+    --subscribe-btn-bg:              #2d2f31;
+    --subscribe-btn-color:           #f6f6f8;
+
+    --footer-bg:                     #f3f4f6;
+    --footer-border:                 #e5e7eb;
+    --footer-logo-color:             #111827;
+    --footer-text:                   #6b7280;
+    --footer-label:                  #9ca3af;
+    --footer-divider:                #e5e7eb;
+    --footer-tagline:                #9ca3af;
+
+    --accent:                        #b87c00;
+    --ultra-btn-color:               #2d2f31;
+    --ultra-btn-hover:               #b87c00;
+
+    --theme-icon-content:            "dark_mode";
+    --hero-badge-bg:                 rgba(245,165,0,0.20);
+    --hero-badge-color:              #4d3400;
+    --hero-badge-border:             none;
+    --hero-h1-color:                 #2d2f31;
+    --hero-card-bg:                  #e1e2e5;
+    --hero-card-border:              transparent;
+    --hero-card-shadow:              0 25px 50px -12px rgba(0,0,0,0.25);
+    --hero-archive-border:           #e5e7eb;
+
+    --img-overlay:                   rgba(17,18,20,0);
+    --terminal-shadow:               none;
+  }
+
+  /* ══════════════════════════════════════════
+     DARK THEME CSS VARIABLES
+  ══════════════════════════════════════════ */
+  html.dark {
+    --color-background:              #0a0a0b;
+    --color-surface:                 #121214;
+    --color-surface-variant:         #1c1c1f;
+    --color-surface-container-low:   #0a0a0b;
+    --color-surface-container-high:  #1c1c1f;
+    --color-surface-container-highest: #1c1c1f;
+    --color-surface-container-lowest: #0a0a0b;
+    --color-on-surface:              #f0f0f2;
+    --color-on-surface-variant:      #a1a1aa;
+    --color-outline:                 #3f3f46;
+    --color-outline-variant:         #27272a;
+    --color-secondary:               #a1a1aa;
+
+    --nav-bg:                        rgba(10,10,11,0.80);
+    --nav-border:                    1px solid rgba(255,255,255,0.05);
+    --nav-shadow:                    none;
+    --nav-logo-color:                #ffffff;
+    --nav-link-active-color:         #ffffff;
+    --nav-link-color:                #a1a1aa;
+    --nav-link-hover:                #ffffff;
+    --nav-icon-color:                #a1a1aa;
+
+    --trending-bg:                   #0a0a0b;
+    --trending-border:               rgba(255,255,255,0.05);
+    --trending-number-color:         rgba(255,255,255,0.05);
+    --trending-number-hover:         rgba(245,165,0,0.20);
+
+    --dispatches-bg:                 #121214;
+    --card-bg:                       #0a0a0b;
+    --card-bg-alt:                   #0a0a0b;
+    --card-border:                   rgba(255,255,255,0.05);
+    --card-shadow:                   none;
+
+    --tag-bg:                        transparent;
+    --tag-color:                     #F5A500;
+    --tag-border:                    rgba(245,165,0,0.30);
+    --tag-outline-color:             #F5A500;
+
+    --newsletter-bg:                 #121214;
+    --newsletter-border:             rgba(255,255,255,0.05);
+    --input-bg:                      #0a0a0b;
+    --input-border:                  rgba(255,255,255,0.10);
+    --input-text:                    #f0f0f2;
+    --subscribe-btn-bg:              #F5A500;
+    --subscribe-btn-color:           #1e1400;
+
+    --footer-bg:                     #0a0a0b;
+    --footer-border:                 rgba(255,255,255,0.05);
+    --footer-logo-color:             #ffffff;
+    --footer-text:                   #a1a1aa;
+    --footer-label:                  rgba(255,255,255,0.40);
+    --footer-divider:                rgba(255,255,255,0.05);
+    --footer-tagline:                rgba(255,255,255,0.20);
+
+    --accent:                        #F5A500;
+    --ultra-btn-color:               #a1a1aa;
+    --ultra-btn-hover:               #F5A500;
+
+    --theme-icon-content:            "light_mode";
+    --hero-badge-bg:                 rgba(245,165,0,0.10);
+    --hero-badge-color:              #F5A500;
+    --hero-badge-border:             rgba(245,165,0,0.20);
+    --hero-h1-color:                 #ffffff;
+    --hero-card-bg:                  #121214;
+    --hero-card-border:              rgba(255,255,255,0.10);
+    --hero-card-shadow:              0 40px 100px -20px rgba(0,0,0,0.80);
+    --hero-archive-border:           #F5A500;
+
+    --img-overlay:                   rgba(10,10,11,0.30);
+    --terminal-shadow:               0 40px 100px -20px rgba(0,0,0,0.80);
+  }
+
+  /* ══════════════════════════════════════════
+     SHARED COMPONENT STYLES
+  ══════════════════════════════════════════ */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .snap-ooze { transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
+  .btn-gradient { background: linear-gradient(135deg, #F5A500 0%, #E67E00 100%); }
+  .glass-btn {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .glass-btn:hover .material-symbols-outlined {
+    color: #F5A500;
+    text-shadow: 0 0 10px rgba(245,165,0,0.8);
+  }
+  .ultra-clean-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.19,1,0.22,1);
+    color: var(--ultra-btn-color);
+  }
+  .ultra-clean-btn:hover {
+    color: var(--ultra-btn-hover);
+    transform: scale(1.1);
+  }
+  .accent-color { color: var(--accent); }
+
+  /* ── Body ── */
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  /* ── Nav ── */
+  nav#main-nav {
+    background: var(--nav-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: var(--nav-border);
+    box-shadow: var(--nav-shadow);
+    transition: background 0.35s ease, border 0.35s ease, box-shadow 0.35s ease;
+  }
+  #nav-logo { color: var(--nav-logo-color); transition: color 0.3s; }
+  .nav-link-active { color: var(--nav-link-active-color); border-bottom: 2px solid #F5A500; padding-bottom: 4px; transition: color 0.3s; }
+  .nav-link { color: var(--nav-link-color); transition: color 0.3s; }
+  .nav-link:hover { color: var(--nav-link-hover); }
+  .nav-icon { color: var(--nav-icon-color); transition: color 0.3s; }
+  .nav-icon:hover { color: var(--nav-link-hover); }
+
+  /* ── Toggle icon ── */
+  #theme-toggle {
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.19,1,0.22,1), color 0.3s;
+    color: var(--nav-icon-color);
+    user-select: none;
+  }
+  #theme-toggle:hover { transform: rotate(20deg) scale(1.15); color: var(--nav-link-hover); }
+
+  /* ── Hero section ── */
+  .hero-badge {
+    background: var(--hero-badge-bg);
+    color: var(--hero-badge-color);
+    border: 1px solid var(--hero-badge-border, transparent);
+    transition: background 0.35s, color 0.35s, border-color 0.35s;
+  }
+  .hero-h1 { color: var(--hero-h1-color); transition: color 0.35s; }
+  .hero-card {
+    background-color: var(--hero-card-bg);
+    border: 1px solid var(--hero-card-border, transparent);
+    box-shadow: var(--hero-card-shadow);
+    transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
+  }
+  .archive-btn { border-color: var(--hero-archive-border); transition: border-color 0.35s; }
+
+  /* ── Trending section ── */
+  .trending-section {
+    background-color: var(--trending-bg);
+    border-top: 1px solid var(--trending-border);
+    border-bottom: 1px solid var(--trending-border);
+    transition: background-color 0.35s, border-color 0.35s;
+  }
+  .trending-heading { color: var(--color-on-surface); transition: color 0.35s; }
+  .trending-number {
+    color: var(--trending-number-color);
+    transition: color 0.35s;
+  }
+  .trending-item:hover .trending-number { color: var(--trending-number-hover); }
+  .trending-item-border { border-bottom: 1px solid var(--trending-border); transition: border-color 0.35s; }
+
+  /* ── Dispatches / Cards section ── */
+  .dispatches-section {
+    background-color: var(--dispatches-bg);
+    transition: background-color 0.35s;
+  }
+  .card-base {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transition: background-color 0.35s, border-color 0.35s, box-shadow 0.35s;
+  }
+  .card-base:hover { box-shadow: var(--card-shadow); }
+  .card-alt {
+    background-color: var(--card-bg-alt);
+    border: 1px solid var(--card-border);
+    transition: background-color 0.35s, border-color 0.35s;
+  }
+  .card-tag {
+    background-color: var(--tag-bg);
+    color: var(--tag-color);
+    border: 1px solid var(--tag-border, transparent);
+    transition: background-color 0.35s, color 0.35s, border-color 0.35s;
+  }
+  .card-divide { border-top: 1px solid var(--trending-border); transition: border-color 0.35s; }
+  .card-author-avatar { border: 1px solid var(--card-border); }
+
+  /* ── Newsletter ── */
+  .newsletter-section { transition: background 0.35s; }
+  .newsletter-card {
+    background-color: var(--newsletter-bg);
+    border: 1px solid var(--newsletter-border);
+    transition: background-color 0.35s, border-color 0.35s;
+  }
+  .newsletter-input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--input-text);
+    transition: background-color 0.35s, border-color 0.35s, color 0.35s;
+  }
+  .newsletter-input:focus { border-color: #F5A500; outline: none; box-shadow: none; }
+  .newsletter-input::placeholder { color: var(--color-outline); }
+  .subscribe-btn {
+    background-color: var(--subscribe-btn-bg);
+    color: var(--subscribe-btn-color);
+    transition: background-color 0.35s, color 0.35s, filter 0.2s;
+  }
+  .subscribe-btn:hover { filter: brightness(1.1); }
+
+  /* ── Footer ── */
+  footer#main-footer {
+    background-color: var(--footer-bg);
+    border-top: 1px solid var(--footer-border);
+    transition: background-color 0.35s, border-color 0.35s;
+  }
+  .footer-logo  { color: var(--footer-logo-color); transition: color 0.35s; }
+  .footer-text  { color: var(--footer-text); transition: color 0.35s; }
+  .footer-label { color: var(--footer-label); transition: color 0.35s; }
+  .footer-link  { color: var(--footer-text); transition: color 0.3s; }
+  .footer-link:hover { color: #F5A500; }
+  .footer-divider { border-top: 1px solid var(--footer-divider); transition: border-color 0.35s; }
+  .footer-tagline { color: var(--footer-tagline); transition: color 0.35s; }
+  .footer-util-icon {
+    color: var(--footer-text);
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .footer-util-icon:hover { color: var(--accent); }
+  .footer-lang-btn {
+    border: 1px solid var(--footer-border);
+    color: var(--footer-text);
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+  }
+  .footer-lang-btn:hover {
+    background-color: #F5A500;
+    border-color: #F5A500;
+    color: #1e1400;
+  }
+</style>
+</head>
+
+<body class="font-body antialiased">
+
+<!-- ══ NAVIGATION ══ -->
+<nav id="main-nav" class="fixed top-0 w-full z-50">
+  <div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
+    <div class="flex items-center gap-8">
+      <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="#">Blog<span class="text-[#F5A500]">Py</span></a>
+      <div class="hidden md:flex gap-6 items-center">
+        <a class="nav-link-active font-headline tracking-tight font-bold" href="#">Home</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="#">Posts</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="#">About</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="#">Contact</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="theme-toggle" class="material-symbols-outlined nav-icon snap-ooze transition-all" title="Toggle theme">dark_mode</span>
+      <span class="material-symbols-outlined nav-icon cursor-pointer snap-ooze transition-all">search</span>
+      <button class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">Login</button>
+      <button class="bg-[#F5A500] text-[#402b00] px-6 py-2 font-bold snap-ooze scale-95 active:scale-100 transition-transform hover:brightness-105">Register</button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-32">
+
+  <!-- ══ HERO ══ -->
+  <section class="max-w-7xl mx-auto px-8 mb-24">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-end">
+      <div class="md:col-span-8">
+        <span class="hero-badge inline-block px-3 py-1 rounded-sm text-[0.7rem] font-bold uppercase tracking-widest mb-6">Established 2024</span>
+        <h1 class="hero-h1 text-[clamp(3rem,8vw,5.5rem)] font-headline font-extrabold leading-[0.9] tracking-tighter mb-8">
+          The Digital <br/>
+          <span class="bg-gradient-to-r from-[#F5A500] to-[#e09700] bg-clip-text text-transparent italic">Broadsheet</span> <br/>
+          for Modern Code.
+        </h1>
+        <p class="text-xl max-w-xl leading-relaxed mb-8" style="color:var(--color-on-surface-variant)">
+          Architectural precision in web development and design strategy. Curating the future of the digital interface, one post at a time.
+        </p>
+        <div class="flex items-center gap-4">
+          <button class="bg-[#F5A500] text-[#402b00] px-8 py-4 font-bold rounded-sm shadow-lg hover:translate-y-[-2px] hover:brightness-105 transition-all snap-ooze">Latest Editions</button>
+          <button class="archive-btn font-bold px-8 py-4 flex items-center gap-2 hover:gap-4 transition-all duration-300 border" style="color:var(--color-on-surface)">
+            View Archive <span class="material-symbols-outlined accent-color">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+      <div class="md:col-span-4 hidden md:block">
+        <div class="hero-card aspect-[3/4] rounded-xl overflow-hidden relative group" style="box-shadow:var(--hero-card-shadow)">
+          <img class="w-full h-full object-cover grayscale contrast-125 opacity-80 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700 snap-ooze"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuByapP5zkjgvHPf_zjdbC7577KiSFpKu16vvjpaPs4yx6LdEaBDky7-TBCLH9Q3cKj1Ed45JUk89AdG_GZwnBw-U2nFBE0YKTPTgQcp-qdZk2V1NhFOgX51hFtfNNzij4ledLoZJL-zSIHe8p71EGZLWQ2L-9KlAtMZoEje2N_Izalu9pjt498tOn2F838LK3q2StDRf36eJpIS6oWZCrm8K14tiYJ0z3gZi07ktc_BMR-JXxnmAGzTPGXu9TFY5KQyynKGdxNw9gQ"
+               alt="Abstract hardware tech background"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-background)] via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <p class="text-xs font-bold uppercase tracking-tighter accent-color mb-1">Featured Tech</p>
+            <p class="font-headline font-bold text-lg leading-tight" style="color:var(--hero-h1-color)">Hardware Acceleration in CSS Engine Architecture</p>
+            <button aria-label="Share article" class="absolute right-0 bottom-0 ultra-clean-btn focus:outline-none">
+              <span class="material-symbols-outlined text-[20px]">share</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
-<!-- Main Content-->
-<div class="container px-4 px-lg-5">
-  <div class="row gx-4 gx-lg-5 justify-content-center">
-    <div class="col-md-10 col-lg-8 col-xl-7">
-      <div id="posts-container">
-        {% include "_posts.html" %}
+  </section>
+
+  <!-- ══ TRENDING DISPATCHES ══ -->
+  <section class="trending-section py-24">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
+        <div>
+          <h2 class="trending-heading text-5xl md:text-6xl font-headline font-black uppercase tracking-tighter mb-4">
+            TRENDING <span class="text-[#F5A500]">DISPATCHES</span>
+          </h2>
+          <div class="w-24 h-2 bg-[#F5A500]"></div>
+        </div>
+        <a class="flex items-center gap-2 text-sm font-bold transition-all group pb-1" style="color:var(--color-on-surface)" href="#">
+          View Archive <span class="material-symbols-outlined text-lg accent-color group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+      </div>
+      <div class="flex flex-col gap-12">
+
+        <!-- Item 01 -->
+        <div class="trending-item trending-item-border group flex items-start gap-8 md:gap-16 pb-12 cursor-pointer">
+          <div class="trending-number text-6xl md:text-8xl font-headline font-black transition-colors">01</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] accent-color">Culture</span>
+              <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">8 Hours Ago</span>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">Why Your Design System Needs a Soul</h3>
+            <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Most design systems focus on buttons and tokens, but they miss the narrative. Exploring the psychology of editorial UI.</p>
+          </div>
+          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 group-hover:bg-[#F5A500] group-hover:text-[#1e1400]" style="border:1px solid var(--color-outline-variant)">
+            <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
+          </div>
+        </div>
+
+        <!-- Item 02 -->
+        <div class="trending-item trending-item-border group flex items-start gap-8 md:gap-16 pb-12 cursor-pointer">
+          <div class="trending-number text-6xl md:text-8xl font-headline font-black transition-colors">02</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] accent-color">Tutorial</span>
+              <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">Yesterday</span>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">A Deep Dive into Rust's Memory Management</h3>
+            <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Understanding the borrow checker without losing your mind. A visual guide for JavaScript developers.</p>
+          </div>
+          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 group-hover:bg-[#F5A500] group-hover:text-[#1e1400]" style="border:1px solid var(--color-outline-variant)">
+            <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
+          </div>
+        </div>
+
+        <!-- Item 03 -->
+        <div class="trending-item group flex items-start gap-8 md:gap-16 pb-12 cursor-pointer">
+          <div class="trending-number text-6xl md:text-8xl font-headline font-black transition-colors">03</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] accent-color">Infrastructure</span>
+              <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">2 Days Ago</span>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">Serverless is Dead, Long Live the Edge</h3>
+            <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Moving compute closer to the user is no longer a luxury. It's the standard for 2024 performance metrics.</p>
+          </div>
+          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 group-hover:bg-[#F5A500] group-hover:text-[#1e1400]" style="border:1px solid var(--color-outline-variant)">
+            <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
+          </div>
+        </div>
+
       </div>
     </div>
+  </section>
+
+  <!-- ══ RECENT DISPATCHES (Bento Grid) ══ -->
+  <section class="dispatches-section py-24">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
+        <h2 class="text-4xl font-headline font-bold tracking-tight" style="color:var(--color-on-surface)">Recent Dispatches</h2>
+        <div class="flex gap-4">
+          <span class="text-xs font-bold uppercase text-[#F5A500] border-b-2 border-[#F5A500] pb-1 cursor-pointer">All Categories</span>
+          <span class="text-xs font-bold uppercase cursor-pointer hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface-variant)">Development</span>
+          <span class="text-xs font-bold uppercase cursor-pointer hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface-variant)">Design</span>
+          <span class="text-xs font-bold uppercase cursor-pointer hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface-variant)">Philosophy</span>
+        </div>
+      </div>
+
+      <!-- Primary Grid Row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Featured Post (2 cols) -->
+        <div class="card-base md:col-span-2 p-10 rounded-xl group snap-ooze relative transition-all">
+          <div class="flex flex-col h-full">
+            <div class="mb-8 overflow-hidden rounded-lg aspect-video relative">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale hover:grayscale-0"
+                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY6bBD6JzskSiLK36cFccxzALnnon5cElHvUzX4YZ2PSEhQV7hzNJucKkUeX6pgNitaiulMH6fFyEerLt5Di4bN4Elj8jEY4eOdRX9tQfJ87hNinvtuJ1ZTRZ0Wh2AdcpsiCTHBVaOY0z-DgWitFUF445vtyk2eZ3QnjUiw7x6HNikZ86fO3nUjifxQ4awcC3MOlaCAHEiNpJoi_11U0FkrCw0wkSYAI5iKh5Bv2hdX3aaIpzMBlvlYWll8YZzOLd7Ro11lPVDR1I"
+                   alt="High contrast code on a large monitor"/>
+              <div class="absolute top-3 right-3 flex gap-2">
+                <button aria-label="Share article" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm">
+                  <span class="material-symbols-outlined text-lg">share</span>
+                </button>
+              </div>
+            </div>
+            <div class="mt-auto">
+              <span class="card-tag inline-block px-2 py-0.5 rounded-sm text-[0.65rem] font-bold mb-4">ENGINEERING</span>
+              <h3 class="text-3xl md:text-4xl font-headline font-extrabold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">The Alchemy of Micro-Interactions: Elevating the Web Beyond Utility.</h3>
+              <p style="color:var(--color-on-surface-variant)" class="line-clamp-2 mb-6">Why the smallest details in your UI are actually the biggest differentiators in luxury digital products. Exploring the physics of motion and user delight.</p>
+              <div class="card-divide flex items-center gap-4 pt-6">
+                <div class="card-author-avatar w-10 h-10 rounded-full overflow-hidden">
+                  <img class="w-full h-full object-cover"
+                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrgzsxWLXXKXnzvqg0OOPKSESxTHgVnKJzO6OzlQHNUIsWRZEJjBBARdAmTg6LqL_K5J6xmaoZbjahAud3Hkkao9KTf2rFkwi_eT619sXhrvD7tWSzrfrmIHNJo_NjXeA_n1buZkVPcWKJuqKx9GUPjz6BO_A4h7WaEDXRNg2-ntMZ-LsCuf0YHsTTo-Mth0MIQzXNjeXlJqWilD6sy9Q_ETUV-Nh4M5NT67LwCCaQYOwjhmuww1cRYagRBhmA56W5TgHM9x2lRF0"
+                       alt="Portrait of the lead editorial designer"/>
+                </div>
+                <div>
+                  <p class="text-sm font-bold" style="color:var(--color-on-surface)">Arthur Vance</p>
+                  <p class="text-[0.7rem] uppercase tracking-widest" style="color:var(--color-on-surface-variant)">Chief Editor • 8 Min Read</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Cards -->
+        <div class="flex flex-col gap-8">
+          <div class="card-base p-8 rounded-xl group snap-ooze flex flex-col justify-between h-full relative transition-all">
+            <div>
+              <span class="card-tag inline-block px-2 py-0.5 rounded-sm text-[0.65rem] font-bold mb-4">DESIGN SYSTEM</span>
+              <h3 class="text-xl font-headline font-bold mb-3 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">Why Borders are the Enemy of Modern Design.</h3>
+              <p class="text-sm leading-relaxed" style="color:var(--color-on-surface-variant)">Defining space through tonal hierarchy instead of literal lines for a more breathable user experience.</p>
+            </div>
+            <div class="mt-6 flex justify-between items-center">
+              <span class="text-[0.6rem] font-black tracking-widest uppercase" style="color:var(--color-on-surface)">June 12, 2024</span>
+              <button class="ultra-clean-btn"><span class="material-symbols-outlined text-[20px] accent-color">north_east</span></button>
+            </div>
+            <button aria-label="Share article" class="absolute top-6 right-6 ultra-clean-btn focus:outline-none">
+              <span class="material-symbols-outlined text-[20px]">share</span>
+            </button>
+          </div>
+
+          <div class="card-alt p-8 rounded-xl group snap-ooze flex flex-col justify-between h-full relative transition-all">
+            <div>
+              <span class="card-tag inline-block px-2 py-0.5 rounded-sm text-[0.65rem] font-bold mb-4">TRENDING</span>
+              <h3 class="text-xl font-headline font-bold mb-3 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">The Neo-Brutalist Resurgence in Fintech.</h3>
+              <p class="text-sm leading-relaxed" style="color:var(--color-on-surface-variant)">How bold typography and high-contrast palettes are winning trust in a world of pastel gradients.</p>
+            </div>
+            <div class="mt-6 flex justify-between items-center">
+              <span class="text-[0.6rem] font-black tracking-widest uppercase" style="color:var(--color-on-surface-variant)">May 30, 2024</span>
+              <button class="ultra-clean-btn"><span class="material-symbols-outlined text-[20px] accent-color">north_east</span></button>
+            </div>
+            <button aria-label="Share article" class="absolute top-6 right-6 ultra-clean-btn focus:outline-none">
+              <span class="material-symbols-outlined text-[20px]">share</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three Column Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+
+        <!-- Card 1 -->
+        <div class="card-base rounded-xl overflow-hidden group transition-all">
+          <div class="aspect-square overflow-hidden relative" style="background-color:var(--color-surface-container-high)">
+            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAttx-nJXa3txxf4pNoK0MRlFANk_Y9vbD6MnvlzfQUSNVOYPfuEi0SNbJRJwFwtV7Byxip-yVUJsWAr0_zyhUN7n1BE9XORPXmXKfWnieGnAdo0kFS2PvbIKeyrqVvlSSZ674QKusLgf8fJ5_BOFWQIeFw3jT9PJeo_njPhFwsnal_rNqt19z00-BO06LYc7wwxJB9Mvrgstd27BMYQgks_0XMiEjNGTiHxTRBSn4ft9nN6Lx16lr62ir1kPMASRZtPpapp_gxAvE"
+                 alt="Minimal laptop on desk"/>
+            <div class="absolute top-3 right-3 flex gap-2">
+              <button aria-label="Share" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">share</span></button>
+              <button aria-label="Open" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">north_east</span></button>
+            </div>
+          </div>
+          <div class="p-8">
+            <span class="text-[0.6rem] font-black tracking-widest uppercase mb-2 block" style="color:var(--color-on-surface-variant)">Case Study</span>
+            <h4 class="text-lg font-headline font-bold mb-4 leading-tight" style="color:var(--color-on-surface)">Revitalizing the legacy newsroom interface for the Gen Z demographic.</h4>
+            <a class="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all accent-color" href="#">Read Story <span class="material-symbols-outlined text-sm">trending_flat</span></a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card-base rounded-xl overflow-hidden group transition-all">
+          <div class="aspect-square overflow-hidden relative" style="background-color:var(--color-surface-container-high)">
+            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzA12NXtMBGuU1p22csQ9iMGkCLn9A_2GGnbdB3dNw1zWvgyRv1LCI1b1NEmme3YUR7hQA0nQ3SX11BK1RXLbfzlK1g1NIfnfUrSnb-U1lTR51hobElNACLVOHJ9x6YeW6V4RZpbXYLmWC3tkGHJHjAq3k-AvmLOJ-f-H0dp52vrc_T6Mmy-H-2mzknoikKzUgDZeAz4j-CqWp4Y2tPoTPiHlIs6sg0EWyyXbWpg5CFL6elsZkMUwALxrkeC0acEdsBv-xyX2ndMs"
+                 alt="Mechanical keyboard close up"/>
+            <div class="absolute top-3 right-3 flex gap-2">
+              <button aria-label="Share" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">share</span></button>
+              <button aria-label="Open" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">north_east</span></button>
+            </div>
+          </div>
+          <div class="p-8">
+            <span class="text-[0.6rem] font-black tracking-widest uppercase mb-2 block" style="color:var(--color-on-surface-variant)">Opinion</span>
+            <h4 class="text-lg font-headline font-bold mb-4 leading-tight" style="color:var(--color-on-surface)">Wait, is React finally becoming a "Legacy" framework?</h4>
+            <a class="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all accent-color" href="#">Read Story <span class="material-symbols-outlined text-sm">trending_flat</span></a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card-base rounded-xl overflow-hidden group transition-all">
+          <div class="aspect-square overflow-hidden relative" style="background-color:var(--color-surface-container-high)">
+            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYyVLLlooZ6S-WgPjT5kWiMQnjwv-yzffgmwqCQFF_WvRinyAWCgotyoVHvNKXoLdev0WLA9Wyq5Tn5BKM7H6HqWotP16oT1BYM2hrS8dvbeRjIj3c0xnGa1cMls2kixUwfXqUkOc8Dsq8mHhDiEtxo3YYX0Gk00KbUOHxLXK1Ei9TQ-TJYOxwnmY7MS0aMHJSCQ2EdaluX7rN10eW7yRc6_bm96xprkHwsHolpaQXDhIon6-LW-QySOxrBPNYVwv-no7CvoXaVCk"
+                 alt="Neon lines representing fiber optics"/>
+            <div class="absolute top-3 right-3 flex gap-2">
+              <button aria-label="Share" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">share</span></button>
+              <button aria-label="Open" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">north_east</span></button>
+            </div>
+          </div>
+          <div class="p-8">
+            <span class="text-[0.6rem] font-black tracking-widest uppercase mb-2 block" style="color:var(--color-on-surface-variant)">Analysis</span>
+            <h4 class="text-lg font-headline font-bold mb-4 leading-tight" style="color:var(--color-on-surface)">Quantum Computing and the end of current Web Encryption.</h4>
+            <a class="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all accent-color" href="#">Read Story <span class="material-symbols-outlined text-sm">trending_flat</span></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ NEWSLETTER / CTA ══ -->
+  <section class="newsletter-section max-w-7xl mx-auto px-8 py-32">
+    <div class="newsletter-card p-16 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-[#F5A500]/5 rounded-full blur-[100px]"></div>
+      <div class="relative z-10 md:max-w-xl">
+        <h2 class="text-5xl font-headline font-black tracking-tight mb-6" style="color:var(--hero-h1-color)">Stay Ahead of the <span class="text-[#F5A500] italic">Curve</span>.</h2>
+        <p class="text-lg leading-relaxed" style="color:var(--color-on-surface-variant)">Subscribe to our weekly dispatch of architectural web trends and high-energy engineering insights. No noise, just signal.</p>
+      </div>
+      <div class="relative z-10 w-full md:w-auto">
+        <form class="flex flex-col sm:flex-row gap-0" onsubmit="return false">
+          <div class="relative">
+            <div class="absolute left-0 top-0 w-1 h-full bg-[#F5A500] rounded-sm"></div>
+            <input class="newsletter-input border-none focus:ring-0 py-4 px-6 w-full sm:w-80 font-bold placeholder:text-[var(--color-outline)]" placeholder="editorial@example.com" type="email"/>
+          </div>
+          <button class="subscribe-btn py-4 px-10 font-bold snap-ooze uppercase tracking-widest text-sm">Subscribe</button>
+        </form>
+        <p class="text-[0.7rem] mt-4 uppercase tracking-widest" style="color:var(--color-on-surface-variant)">Join 40k+ Digital Architects globally.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer id="main-footer" class="w-full pt-20 pb-12 px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-12 w-full">
+      <div class="flex flex-col items-start max-w-xs">
+        <span class="footer-logo text-2xl font-black font-headline mb-4 tracking-tighter">Blog<span class="text-[#F5A500]">Py</span></span>
+        <p class="footer-text text-sm leading-relaxed">
+          © 2024 The Editorial Agency.<br/>Architectural precision in web development and design strategy.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-12 md:gap-24">
+        <div class="flex flex-col gap-4">
+          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Resources</span>
+          <a class="footer-link font-inter text-sm" href="#">Privacy Policy</a>
+          <a class="footer-link font-inter text-sm" href="#">Terms of Service</a>
+          <a class="footer-link font-inter text-sm" href="#">RSS Feed</a>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Follow Us</span>
+          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
+            <span class="material-symbols-outlined text-xl accent-color">brand_awareness</span>
+            <span class="font-medium">Twitter</span>
+          </a>
+          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
+            <span class="material-symbols-outlined text-xl accent-color">code</span>
+            <span class="font-medium">GitHub</span>
+          </a>
+          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
+            <span class="material-symbols-outlined text-xl accent-color">work</span>
+            <span class="font-medium">LinkedIn</span>
+          </a>
+          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
+            <span class="material-symbols-outlined text-xl accent-color">photo_camera</span>
+            <span class="font-medium">Instagram</span>
+          </a>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Utility</span>
+          <div class="flex items-center gap-4">
+            <div class="footer-lang-btn w-10 h-10 rounded-full flex items-center justify-center cursor-pointer">
+              <span class="material-symbols-outlined text-lg">language</span>
+            </div>
+            <button aria-label="Share website" class="ultra-clean-btn focus:outline-none">
+              <span class="material-symbols-outlined text-[20px]">share</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-divider mt-16 pt-8 text-center">
+      <p class="footer-tagline text-[0.7rem] uppercase tracking-[0.2em] font-bold">Signal over Noise • Excellence over Utility</p>
+    </div>
   </div>
-</div>
+</footer>
 
+<!-- ══ THEME TOGGLE SCRIPT ══ -->
 <script>
-  // Intercept pagination link clicks inside the posts container
-  document.addEventListener('click', function (e) {
-    const link = e.target.closest('#posts-container a.page-link');
-    if (!link) return;
-    e.preventDefault();
+  const html = document.documentElement;
+  const toggleBtn = document.getElementById('theme-toggle');
 
-    fetch(link.href, {
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-      .then(function (res) { return res.text(); })
-      .then(function (html) {
-        document.getElementById('posts-container').innerHTML = html;
-        window.history.pushState({}, '', link.href);
-        document.getElementById('posts-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+  // Restore saved preference
+  const saved = localStorage.getItem('blogpy-theme');
+  if (saved === 'dark') {
+    html.classList.replace('light', 'dark');
+    toggleBtn.textContent = 'light_mode';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isDark = html.classList.contains('dark');
+    if (isDark) {
+      html.classList.replace('dark', 'light');
+      toggleBtn.textContent = 'dark_mode';
+      localStorage.setItem('blogpy-theme', 'light');
+    } else {
+      html.classList.replace('light', 'dark');
+      toggleBtn.textContent = 'light_mode';
+      localStorage.setItem('blogpy-theme', 'dark');
+    }
   });
 </script>
-
-{% include "footer.html" %}
+</body>
+</html>
