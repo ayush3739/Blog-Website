@@ -574,6 +574,267 @@ html.dark {
 }
 
 /* ══════════════════════════════════════════════════════════════════
+   ABOUT PAGE SPECIFIC STYLES
+══════════════════════════════════════════════════════════════════ */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+
+.about-hero-text {
+  font-size: clamp(5rem, 15vw, 12rem);
+  line-height: 0.8;
+  color: var(--color-on-surface);
+  opacity: 0.05;
+}
+
+.dark .about-hero-text {
+  opacity: 0.1;
+}
+
+.about-mission-section {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .about-mission-section {
+  background: #111415;
+  border-top: none;
+  border-bottom: none;
+}
+
+.about-portrait {
+  background: #dee2e6;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.dark .about-portrait {
+  background: #232628;
+  box-shadow: none;
+}
+
+.about-author-label {
+  color: #495057;
+}
+
+.dark .about-author-label {
+  color: #d6d4d3;
+}
+
+.about-social-btn {
+  background: #e9ecef;
+  color: var(--color-on-surface);
+}
+
+.about-social-btn:hover {
+  background: #F5A500;
+  color: #ffffff;
+}
+
+.dark .about-social-btn {
+  background: #1d2022;
+}
+
+.dark .about-social-btn:hover {
+  background: #F5A500;
+  color: #533a00;
+}
+
+.about-stats-section {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .about-stats-section {
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.about-stat-number {
+  color: #000000;
+}
+
+.dark .about-stat-number {
+  color: #F5A500;
+}
+
+.about-footer {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .about-footer {
+  background: #121212;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.about-footer-text {
+  color: #495057;
+}
+
+.dark .about-footer-text {
+  color: #d2d0cf;
+}
+
+.about-footer-link {
+  color: #495057;
+}
+
+.about-footer-link:hover {
+  color: #F5A500;
+}
+
+.dark .about-footer-link {
+  color: #a3a3a3;
+  opacity: 0.8;
+}
+
+.dark .about-footer-link:hover {
+  color: #F5A500;
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   CONTACT PAGE SPECIFIC STYLES
+══════════════════════════════════════════════════════════════════ */
+.contact-label {
+  color: #52525b;
+}
+
+.dark .contact-label {
+  color: #e5e2e1;
+}
+
+.contact-icon-btn {
+  background: rgba(212, 212, 216, 0.3);
+  color: var(--color-on-surface);
+}
+
+.contact-icon-btn:hover {
+  background: #F5A500;
+  color: #392700;
+}
+
+.dark .contact-icon-btn {
+  background: #111415;
+}
+
+.dark .contact-icon-btn:hover {
+  background: #F5A500;
+  color: #392700;
+}
+
+.contact-form-card {
+  background: #ffffff;
+  box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.08);
+}
+
+.dark .contact-form-card {
+  background: #000000;
+  box-shadow: 0 24px 48px -12px rgba(220, 220, 220, 0.08);
+}
+
+.contact-input {
+  background: #eff0f2;
+  color: #18181b;
+}
+
+.contact-input::placeholder {
+  color: rgba(113, 113, 122, 0.4);
+}
+
+.dark .contact-input {
+  background: #111415;
+  color: #f6f6f8;
+}
+
+.dark .contact-input::placeholder {
+  color: rgba(82, 81, 81, 0.4);
+}
+
+.contact-disclaimer {
+  color: rgba(113, 113, 122, 0.6);
+}
+
+.dark .contact-disclaimer {
+  color: rgba(170, 171, 173, 0.6);
+}
+
+.contact-deco-box {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .contact-deco-box {
+  background: #111415;
+  border: none;
+}
+
+.contact-deco-number {
+  color: rgba(24, 24, 27, 0.1);
+}
+
+.dark .contact-deco-number {
+  color: rgba(82, 81, 81, 0.2);
+}
+
+.contact-deco-image {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .contact-deco-image {
+  border: none;
+}
+
+.contact-footer {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .contact-footer {
+  background: #121212;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contact-footer-text {
+  color: #18181b;
+}
+
+.dark .contact-footer-text {
+  color: #d2d0cf;
+}
+
+.contact-footer-link {
+  color: #52525b;
+}
+
+.contact-footer-link:hover {
+  color: #F5A500;
+}
+
+.dark .contact-footer-link {
+  color: #a3a3a3;
+  opacity: 0.8;
+}
+
+.dark .contact-footer-link:hover {
+  color: #F5A500;
+  opacity: 1;
+}
+
+.contact-footer-copyright {
+  color: #52525b;
+}
+
+.dark .contact-footer-copyright {
+  color: #a3a3a3;
+}
+
+/* ══════════════════════════════════════════════════════════════════
    POST PAGE SPECIFIC STYLES
 ══════════════════════════════════════════════════════════════════ */
 .thread-line-vertical {

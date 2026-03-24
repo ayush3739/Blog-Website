@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact BlogPy | Get In Touch</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#F5A500",
+          "primary-fixed": "#F5A500",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#392700",
+          "surface": "var(--contact-surface)",
+          "background": "var(--contact-bg)",
+          "on-surface": "var(--contact-text)",
+          "on-surface-variant": "var(--contact-text-muted)",
+          "surface-container-low": "var(--contact-container-low)",
+          "surface-container-lowest": "var(--contact-container-lowest)",
+          "surface-container-highest": "var(--contact-container-highest)",
+          "secondary": "var(--contact-secondary)",
+          "on-secondary": "var(--contact-on-secondary)"
+        },
+        fontFamily: {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body class="bg-[#f5f5f5] dark:bg-[#0c0e10] text-[#18181b] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-on-primary">
+
+<!-- ══ NAVIGATION ══ -->
+<nav id="main-nav" class="fixed top-0 w-full z-50">
+  <div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
+    <div class="flex items-center gap-8">
+      <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="index.html">Blog<span class="text-[#F5A500]">Py</span></a>
+      <div class="hidden md:flex gap-6 items-center">
+        <a class="nav-link font-headline tracking-tight font-bold" href="index.html">Home</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="post.html">Posts</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="about.html">About</a>
+        <a class="nav-link-active font-headline tracking-tight font-bold" href="#">Contact</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="theme-toggle" class="material-symbols-outlined nav-icon snap-ooze transition-all cursor-pointer" title="Toggle theme">dark_mode</span>
+      <span class="material-symbols-outlined nav-icon cursor-pointer snap-ooze transition-all">search</span>
+      <button class="nav-link px-5 py-2 text-sm font-bold transition-all duration-300">Login</button>
+      <button class="bg-[#F5A500] text-[#392700] px-6 py-2 font-bold scale-95 active:scale-100 transition-all hover:brightness-110">Register</button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-32 pb-20 px-8 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+    <!-- Asymmetric Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+      <!-- Editorial Heading & Info Section -->
+      <div class="lg:col-span-5 flex flex-col justify-start">
+        <span class="font-label text-xs uppercase tracking-[0.3em] text-[#F5A500] mb-6">Contact Architecture</span>
+        <h1 class="font-headline text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.85] mb-12" style="color:var(--color-on-surface)">
+          GET IN <br/> TOUCH
+        </h1>
+        <div class="space-y-12">
+          <div class="group">
+            <p class="contact-label font-label text-[0.65rem] uppercase tracking-widest mb-2">Editorial Office</p>
+            <p class="font-headline text-xl transition-colors snap-ooze group-hover:text-[#F5A500]" style="color:var(--color-on-surface-variant)">1248 Design District, <br/>Copenhagen, DK</p>
+          </div>
+          <div class="group">
+            <p class="contact-label font-label text-[0.65rem] uppercase tracking-widest mb-2">Electronic Mail</p>
+            <p class="font-headline text-xl transition-colors snap-ooze group-hover:text-[#F5A500]" style="color:var(--color-on-surface-variant)">connect@blogpy.arch</p>
+          </div>
+          <div class="pt-8 flex gap-6">
+            <div class="contact-icon-btn w-12 h-12 flex items-center justify-center snap-ooze transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-sm">alternate_email</span>
+            </div>
+            <div class="contact-icon-btn w-12 h-12 flex items-center justify-center snap-ooze transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-sm">call</span>
+            </div>
+            <div class="contact-icon-btn w-12 h-12 flex items-center justify-center snap-ooze transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-sm">share</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Section -->
+      <div class="lg:col-span-7">
+        <div class="contact-form-card p-8 md:p-12">
+          <form action="#" class="space-y-8" method="POST">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="relative group">
+                <label class="contact-label block font-label text-[0.65rem] uppercase tracking-widest mb-3" for="name">Identity</label>
+                <div class="flex">
+                  <div class="w-0.5 bg-transparent group-focus-within:bg-[#F5A500] transition-all duration-300"></div>
+                  <input class="contact-input w-full border-none font-headline font-bold text-sm tracking-tight p-5 focus:ring-0" id="name" name="name" placeholder="YOUR FULL NAME" type="text"/>
+                </div>
+              </div>
+              <div class="relative group">
+                <label class="contact-label block font-label text-[0.65rem] uppercase tracking-widest mb-3" for="email">Gateway</label>
+                <div class="flex">
+                  <div class="w-0.5 bg-transparent group-focus-within:bg-[#F5A500] transition-all duration-300"></div>
+                  <input class="contact-input w-full border-none font-headline font-bold text-sm tracking-tight p-5 focus:ring-0" id="email" name="email" placeholder="EMAIL ADDRESS" type="email"/>
+                </div>
+              </div>
+            </div>
+            <div class="relative group">
+              <label class="contact-label block font-label text-[0.65rem] uppercase tracking-widest mb-3" for="subject">Topic</label>
+              <div class="flex">
+                <div class="w-0.5 bg-transparent group-focus-within:bg-[#F5A500] transition-all duration-300"></div>
+                <input class="contact-input w-full border-none font-headline font-bold text-sm tracking-tight p-5 focus:ring-0" id="subject" name="subject" placeholder="SUBJECT OF INQUIRY" type="text"/>
+              </div>
+            </div>
+            <div class="relative group">
+              <label class="contact-label block font-label text-[0.65rem] uppercase tracking-widest mb-3" for="message">Narration</label>
+              <div class="flex">
+                <div class="w-0.5 bg-transparent group-focus-within:bg-[#F5A500] transition-all duration-300"></div>
+                <textarea class="contact-input w-full border-none font-headline font-bold text-sm tracking-tight p-5 focus:ring-0 resize-none" id="message" name="message" placeholder="TELL US ABOUT YOUR PROJECT OR ARCHITECTURAL INQUIRY..." rows="6"></textarea>
+              </div>
+            </div>
+            <div class="pt-4">
+              <button class="w-full bg-[#F5A500] text-white dark:text-[#392700] font-headline font-bold py-6 px-10 flex items-center justify-between hover:translate-y-[-4px] active:translate-y-0 shadow-lg shadow-[#F5A500]/20 transition-all snap-ooze group" type="submit">
+                <span class="text-xl tracking-tighter uppercase">Send Message</span>
+                <span class="material-symbols-outlined text-3xl group-hover:translate-x-2 transition-transform snap-ooze">arrow_right_alt</span>
+              </button>
+              <p class="contact-disclaimer mt-6 font-label text-[0.6rem] uppercase tracking-widest text-center">By submitting, you agree to our data architectural protocols.</p>
+            </div>
+          </form>
+        </div>
+
+        <!-- Decorative Grid Item -->
+        <div class="mt-12 grid grid-cols-2 gap-8">
+          <div class="contact-deco-box h-48 flex items-end p-6">
+            <span class="contact-deco-number font-headline text-7xl font-black">01</span>
+          </div>
+          <div class="h-48 relative overflow-hidden contact-deco-image">
+            <img class="w-full h-full object-cover grayscale opacity-60 dark:opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-700" alt="Brutalist concrete building facade" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxXtMzEBSBiHC749fMyQJyNQfW6qfjzgcf6jWtM2Z6iAsh8OIf_uCtjJWL4yQ4IwRUy6rqrxs9KSAi5L36ASJkDKchb0OzPli_ebA12pjsUzfBE1pSKN1DVMKwne9kvUm8--YxGhSXVSLSqQlVdeq-TLlCwFZaQhLKHFYwK8u3zgz3AHsW-Iqe-GVR0hTQgNKmqrCQ_aDbGKsKRIkUZj4UZ_82iEmCLVxIP-NAUJguUb-JqyVOG-NkLyPx-Bk-zrimsAh115DVRmE"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="contact-footer py-12 px-8 mt-auto">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full gap-6 max-w-7xl mx-auto">
+    <div class="contact-footer-text font-bold font-headline uppercase tracking-widest">BlogPy / System Nominal</div>
+    <div class="flex gap-8 font-['Inter'] text-sm uppercase tracking-widest">
+      <a class="contact-footer-link transition-colors" href="#">Twitter</a>
+      <a class="contact-footer-link transition-colors" href="#">Github</a>
+      <a class="contact-footer-link transition-colors" href="#">LinkedIn</a>
+      <a class="contact-footer-link transition-colors" href="#">RSS</a>
+    </div>
+    <div class="contact-footer-copyright font-label text-[10px] uppercase tracking-[0.2em]">
+      &copy; 2024 BlogPy / System Nominal
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS ══ -->
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>
