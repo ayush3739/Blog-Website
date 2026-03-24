@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlogPy - Developer Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#F5A500",
+          "primary-fixed": "#F5A500",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#2B1D00",
+          "surface": "var(--login-surface)",
+          "surface-container-lowest": "var(--login-card-bg)",
+          "surface-container-low": "var(--login-input-bg)",
+          "on-surface": "var(--login-text)",
+          "on-surface-variant": "var(--login-text-muted)",
+          "outline": "var(--login-outline)",
+          "outline-variant": "var(--login-outline-variant)",
+          "background": "var(--login-bg)"
+        },
+        fontFamily: {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body class="bg-[#f8f9fa] dark:bg-[#0c0e10] text-[#1a1c1e] dark:text-[#f6f6f8] font-body min-h-screen flex flex-col">
+
+<!-- ══ NAVIGATION ══ -->
+<nav id="main-nav" class="fixed top-0 w-full z-50">
+  <div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
+    <div class="flex items-center gap-8">
+      <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="index.html">Blog<span class="text-[#F5A500]">Py</span></a>
+      <div class="hidden md:flex gap-6 items-center">
+        <a class="nav-link font-headline tracking-tight font-bold" href="#">Articles</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="#">Archives</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="#">Architects</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="#">Series</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="theme-toggle" class="material-symbols-outlined nav-icon snap-ooze transition-all cursor-pointer" title="Toggle theme">dark_mode</span>
+      <span class="material-symbols-outlined nav-icon cursor-pointer snap-ooze transition-all">search</span>
+      <button class="nav-link-active px-5 py-2 text-sm font-bold transition-all duration-300">Login</button>
+      <button class="bg-[#F5A500] text-[#2B1D00] px-6 py-2 font-bold scale-95 active:scale-100 transition-all hover:brightness-110">Register</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ BACKGROUND EFFECTS ══ -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+  <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#F5A500]/5 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-[#F5A500]/5 dark:bg-[#d5f976]/5 rounded-full blur-[100px]"></div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<main class="flex-grow flex items-center justify-center p-6 relative z-10 pt-32">
+  <div class="w-full max-w-[440px]">
+    <!-- Login Card -->
+    <div class="login-card p-10 md:p-12">
+      <header class="mb-10">
+        <h2 class="font-headline text-2xl font-bold tracking-tight" style="color:var(--color-on-surface)">Access Terminal</h2>
+        <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-on-surface-variant)">Enter your credentials to manage your architectural series.</p>
+      </header>
+
+      <form class="space-y-8">
+        <!-- Email Input -->
+        <div class="space-y-1 group">
+          <label class="font-label text-[10px] uppercase tracking-widest font-bold block mb-2" style="color:var(--color-on-surface-variant)" for="email">
+            Identity / Email
+          </label>
+          <div class="relative login-input-wrapper transition-all duration-300">
+            <input class="login-input w-full border-none rounded-none py-4 px-4 focus:ring-0 text-sm transition-all" id="email" placeholder="architect@blogpy.dev" type="email"/>
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="space-y-1 group">
+          <div class="flex justify-between items-end mb-2">
+            <label class="font-label text-[10px] uppercase tracking-widest font-bold" style="color:var(--color-on-surface-variant)" for="password">
+              Security / Password
+            </label>
+            <a class="text-[10px] uppercase tracking-widest text-[#F5A500] font-bold hover:opacity-80 transition-opacity" href="#">
+              Forgot Password?
+            </a>
+          </div>
+          <div class="relative login-input-wrapper transition-all duration-300">
+            <input class="login-input w-full border-none rounded-none py-4 px-4 focus:ring-0 text-sm transition-all" id="password" placeholder="••••••••" type="password"/>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4">
+          <button class="w-full bg-[#F5A500] text-[#2B1D00] font-headline font-bold py-4 uppercase tracking-widest text-xs hover:shadow-lg hover:shadow-[#F5A500]/20 hover:translate-y-[-2px] transition-all duration-300" type="submit">
+            Initialize Session
+          </button>
+        </div>
+      </form>
+
+      <!-- Create Account Link -->
+      <div class="login-divider mt-10 pt-8 text-center">
+        <p class="text-xs font-medium" style="color:var(--color-on-surface-variant)">
+          New Architect?
+          <a class="text-[#F5A500] font-bold ml-1 uppercase tracking-tighter hover:underline" href="register.html">
+            Create Account
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Alternative Login Methods -->
+    <div class="mt-8 flex justify-center items-center gap-8">
+      <div class="login-alt-method flex items-center gap-2 grayscale opacity-60 dark:opacity-40 hover:opacity-100 hover:grayscale-0 transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-sm">terminal</span>
+        <span class="text-[10px] font-label uppercase tracking-widest">SSH Access</span>
+      </div>
+      <div class="login-alt-method flex items-center gap-2 grayscale opacity-60 dark:opacity-40 hover:opacity-100 hover:grayscale-0 transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-sm">key</span>
+        <span class="text-[10px] font-label uppercase tracking-widest">OAuth 2.0</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="login-footer py-12 px-8 mt-auto">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full gap-6 max-w-7xl mx-auto">
+    <div class="login-footer-text font-bold text-sm tracking-widest uppercase">
+      &copy; 2024 BlogPy / System Nominal
+    </div>
+    <div class="flex gap-8">
+      <a class="login-footer-link transition-colors font-['Inter'] text-sm uppercase tracking-widest" href="#">Twitter</a>
+      <a class="login-footer-link transition-colors font-['Inter'] text-sm uppercase tracking-widest" href="#">Github</a>
+      <a class="login-footer-link transition-colors font-['Inter'] text-sm uppercase tracking-widest" href="#">LinkedIn</a>
+      <a class="login-footer-link transition-colors font-['Inter'] text-sm uppercase tracking-widest" href="#">RSS</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS ══ -->
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>

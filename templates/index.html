@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -38,7 +38,7 @@
           "on-tertiary-fixed-variant": "#516900",
           "tertiary-fixed-dim": "#c8ea69",
           "secondary-dim": "#504f4f",
-          "primary": "#b87c00",
+          "primary": "#f5a500",
           "on-tertiary-container": "#495e00",
           "secondary-container": "#e5e2e1",
           "on-primary-fixed-variant": "#926300",
@@ -81,335 +81,10 @@
     },
   }
 </script>
-<style>
-  /* ══════════════════════════════════════════
-     LIGHT THEME CSS VARIABLES (default)
-  ══════════════════════════════════════════ */
-  :root,
-  html.light {
-    --color-background:              #f6f6f8;
-    --color-surface:                 #f6f6f8;
-    --color-surface-variant:         #dbdde0;
-    --color-surface-container-low:   #f0f1f3;
-    --color-surface-container-high:  #e1e2e5;
-    --color-surface-container-highest: #dbdde0;
-    --color-surface-container-lowest: #ffffff;
-    --color-on-surface:              #2d2f31;
-    --color-on-surface-variant:      #5a5c5d;
-    --color-outline:                 #757779;
-    --color-outline-variant:         #acadaf;
-    --color-secondary:               #5c5b5b;
-
-    --nav-bg:                        rgba(255,255,255,0.70);
-    --nav-border:                    none;
-    --nav-shadow:                    0 24px 48px -12px rgba(45,47,49,0.08);
-    --nav-logo-color:                #111827;
-    --nav-link-active-color:         #111827;
-    --nav-link-color:                #6b7280;
-    --nav-link-hover:                #111827;
-    --nav-icon-color:                #6b7280;
-
-    --trending-bg:                   #ffffff;
-    --trending-border:               rgba(172,173,175,0.10);
-    --trending-number-color:         rgba(219,221,224,0.40);
-    --trending-number-hover:         #F5A500;
-
-    --dispatches-bg:                 #f0f1f3;
-    --card-bg:                       #ffffff;
-    --card-bg-alt:                   rgba(225,226,229,0.50);
-    --card-border:                   transparent;
-    --card-shadow:                   0 24px 48px -12px rgba(45,47,49,0.08);
-
-    --tag-bg:                        rgba(245,165,0,0.20);
-    --tag-color:                     #4d3400;
-    --tag-border:                    none;
-    --tag-outline-color:             #4d3400;
-
-    --newsletter-bg:                 #ffffff;
-    --newsletter-border:             rgba(172,173,175,0.10);
-    --input-bg:                      #f0f1f3;
-    --input-border:                  transparent;
-    --input-text:                    #2d2f31;
-    --subscribe-btn-bg:              #2d2f31;
-    --subscribe-btn-color:           #f6f6f8;
-
-    --footer-bg:                     #f3f4f6;
-    --footer-border:                 #e5e7eb;
-    --footer-logo-color:             #111827;
-    --footer-text:                   #6b7280;
-    --footer-label:                  #9ca3af;
-    --footer-divider:                #e5e7eb;
-    --footer-tagline:                #9ca3af;
-
-    --accent:                        #b87c00;
-    --ultra-btn-color:               #2d2f31;
-    --ultra-btn-hover:               #b87c00;
-
-    --theme-icon-content:            "dark_mode";
-    --hero-badge-bg:                 rgba(245,165,0,0.20);
-    --hero-badge-color:              #4d3400;
-    --hero-badge-border:             none;
-    --hero-h1-color:                 #2d2f31;
-    --hero-card-bg:                  #e1e2e5;
-    --hero-card-border:              transparent;
-    --hero-card-shadow:              0 25px 50px -12px rgba(0,0,0,0.25);
-    --hero-archive-border:           #e5e7eb;
-
-    --img-overlay:                   rgba(17,18,20,0);
-    --terminal-shadow:               none;
-  }
-
-  /* ══════════════════════════════════════════
-     DARK THEME CSS VARIABLES
-  ══════════════════════════════════════════ */
-  html.dark {
-    --color-background:              #0a0a0b;
-    --color-surface:                 #121214;
-    --color-surface-variant:         #1c1c1f;
-    --color-surface-container-low:   #0a0a0b;
-    --color-surface-container-high:  #1c1c1f;
-    --color-surface-container-highest: #1c1c1f;
-    --color-surface-container-lowest: #0a0a0b;
-    --color-on-surface:              #f0f0f2;
-    --color-on-surface-variant:      #a1a1aa;
-    --color-outline:                 #3f3f46;
-    --color-outline-variant:         #27272a;
-    --color-secondary:               #a1a1aa;
-
-    --nav-bg:                        rgba(10,10,11,0.80);
-    --nav-border:                    1px solid rgba(255,255,255,0.05);
-    --nav-shadow:                    none;
-    --nav-logo-color:                #ffffff;
-    --nav-link-active-color:         #ffffff;
-    --nav-link-color:                #a1a1aa;
-    --nav-link-hover:                #ffffff;
-    --nav-icon-color:                #a1a1aa;
-
-    --trending-bg:                   #0a0a0b;
-    --trending-border:               rgba(255,255,255,0.05);
-    --trending-number-color:         rgba(255,255,255,0.05);
-    --trending-number-hover:         rgba(245,165,0,0.20);
-
-    --dispatches-bg:                 #121214;
-    --card-bg:                       #0a0a0b;
-    --card-bg-alt:                   #0a0a0b;
-    --card-border:                   rgba(255,255,255,0.05);
-    --card-shadow:                   none;
-
-    --tag-bg:                        transparent;
-    --tag-color:                     #F5A500;
-    --tag-border:                    rgba(245,165,0,0.30);
-    --tag-outline-color:             #F5A500;
-
-    --newsletter-bg:                 #121214;
-    --newsletter-border:             rgba(255,255,255,0.05);
-    --input-bg:                      #0a0a0b;
-    --input-border:                  rgba(255,255,255,0.10);
-    --input-text:                    #f0f0f2;
-    --subscribe-btn-bg:              #F5A500;
-    --subscribe-btn-color:           #1e1400;
-
-    --footer-bg:                     #0a0a0b;
-    --footer-border:                 rgba(255,255,255,0.05);
-    --footer-logo-color:             #ffffff;
-    --footer-text:                   #a1a1aa;
-    --footer-label:                  rgba(255,255,255,0.40);
-    --footer-divider:                rgba(255,255,255,0.05);
-    --footer-tagline:                rgba(255,255,255,0.20);
-
-    --accent:                        #F5A500;
-    --ultra-btn-color:               #a1a1aa;
-    --ultra-btn-hover:               #F5A500;
-
-    --theme-icon-content:            "light_mode";
-    --hero-badge-bg:                 rgba(245,165,0,0.10);
-    --hero-badge-color:              #F5A500;
-    --hero-badge-border:             rgba(245,165,0,0.20);
-    --hero-h1-color:                 #ffffff;
-    --hero-card-bg:                  #121214;
-    --hero-card-border:              rgba(255,255,255,0.10);
-    --hero-card-shadow:              0 40px 100px -20px rgba(0,0,0,0.80);
-    --hero-archive-border:           #F5A500;
-
-    --img-overlay:                   rgba(10,10,11,0.30);
-    --terminal-shadow:               0 40px 100px -20px rgba(0,0,0,0.80);
-  }
-
-  /* ══════════════════════════════════════════
-     SHARED COMPONENT STYLES
-  ══════════════════════════════════════════ */
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-  .snap-ooze { transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
-  .btn-gradient { background: linear-gradient(135deg, #F5A500 0%, #E67E00 100%); }
-  .glass-btn {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.3);
-  }
-  .glass-btn:hover .material-symbols-outlined {
-    color: #F5A500;
-    text-shadow: 0 0 10px rgba(245,165,0,0.8);
-  }
-  .ultra-clean-btn {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.19,1,0.22,1);
-    color: var(--ultra-btn-color);
-  }
-  .ultra-clean-btn:hover {
-    color: var(--ultra-btn-hover);
-    transform: scale(1.1);
-  }
-  .accent-color { color: var(--accent); }
-
-  /* ── Body ── */
-  body {
-    background-color: var(--color-background);
-    color: var(--color-on-surface);
-    transition: background-color 0.35s ease, color 0.35s ease;
-  }
-
-  /* ── Nav ── */
-  nav#main-nav {
-    background: var(--nav-bg);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-bottom: var(--nav-border);
-    box-shadow: var(--nav-shadow);
-    transition: background 0.35s ease, border 0.35s ease, box-shadow 0.35s ease;
-  }
-  #nav-logo { color: var(--nav-logo-color); transition: color 0.3s; }
-  .nav-link-active { color: var(--nav-link-active-color); border-bottom: 2px solid #F5A500; padding-bottom: 4px; transition: color 0.3s; }
-  .nav-link { color: var(--nav-link-color); transition: color 0.3s; }
-  .nav-link:hover { color: var(--nav-link-hover); }
-  .nav-icon { color: var(--nav-icon-color); transition: color 0.3s; }
-  .nav-icon:hover { color: var(--nav-link-hover); }
-
-  /* ── Toggle icon ── */
-  #theme-toggle {
-    cursor: pointer;
-    transition: transform 0.5s cubic-bezier(0.19,1,0.22,1), color 0.3s;
-    color: var(--nav-icon-color);
-    user-select: none;
-  }
-  #theme-toggle:hover { transform: rotate(20deg) scale(1.15); color: var(--nav-link-hover); }
-
-  /* ── Hero section ── */
-  .hero-badge {
-    background: var(--hero-badge-bg);
-    color: var(--hero-badge-color);
-    border: 1px solid var(--hero-badge-border, transparent);
-    transition: background 0.35s, color 0.35s, border-color 0.35s;
-  }
-  .hero-h1 { color: var(--hero-h1-color); transition: color 0.35s; }
-  .hero-card {
-    background-color: var(--hero-card-bg);
-    border: 1px solid var(--hero-card-border, transparent);
-    box-shadow: var(--hero-card-shadow);
-    transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
-  }
-  .archive-btn { border-color: var(--hero-archive-border); transition: border-color 0.35s; }
-
-  /* ── Trending section ── */
-  .trending-section {
-    background-color: var(--trending-bg);
-    border-top: 1px solid var(--trending-border);
-    border-bottom: 1px solid var(--trending-border);
-    transition: background-color 0.35s, border-color 0.35s;
-  }
-  .trending-heading { color: var(--color-on-surface); transition: color 0.35s; }
-  .trending-number {
-    color: var(--trending-number-color);
-    transition: color 0.35s;
-  }
-  .trending-item:hover .trending-number { color: var(--trending-number-hover); }
-  .trending-item-border { border-bottom: 1px solid var(--trending-border); transition: border-color 0.35s; }
-
-  /* ── Dispatches / Cards section ── */
-  .dispatches-section {
-    background-color: var(--dispatches-bg);
-    transition: background-color 0.35s;
-  }
-  .card-base {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    transition: background-color 0.35s, border-color 0.35s, box-shadow 0.35s;
-  }
-  .card-base:hover { box-shadow: var(--card-shadow); }
-  .card-alt {
-    background-color: var(--card-bg-alt);
-    border: 1px solid var(--card-border);
-    transition: background-color 0.35s, border-color 0.35s;
-  }
-  .card-tag {
-    background-color: var(--tag-bg);
-    color: var(--tag-color);
-    border: 1px solid var(--tag-border, transparent);
-    transition: background-color 0.35s, color 0.35s, border-color 0.35s;
-  }
-  .card-divide { border-top: 1px solid var(--trending-border); transition: border-color 0.35s; }
-  .card-author-avatar { border: 1px solid var(--card-border); }
-
-  /* ── Newsletter ── */
-  .newsletter-section { transition: background 0.35s; }
-  .newsletter-card {
-    background-color: var(--newsletter-bg);
-    border: 1px solid var(--newsletter-border);
-    transition: background-color 0.35s, border-color 0.35s;
-  }
-  .newsletter-input {
-    background-color: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--input-text);
-    transition: background-color 0.35s, border-color 0.35s, color 0.35s;
-  }
-  .newsletter-input:focus { border-color: #F5A500; outline: none; box-shadow: none; }
-  .newsletter-input::placeholder { color: var(--color-outline); }
-  .subscribe-btn {
-    background-color: var(--subscribe-btn-bg);
-    color: var(--subscribe-btn-color);
-    transition: background-color 0.35s, color 0.35s, filter 0.2s;
-  }
-  .subscribe-btn:hover { filter: brightness(1.1); }
-
-  /* ── Footer ── */
-  footer#main-footer {
-    background-color: var(--footer-bg);
-    border-top: 1px solid var(--footer-border);
-    transition: background-color 0.35s, border-color 0.35s;
-  }
-  .footer-logo  { color: var(--footer-logo-color); transition: color 0.35s; }
-  .footer-text  { color: var(--footer-text); transition: color 0.35s; }
-  .footer-label { color: var(--footer-label); transition: color 0.35s; }
-  .footer-link  { color: var(--footer-text); transition: color 0.3s; }
-  .footer-link:hover { color: #F5A500; }
-  .footer-divider { border-top: 1px solid var(--footer-divider); transition: border-color 0.35s; }
-  .footer-tagline { color: var(--footer-tagline); transition: color 0.35s; }
-  .footer-util-icon {
-    color: var(--footer-text);
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  .footer-util-icon:hover { color: var(--accent); }
-  .footer-lang-btn {
-    border: 1px solid var(--footer-border);
-    color: var(--footer-text);
-    transition: background 0.3s, border-color 0.3s, color 0.3s;
-  }
-  .footer-lang-btn:hover {
-    background-color: #F5A500;
-    border-color: #F5A500;
-    color: #1e1400;
-  }
-</style>
+<link rel="stylesheet" href="../static/css/styles.css">
 </head>
 
-<body class="font-body antialiased">
+<body class="bg-[#f6f6f8] dark:bg-[#0a0a0b] text-[#2d2f31] dark:text-[#f0f0f2] font-body antialiased selection:bg-primary selection:text-on-primary dark:selection:text-on-primary">
 
 <!-- ══ NAVIGATION ══ -->
 <nav id="main-nav" class="fixed top-0 w-full z-50">
@@ -418,7 +93,7 @@
       <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="#">Blog<span class="text-[#F5A500]">Py</span></a>
       <div class="hidden md:flex gap-6 items-center">
         <a class="nav-link-active font-headline tracking-tight font-bold" href="#">Home</a>
-        <a class="nav-link font-headline tracking-tight font-bold" href="#">Posts</a>
+        <a class="nav-link font-headline tracking-tight font-bold" href="post.html">Posts</a>
         <a class="nav-link font-headline tracking-tight font-bold" href="#">About</a>
         <a class="nav-link font-headline tracking-tight font-bold" href="#">Contact</a>
       </div>
@@ -448,9 +123,9 @@
           Architectural precision in web development and design strategy. Curating the future of the digital interface, one post at a time.
         </p>
         <div class="flex items-center gap-4">
-          <button class="bg-[#F5A500] text-[#402b00] px-8 py-4 font-bold rounded-sm shadow-lg hover:translate-y-[-2px] hover:brightness-105 transition-all snap-ooze">Latest Editions</button>
-          <button class="archive-btn font-bold px-8 py-4 flex items-center gap-2 hover:gap-4 transition-all duration-300 border" style="color:var(--color-on-surface)">
-            View Archive <span class="material-symbols-outlined accent-color">arrow_forward</span>
+          <button class="bg-[#F5A500] text-[#402b00] dark:text-[#1e1400] px-8 py-4 font-bold rounded-sm shadow-lg hover:translate-y-[-2px] hover:brightness-110 transition-all snap-ooze">Latest Editions</button>
+          <button class="archive-btn font-bold px-8 py-4 flex items-center gap-2 transition-all duration-300 border" style="color:var(--color-on-surface)">
+            View Archive <span class="material-symbols-outlined accent-color group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </button>
         </div>
       </div>
@@ -497,10 +172,10 @@
               <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
               <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">8 Hours Ago</span>
             </div>
-            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">Why Your Design System Needs a Soul</h3>
+            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 transition-colors" style="color:var(--color-on-surface)">Why Your Design System Needs a Soul</h3>
             <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Most design systems focus on buttons and tokens, but they miss the narrative. Exploring the psychology of editorial UI.</p>
           </div>
-          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 group-hover:bg-[#F5A500] group-hover:text-[#1e1400]" style="border:1px solid var(--color-outline-variant)">
+          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full circle-btn" style="border:1px solid var(--color-outline-variant)">
             <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
           </div>
         </div>
@@ -514,10 +189,10 @@
               <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
               <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">Yesterday</span>
             </div>
-            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">A Deep Dive into Rust's Memory Management</h3>
+            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 transition-colors" style="color:var(--color-on-surface)">A Deep Dive into Rust's Memory Management</h3>
             <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Understanding the borrow checker without losing your mind. A visual guide for JavaScript developers.</p>
           </div>
-          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 group-hover:bg-[#F5A500] group-hover:text-[#1e1400]" style="border:1px solid var(--color-outline-variant)">
+          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full circle-btn" style="border:1px solid var(--color-outline-variant)">
             <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
           </div>
         </div>
@@ -531,10 +206,10 @@
               <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
               <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">2 Days Ago</span>
             </div>
-            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">Serverless is Dead, Long Live the Edge</h3>
+            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 transition-colors" style="color:var(--color-on-surface)">Serverless is Dead, Long Live the Edge</h3>
             <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Moving compute closer to the user is no longer a luxury. It's the standard for 2024 performance metrics.</p>
           </div>
-          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 group-hover:bg-[#F5A500] group-hover:text-[#1e1400]" style="border:1px solid var(--color-outline-variant)">
+          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full circle-btn" style="border:1px solid var(--color-outline-variant)">
             <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
           </div>
         </div>
@@ -698,9 +373,9 @@
         <form class="flex flex-col sm:flex-row gap-0" onsubmit="return false">
           <div class="relative">
             <div class="absolute left-0 top-0 w-1 h-full bg-[#F5A500] rounded-sm"></div>
-            <input class="newsletter-input border-none focus:ring-0 py-4 px-6 w-full sm:w-80 font-bold placeholder:text-[var(--color-outline)]" placeholder="editorial@example.com" type="email"/>
+            <input class="newsletter-input border-none focus:ring-2 focus:ring-[#F5A500] py-4 px-6 w-full sm:w-80 font-bold placeholder:text-[var(--color-outline)]" placeholder="editorial@example.com" type="email"/>
           </div>
-          <button class="subscribe-btn py-4 px-10 font-bold snap-ooze uppercase tracking-widest text-sm">Subscribe</button>
+          <button class="subscribe-btn py-4 px-10 font-bold snap-ooze uppercase tracking-widest text-sm hover:brightness-110 transition-all">Subscribe</button>
         </form>
         <p class="text-[0.7rem] mt-4 uppercase tracking-widest" style="color:var(--color-on-surface-variant)">Join 40k+ Digital Architects globally.</p>
       </div>
@@ -728,19 +403,19 @@
         </div>
         <div class="flex flex-col gap-4">
           <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Follow Us</span>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
+          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105 transform" href="#">
             <span class="material-symbols-outlined text-xl accent-color">brand_awareness</span>
             <span class="font-medium">Twitter</span>
           </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
+          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105 transform" href="#">
             <span class="material-symbols-outlined text-xl accent-color">code</span>
             <span class="font-medium">GitHub</span>
           </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
+          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105 transform" href="#">
             <span class="material-symbols-outlined text-xl accent-color">work</span>
             <span class="font-medium">LinkedIn</span>
           </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
+          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105 transform" href="#">
             <span class="material-symbols-outlined text-xl accent-color">photo_camera</span>
             <span class="font-medium">Instagram</span>
           </a>
@@ -764,30 +439,7 @@
   </div>
 </footer>
 
-<!-- ══ THEME TOGGLE SCRIPT ══ -->
-<script>
-  const html = document.documentElement;
-  const toggleBtn = document.getElementById('theme-toggle');
-
-  // Restore saved preference
-  const saved = localStorage.getItem('blogpy-theme');
-  if (saved === 'dark') {
-    html.classList.replace('light', 'dark');
-    toggleBtn.textContent = 'light_mode';
-  }
-
-  toggleBtn.addEventListener('click', () => {
-    const isDark = html.classList.contains('dark');
-    if (isDark) {
-      html.classList.replace('dark', 'light');
-      toggleBtn.textContent = 'dark_mode';
-      localStorage.setItem('blogpy-theme', 'light');
-    } else {
-      html.classList.replace('light', 'dark');
-      toggleBtn.textContent = 'light_mode';
-      localStorage.setItem('blogpy-theme', 'dark');
-    }
-  });
-</script>
+<!-- ══ SCRIPTS ══ -->
+<script src="../static/js/scripts.js"></script>
 </body>
 </html>
