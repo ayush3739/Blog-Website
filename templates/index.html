@@ -20,9 +20,9 @@
         </p>
         <div class="flex items-center gap-4">
           <button class="bg-[#F5A500] text-[#402b00] dark:text-[#1e1400] px-8 py-4 font-bold rounded-sm shadow-lg hover:translate-y-[-2px] hover:brightness-110 transition-all snap-ooze">Latest Editions</button>
-          <button class="archive-btn font-bold px-8 py-4 flex items-center gap-2 transition-all duration-300 border" style="color:var(--color-on-surface)">
+          <a href="{{ url_for('all_posts') }}" class="archive-btn font-bold px-8 py-4 flex items-center gap-2 transition-all duration-300 border" style="color:var(--color-on-surface)">
             View Archive <span class="material-symbols-outlined accent-color group-hover:translate-x-1 transition-transform">arrow_forward</span>
-          </button>
+          </a>
         </div>
       </div>
       <div class="md:col-span-4 hidden md:block">
@@ -50,7 +50,7 @@
           </h2>
           <div class="w-24 h-2 bg-[#F5A500]"></div>
         </div>
-        <a class="flex items-center gap-2 text-sm font-bold transition-all group pb-1" style="color:var(--color-on-surface)" href="#">
+        <a class="flex items-center gap-2 text-sm font-bold transition-all group pb-1" style="color:var(--color-on-surface)" href="{{ url_for('all_posts') }}">
           View Archive <span class="material-symbols-outlined text-lg accent-color group-hover:translate-x-1 transition-transform">arrow_forward</span>
         </a>
       </div>
@@ -85,6 +85,7 @@
   </section>
 
   <!-- ══ RECENT DISPATCHES (Bento Grid) ══ -->
+
   <section class="dispatches-section py-24">
     <div class="max-w-7xl mx-auto px-8">
       <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
@@ -97,46 +98,72 @@
         </div>
       </div>
 
-      <!-- Dynamic posts grid -->
       {% if all_posts.items %}
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {% for post in all_posts.items %}
-        <a href="{{ url_for('show_post', post_id=post.id) }}" class="card-base rounded-xl overflow-hidden group transition-all">
-          <div class="aspect-square overflow-hidden relative" style="background-color:var(--color-surface-container-high)">
-            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
-                 src="{{ post.img_url }}"
-                 alt="{{ post.title }}"/>
-            <div class="absolute top-3 right-3 flex gap-2">
-              <span class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm">
-                <span class="material-symbols-outlined text-lg">north_east</span>
-              </span>
+        <!-- Featured Post (spans 2 columns) -->
+        {% set featured = all_posts.items[0] if all_posts.items|length > 0 else None %}
+        {% set sidebar1 = all_posts.items[1] if all_posts.items|length > 1 else None %}
+        {% set sidebar2 = all_posts.items[2] if all_posts.items|length > 2 else None %}
+
+        {% if featured %}
+        <a href="{{ url_for('show_post', post_id=featured.id) }}" class="md:col-span-2 bg-[var(--color-background)] p-8 rounded-xl border border-[var(--color-outline-variant)] flex flex-col h-full group transition-all overflow-hidden">
+          <div class="relative overflow-hidden rounded-xl aspect-[16/9] mb-8">
+            <img alt="{{ featured.title }}" class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" src="{{ featured.img_url }}"/>
+            <div class="absolute top-4 right-4 flex gap-2">
+              <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+              <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">north_east</span>
             </div>
           </div>
-          <div class="p-8">
-            <span class="text-[0.6rem] font-black tracking-widest uppercase mb-2 block" style="color:var(--color-on-surface-variant)">{{ post.date }}</span>
-            <h4 class="text-lg font-headline font-bold mb-4 leading-tight" style="color:var(--color-on-surface)">{{ post.title }}</h4>
-            <span class="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all accent-color">Read Story <span class="material-symbols-outlined text-sm">trending_flat</span></span>
+          <div class="mt-auto">
+            <span class="inline-block px-2 py-1 border border-[#F5A500]/30 text-[#F5A500] text-[0.6rem] font-bold rounded-sm mb-4">FEATURED</span>
+            <h3 class="text-3xl font-headline font-extrabold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">{{ featured.title }}</h3>
+            <p class="text-on-surface-variant mb-8 line-clamp-2" style="color:var(--color-on-surface-variant)">{{ featured.subtitle }}</p>
+            <div class="flex items-center gap-4 pt-6 border-t border-[var(--color-outline-variant)]">
+              <span class="text-sm font-bold uppercase tracking-widest" style="color:var(--color-on-surface-variant)">{{ featured.date }}</span>
+              <span class="material-symbols-outlined accent-color">trending_flat</span>
+            </div>
           </div>
         </a>
-        {% endfor %}
-      </div>
+        {% endif %}
 
-      <!-- Pagination -->
-      {% if all_posts.has_prev or all_posts.has_next %}
-      <div class="flex justify-center items-center gap-4 mt-12">
-        {% if all_posts.has_prev %}
-        <a href="{{ url_for('get_all_posts', page=all_posts.prev_num) }}" class="px-6 py-3 font-bold border transition-all hover:bg-[#F5A500] hover:text-[#392700] hover:border-[#F5A500]" style="color:var(--color-on-surface);border-color:var(--color-outline-variant)">
-          <span class="material-symbols-outlined text-sm">arrow_back</span> Previous
-        </a>
-        {% endif %}
-        <span class="text-sm font-bold" style="color:var(--color-on-surface-variant)">Page {{ all_posts.page }} of {{ all_posts.pages }}</span>
-        {% if all_posts.has_next %}
-        <a href="{{ url_for('get_all_posts', page=all_posts.next_num) }}" class="px-6 py-3 font-bold border transition-all hover:bg-[#F5A500] hover:text-[#392700] hover:border-[#F5A500]" style="color:var(--color-on-surface);border-color:var(--color-outline-variant)">
-          Next <span class="material-symbols-outlined text-sm">arrow_forward</span>
-        </a>
-        {% endif %}
+        <!-- Sidebar Posts -->
+        <div class="flex flex-col gap-8">
+          {% if sidebar1 %}
+          <a href="{{ url_for('show_post', post_id=sidebar1.id) }}" class="bg-[var(--color-background)] p-8 rounded-xl border border-[var(--color-outline-variant)] group flex flex-col justify-between transition-all overflow-hidden">
+            <div class="relative">
+              <span class="inline-block px-2 py-1 border border-[#F5A500]/30 text-[#F5A500] text-[0.6rem] font-bold rounded-sm mb-4">RECENT</span>
+              <div class="absolute top-0 right-0 flex gap-2">
+                <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+                <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">north_east</span>
+              </div>
+              <h3 class="text-xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">{{ sidebar1.title }}</h3>
+              <p class="text-sm" style="color:var(--color-on-surface-variant)">{{ sidebar1.subtitle }}</p>
+            </div>
+            <div class="mt-8 flex justify-between items-center text-[0.65rem] font-bold uppercase tracking-widest" style="color:var(--color-on-surface-variant)">
+              <span>{{ sidebar1.date }}</span>
+              <span class="material-symbols-outlined accent-color">north_east</span>
+            </div>
+          </a>
+          {% endif %}
+          {% if sidebar2 %}
+          <a href="{{ url_for('show_post', post_id=sidebar2.id) }}" class="bg-[var(--color-background)] p-8 rounded-xl border border-[var(--color-outline-variant)] group flex flex-col justify-between transition-all overflow-hidden">
+            <div class="relative">
+              <span class="inline-block px-2 py-1 border border-[#F5A500]/30 text-[#F5A500] text-[0.6rem] font-bold rounded-sm mb-4">RECENT</span>
+              <div class="absolute top-0 right-0 flex gap-2">
+                <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+                <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">north_east</span>
+              </div>
+              <h3 class="text-xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">{{ sidebar2.title }}</h3>
+              <p class="text-sm" style="color:var(--color-on-surface-variant)">{{ sidebar2.subtitle }}</p>
+            </div>
+            <div class="mt-8 flex justify-between items-center text-[0.65rem] font-bold uppercase tracking-widest" style="color:var(--color-on-surface-variant)">
+              <span>{{ sidebar2.date }}</span>
+              <span class="material-symbols-outlined accent-color">north_east</span>
+            </div>
+          </a>
+          {% endif %}
+        </div>
       </div>
-      {% endif %}
       {% endif %}
     </div>
   </section>

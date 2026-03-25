@@ -5,7 +5,7 @@
       <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="{{ url_for('get_all_posts') }}">Blog<span class="text-[#F5A500]">Py</span></a>
       <div class="hidden md:flex gap-6 items-center">
         <a class="{% if request.endpoint == 'get_all_posts' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('get_all_posts') }}">Home</a>
-        <a class="{% if request.endpoint == 'show_post' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('get_all_posts') }}">Posts</a>
+        <a class="{% if request.endpoint == 'show_post' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('all_posts') }}">Posts</a>
         <a class="{% if request.endpoint == 'about' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('about') }}">About</a>
         <a class="{% if request.endpoint == 'contact' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('contact') }}">Contact</a>
       </div>

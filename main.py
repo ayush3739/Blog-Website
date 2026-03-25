@@ -6,7 +6,7 @@ from flask_gravatar import Gravatar
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String, Text, ForeignKey, DateTime, Boolean
+from sqlalchemy import Integer, String, Text, ForeignKey, DateTime, Boolean, or_
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import CreatePostForm,RegisterForm,LoginForm,CommentForm
@@ -215,11 +215,41 @@ def logout():
 
 @app.route('/')
 def get_all_posts():
-    result = db.paginate(db.select(BlogPost).order_by(BlogPost.date.desc()), per_page=5)
+    result = db.paginate(db.select(BlogPost).order_by(BlogPost.date.desc()), per_page=10)
     # AJAX request — return only the posts partial, not the full page
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return render_template("_posts.html", all_posts=result, logged_in=current_user.is_authenticated)
     return render_template("index.html", all_posts=result, logged_in=current_user.is_authenticated)
+
+
+@app.route('/all-posts')
+def all_posts():
+    # Get parameters
+    page = request.args.get('page', 1, type=int)
+    q = request.args.get('q', '', type=str)
+    sort_by = request.args.get('sort', 'newest', type=str)
+    
+    # Base query
+    query = db.select(BlogPost)
+    
+    # Apply search filter
+    if q:
+        search_term = f"%{q}%"
+        query = query.where(or_(
+            BlogPost.title.ilike(search_term),
+            BlogPost.subtitle.ilike(search_term)
+        ))
+    
+    # Apply sorting
+    if sort_by == 'oldest':
+        query = query.order_by(BlogPost.date.asc())
+    else:
+        query = query.order_by(BlogPost.date.desc()) # Default to newest
+        
+    # Pagination
+    posts = db.paginate(query, page=page, per_page=10)
+    
+    return render_template("all-posts.html", posts=posts, q=q, sort=sort_by, logged_in=current_user.is_authenticated)
 
 
 @app.route("/post/<int:post_id>",methods=["GET","POST"])
