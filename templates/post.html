@@ -1,412 +1,143 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>The Brutalist Revival in Digital Interfaces | BlogPy</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@700;800&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "tertiary-dim": "#c8ea69",
-              "surface": "#0c0e10",
-              "surface-bright": "#292c2f",
-              "primary-container": "#F5A500",
-              "background": "#0c0e10",
-              "inverse-surface": "#f9f9fb",
-              "on-secondary": "#525151",
-              "on-error-container": "#ffd2c8",
-              "surface-variant": "#232628",
-              "surface-tint": "#F5A500",
-              "secondary": "#e5e2e1",
-              "surface-dim": "#0c0e10",
-              "on-primary-fixed-variant": "#5e4200",
-              "on-surface": "#f6f6f8",
-              "error": "#ff7351",
-              "primary-fixed-dim": "#F5A500",
-              "on-tertiary": "#506700",
-              "surface-container-lowest": "#000000",
-              "surface-container-high": "#1d2022",
-              "error-dim": "#d53d18",
-              "secondary-container": "#474746",
-              "on-surface-variant": "#aaabad",
-              "on-secondary-fixed": "#403f3f",
-              "surface-container-low": "#111415",
-              "primary-dim": "#F5A500",
-              "tertiary-fixed": "#ced1c6",
-              "outline-variant": "#46484a",
-              "inverse-primary": "#7d5900",
-              "surface-container-highest": "#232628",
-              "inverse-on-surface": "#535557",
-              "secondary-dim": "#d6d4d3",
-              "on-background": "#f6f6f8",
-              "tertiary-container": "#eceee7",
-              "on-secondary-container": "#d2d0cf",
-              "on-primary-fixed": "#392700",
-              "outline": "#747577",
-              "primary": "#F5A500",
-              "secondary-fixed": "#e5e2e1",
-              "on-primary-container": "#392700",
-              "on-tertiary-container": "#F5A500",
-              "secondary-fixed-dim": "#d6d4d3",
-              "primary-fixed": "#F5A500",
-              "on-secondary-fixed-variant": "#5c5b5b",
-              "on-primary": "#533a00",
-              "tertiary": "#f3ffcc",
-              "error-container": "#b92902",
-              "tertiary-fixed-dim": "#c8ea69",
-              "on-error": "#450900",
-              "on-tertiary-fixed-variant": "#516900",
-              "on-tertiary-fixed": "#394b00",
-              "surface-container": "#171a1c"
-            },
-            fontFamily: {
-              "headline": ["Manrope"],
-              "body": ["Inter"],
-              "label": ["Inter"],
-              "serif": ["Lora", "serif"]
-            },
-            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
-          },
-        },
-      }
-    </script>
-<link rel="stylesheet" href="../static/css/styles.css">
-</head>
-<body class="bg-[#fbfbfb] dark:bg-[#0c0e10] text-[#0c0e10] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-white dark:selection:text-on-primary-container">
-<!-- ══ NAVIGATION ══ -->
-<nav id="main-nav" class="fixed top-0 w-full z-50">
-  <div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
-    <div class="flex items-center gap-8">
-      <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="#">Blog<span class="text-[#F5A500]">Py</span></a>
-      <div class="hidden md:flex gap-6 items-center">
-        <a class="nav-link font-headline tracking-tight font-bold" href="index.html">Home</a>
-        <a class="nav-link-active font-headline tracking-tight font-bold" href="posts.html">Posts</a>
-        <a class="nav-link font-headline tracking-tight font-bold" href="about.html">About</a>
-        <a class="nav-link font-headline tracking-tight font-bold" href="contact.html">Contact</a>
-      </div>
-    </div>
-    <div class="flex items-center gap-4">
-      <span id="theme-toggle" class="material-symbols-outlined nav-icon snap-ooze transition-all" title="Toggle theme">dark_mode</span>
-      <span class="material-symbols-outlined nav-icon cursor-pointer snap-ooze transition-all">search</span>
-      <button class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">Login</button>
-      <button class="bg-[#F5A500] text-[#402b00] px-6 py-2 font-bold snap-ooze scale-95 active:scale-100 transition-transform hover:brightness-105" href="register.html">Register</button>
-    </div>
-  </div>
-</nav>
+{% block title %}{{ post.title }} | BlogPy{% endblock %}
+
+{% block body_class %}bg-[#fbfbfb] dark:bg-[#0c0e10] text-[#0c0e10] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-white dark:selection:text-on-primary-container{% endblock %}
+
+{% block content %}
 <main class="pt-20">
-<!-- Hero Section -->
-<header class="relative w-full h-[716px] flex items-end overflow-hidden bg-[#f4f4f4] dark:bg-[#000000]">
-<div class="absolute inset-0">
-<img alt="Architectural low angle shot of a modern skyscraper" class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale" data-alt="Monochrome architectural shot of a modern glass skyscraper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqiRImqbl2Y1NSOFpEda3Lv86PMh1NILmckSJB44iRNzoZXEyS_H14ZdVg9SXGtP-9mF67UKj9MTmqlCSv0zpxQH2j_UW3IyDrsGq2wvRhhnn08YOlB1O2Vvo8ByBMn3HDUIQZpY37i3VxGgorCPrkIW6vLPDIWW1XnWvTK7ZVyfUhBHfdGcaJP8v9dtFvyPUZoiRt0fIFzArqIaqgovLpLI535QcTOVojePtPaM63dHst87mrQ3Vkc6OuEJ09hkzGayTAVOMK_fU"/>
-<div class="absolute inset-0 bg-gradient-to-t from-[#fbfbfb] via-[#fbfbfb]/20 to-transparent dark:from-[#0c0e10] dark:via-transparent dark:to-transparent"></div>
-</div>
-<div class="relative z-10 w-full max-w-7xl mx-auto px-8 pb-16">
-<div class="flex flex-col gap-6">
-<span class="inline-block px-4 py-1 bg-[#F5A500] dark:bg-tertiary-container/20 text-white dark:text-on-tertiary-container rounded-full text-xs font-bold tracking-widest uppercase font-label w-fit">
-                        Architecture &amp; Design
-                    </span>
-<h1 class="text-5xl md:text-7xl font-headline font-extrabold tracking-tighter max-w-4xl text-[#0c0e10] dark:text-[#f6f6f8] leading-[0.9]">
-                        The Brutalist Revival in <span class="text-primary">Digital Interfaces</span>
-</h1>
-<div class="flex items-center gap-6 mt-4">
-<div class="flex items-center gap-3">
-<img alt="Portrait of Julian Voss" class="w-12 h-12 rounded-full grayscale hover:grayscale-0 transition-all border border-[#d2d0cf] dark:border-outline-variant/30" data-alt="Professional headshot portrait of Julian Voss" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCotpfXXa2WeQu_2uOiq8ARRtxIGW5uLNzypsLZf4os7oMDh5zlVylggCdLgwvHkxc9sxSQmfsK8tYumrW9_xSm8fBffDg_Sx3fYtlYFOzCKQo1WkHEOCzKNpLFnTowSS6SrDzIP1rsyxMbh8Gq5nvRcbXX4eZf-iYORROuUL5dEahF5AipXrENBIfMH9HPza24Hr9UqvXEWjjH3OdJyp_L-LOpJeP9Pgx7otLkGadHsKzMWoVCH6NeOneu_Hu1YWMPj7qfluit4_o"/>
-<div>
-<p class="font-headline font-bold text-[#0c0e10] dark:text-[#f6f6f8]">Julian Voss</p>
-<p class="text-xs text-[#5c5b5b] dark:text-[#d6d4d3] font-label uppercase tracking-widest">Oct 24, 2024 • 12 min read</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</header>
-<!-- Article Content -->
-<section class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 py-20">
-<!-- Left: Share Sidebar (Sticky) -->
-<aside class="hidden lg:block lg:col-span-1">
-<div class="sticky top-32 flex flex-col items-center gap-8">
-<button class="group flex flex-col items-center gap-2">
-<div class="w-12 h-12 flex items-center justify-center bg-[#f4f4f4] dark:bg-[#111415] border border-black/5 dark:border-none rounded-lg group-hover:bg-[#F5A500] group-hover:text-white transition-all duration-300">
-<span class="material-symbols-outlined" data-icon="thumb_up">thumb_up</span>
-</div>
-<span class="text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">1.2k</span>
-</button>
-<button class="group flex flex-col items-center gap-2">
-<div class="w-12 h-12 flex items-center justify-center bg-[#f4f4f4] dark:bg-[#111415] border border-black/5 dark:border-none rounded-lg group-hover:bg-[#F5A500] group-hover:text-white transition-all duration-300">
-<span class="material-symbols-outlined" data-icon="share">share</span>
-</div>
-<span class="text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">Share</span>
-</button>
-<button class="group flex flex-col items-center gap-2">
-<div class="w-12 h-12 flex items-center justify-center bg-[#f4f4f4] dark:bg-[#111415] border border-black/5 dark:border-none rounded-lg group-hover:bg-[#F5A500] group-hover:text-white transition-all duration-300">
-<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
-</div>
-<span class="text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">Save</span>
-</button>
-</div>
-</aside>
-<!-- Middle: Main Column -->
-<article class="col-span-1 lg:col-span-7 prose prose-slate dark:prose-invert prose-yellow max-w-none">
-<div class="font-serif text-xl leading-relaxed text-[#5c5b5b] dark:text-[#aaabad] space-y-8">
-<p class="first-letter:text-7xl first-letter:font-headline first-letter:font-black first-letter:mr-3 first-letter:float-left first-letter:text-[#F5A500]">
-                        Brutalism has long been the most misunderstood movement in architectural history. Often equated with coldness and urban decay, its original intent was quite the opposite: truth to materials and raw structural integrity. Today, we are seeing a digital manifestation of these principles.
-                    </p>
-<p>
-                        In a world saturated with ultra-smooth gradients and hyper-sanitized "corporate Memphis" illustrations, users are beginning to crave something more substantial. The new brutalism isn't about being ugly; it's about being honest.
-                    </p>
-<h3 class="font-headline text-3xl font-bold text-[#0c0e10] dark:text-[#f6f6f8] tracking-tight mt-12 mb-6">The Geometry of Silence</h3>
-<p>
-                        Architectural drafting relies on the grid—not as a cage, but as a scaffold. When we translate this to UI design, we move away from hiding the structure. We embrace the lines, the hard edges, and the stark contrast between the primary focus and the background.
-                    </p>
-<blockquote class="border-l-4 border-[#F5A500] pl-8 py-4 my-12 bg-[#f4f4f4] dark:bg-[#111415] italic text-[#0c0e10] dark:text-[#f6f6f8] text-2xl">
-                        "Design is not for philosophy, it's for life." — Issey Miyake
-                    </blockquote>
-<p>
-                        Consider the use of negative space in high-end editorial layouts. It's never accidental. It serves as a visual silence that allows the typography to speak louder. In our current design system, we prioritize this "No-Line" rule, letting the tonal shifts define the boundaries.
-                    </p>
-<img alt="Abstract concrete shapes" class="w-full aspect-video object-cover my-12 grayscale" data-alt="Close up of abstract raw concrete geometric shapes with strong shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRu0WH-QdON-74mOJfyLZikIphwBQ81XO3bsQxYAFIHvrM6I_GkWGQ1-n5BRRJ6k15oPBidHzdL4pQahJaUD9rKxuyNwR_4MWPs5E_hktRN9zk91nOs6OYNT06Um7Hd1nJAWPqZvG8K1P4SpqFLcCgf6Otlvx0hP0yISAl2LoUPr9lnUuyJ___p_UxgB-B6bhGA5NTCx5cK98_vobsTQnrh2NXamjILj2wPSfQ2i2vhu3boHHaXd0qQIaYfWNlNzlgvQ5UlTX1gfc"/>
-<p>
-                        The conclusion of this movement isn't a return to the "raw" web of 1995, but a sophisticated evolution. One where the user is treated as a discerning reader rather than a consumer to be manipulated by flashy animations.
-                    </p>
-</div>
-<div class="mt-20 pt-12 border-t border-black/5 dark:border-outline-variant/10 flex flex-wrap gap-3">
-<span class="px-3 py-1 bg-[#f4f4f4] dark:bg-[#1d2022] text-[#5c5b5b] dark:text-[#aaabad] border border-black/5 dark:border-none text-xs font-bold font-label uppercase tracking-widest">Brutalism</span>
-<span class="px-3 py-1 bg-[#f4f4f4] dark:bg-[#1d2022] text-[#5c5b5b] dark:text-[#aaabad] border border-black/5 dark:border-none text-xs font-bold font-label uppercase tracking-widest">Digital Design</span>
-<span class="px-3 py-1 bg-[#f4f4f4] dark:bg-[#1d2022] text-[#5c5b5b] dark:text-[#aaabad] border border-black/5 dark:border-none text-xs font-bold font-label uppercase tracking-widest">Architecture</span>
-<span class="px-3 py-1 bg-[#f4f4f4] dark:bg-[#1d2022] text-[#5c5b5b] dark:text-[#aaabad] border border-black/5 dark:border-none text-xs font-bold font-label uppercase tracking-widest">UI/UX</span>
-</div>
-<!-- Comment Section -->
-<section class="mt-24 border-t-2 border-[#F5A500]/20 border border-black/10 dark:border-outline-variant/20 p-10 bg-[#f4f4f4] dark:bg-[#111415]/30">
-<h2 class="text-4xl font-headline font-extrabold tracking-tighter text-[#0f172a] dark:text-[#f6f6f8] mb-12 uppercase">Community Discourse</h2>
-<!-- Comment Form -->
-<div class="mb-20 bg-white dark:bg-[#111415] p-8 border-l-4 border-[#F5A500] shadow-sm dark:shadow-none">
-<h3 class="font-headline font-bold text-xl mb-8 text-[#1e293b] dark:text-[#f6f6f8] uppercase tracking-tight">Join the Conversation</h3>
-<form class="space-y-6">
-<div class="relative">
-<textarea class="w-full bg-[#fafafa] dark:bg-[#000000] border border-black/5 dark:border-none text-[#0f172a] dark:text-[#f6f6f8] p-6 focus:ring-1 focus:ring-[#F5A500] focus:border-transparent dark:focus:border-transparent outline-none resize-none font-serif text-lg" placeholder="Your reflections on the discourse..." rows="4"></textarea>
-</div>
-<div class="flex justify-end">
-<button class="px-10 py-4 bg-[#F5A500] text-white dark:text-surface font-headline font-black uppercase tracking-[0.2em] text-sm hover:translate-y-[-2px] hover:shadow-[0_8px_16px_-4px_rgba(245,165,0,0.3)] transition-all duration-300" type="submit">
-                                    Post Comment
-                                </button>
-</div>
-</form>
-</div>
-<!-- Comment List -->
-<div class="space-y-12">
-<!-- Comment 1 -->
-<div class="relative group">
-<div class="thread-line-vertical"></div>
-<div class="flex gap-6 relative z-10 mb-8">
-<div class="flex-shrink-0">
-<img alt="Elena Moretti" class="w-12 h-12 rounded-full grayscale group-hover:grayscale-0 transition-all border border-black/10 dark:border-outline-variant/30 bg-white dark:bg-[#0c0e10]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCotpfXXa2WeQu_2uOiq8ARRtxIGW5uLNzypsLZf4os7oMDh5zlVylggCdLgwvHkxc9sxSQmfsK8tYumrW9_xSm8fBffDg_Sx3fYtlYFOzCKQo1WkHEOCzKNpLFnTowSS6SrDzIP1rsyxMbh8Gq5nvRcbXX4eZf-iYORROuUL5dEahF5AipXrENBIfMH9HPza24Hr9UqvXEWjjH3OdJyp_L-LOpJeP9Pgx7otLkGadHsKzMWoVCH6NeOneu_Hu1YWMPj7qfluit4_o"/>
-</div>
-<div class="flex-grow">
-<div class="flex justify-between items-baseline mb-2">
-<h4 class="font-headline font-bold text-[#0f172a] dark:text-[#f6f6f8]">Elena Moretti</h4>
-<span class="text-[10px] font-label font-bold text-[#64748b] dark:text-[#d6d4d3] uppercase tracking-widest">2 hours ago</span>
-</div>
-<p class="text-[#334155] dark:text-[#aaabad] font-serif text-lg leading-relaxed mb-4">
-                                        This perspective on "truth to materials" in code is refreshing. We often forget that the grid is a foundational structural element, not just a layout tool. The emphasis on silent geometry here is particularly poignant.
-                                    </p>
-<button class="text-[10px] font-headline font-black uppercase tracking-[0.2em] text-[#F5A500] hover:text-[#e09600] dark:hover:text-[#FFC107] transition-all flex items-center gap-1 group/btn">
-                                        Reply <span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">reply</span>
-</button>
-</div>
-</div>
-<!-- Nested Reply -->
-<div class="ml-12 pl-6 flex flex-col gap-6 relative">
-<div class="flex gap-6 relative z-10">
-<div class="flex-shrink-0 relative">
-<div class="thread-line-horizontal"></div>
-<div class="w-10 h-10 rounded-full bg-white dark:bg-[#1d2022] flex items-center justify-center grayscale group-hover:grayscale-0 transition-all border border-black/10 dark:border-outline-variant/30 overflow-hidden">
-<span class="material-symbols-outlined text-[#94a3b8] dark:text-outline text-sm">person</span>
-</div>
-</div>
-<div class="flex-grow">
-<div class="flex justify-between items-baseline mb-2">
-<h4 class="font-headline font-bold text-[#0f172a] dark:text-[#f6f6f8] text-sm">David Chen</h4>
-<span class="text-[10px] font-label font-bold text-[#64748b] dark:text-[#d6d4d3] uppercase tracking-widest">1 hour ago</span>
-</div>
-<p class="text-[#334155] dark:text-[#aaabad] font-serif text-base leading-relaxed mb-4">
-                                            Exactly. When we stop trying to hide the 'seams' of our digital structures, we create a more honest dialogue with the user. It's about respecting the medium.
-                                        </p>
-<button class="text-[10px] font-headline font-black uppercase tracking-[0.2em] text-[#F5A500] hover:text-[#e09600] dark:hover:text-[#FFC107] transition-all flex items-center gap-1 group/btn">
-                                            Reply <span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">reply</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Comment 2 -->
-<div class="flex flex-col gap-6 group">
-<div class="flex gap-6">
-<div class="flex-shrink-0">
-<div class="w-12 h-12 rounded-full bg-white dark:bg-[#1d2022] flex items-center justify-center grayscale group-hover:grayscale-0 transition-all border border-black/10 dark:border-outline-variant/30">
-<span class="material-symbols-outlined text-[#94a3b8] dark:text-outline">person</span>
-</div>
-</div>
-<div class="flex-grow">
-<div class="flex justify-between items-baseline mb-2">
-<h4 class="font-headline font-bold text-[#0f172a] dark:text-[#f6f6f8]">Marcus Thorne</h4>
-<span class="text-[10px] font-label font-bold text-[#64748b] dark:text-[#d6d4d3] uppercase tracking-widest">5 hours ago</span>
-</div>
-<p class="text-[#334155] dark:text-[#aaabad] font-serif text-lg leading-relaxed mb-4">
-                                        Does this movement risk alienating non-technical users who might perceive this 'honesty' as a lack of polish? Architecture has always struggled with the public's perception of brutalism as 'harsh'.
-                                    </p>
-<button class="text-[10px] font-headline font-black uppercase tracking-[0.2em] text-[#F5A500] hover:text-[#e09600] dark:hover:text-[#FFC107] transition-all flex items-center gap-1 group/btn">
-                                        Reply <span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">reply</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</section>
-</article>
-<!-- Right: Sidebar widgets -->
-<aside class="col-span-1 lg:col-span-4 space-y-12">
-<div class="bg-white dark:bg-[#171a1c] p-8 border border-black/5 dark:border-outline-variant/20 shadow-sm dark:shadow-none">
-<h4 class="text-xs font-label font-black uppercase tracking-[0.3em] text-[#F5A500] mb-6">The Architect</h4>
-<div class="flex items-center gap-4 mb-6">
-<img alt="Julian Voss" class="w-16 h-16 rounded-full grayscale border-2 border-[#F5A500]/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCotpfXXa2WeQu_2uOiq8ARRtxIGW5uLNzypsLZf4os7oMDh5zlVylggCdLgwvHkxc9sxSQmfsK8tYumrW9_xSm8fBffDg_Sx3fYtlYFOzCKQo1WkHEOCzKNpLFnTowSS6SrDzIP1rsyxMbh8Gq5nvRcbXX4eZf-iYORROuUL5dEahF5AipXrENBIfMH9HPza24Hr9UqvXEWjjH3OdJyp_L-LOpJeP9Pgx7otLkGadHsKzMWoVCH6NeOneu_Hu1YWMPj7qfluit4_o"/>
-<div>
-<p class="font-headline font-bold text-xl text-[#0c0e10] dark:text-[#f6f6f8]">Julian Voss</p>
-<p class="text-xs text-[#5c5b5b] dark:text-[#d6d4d3] font-label uppercase tracking-widest">Senior Design Lead</p>
-</div>
-</div>
-<p class="text-sm text-[#5c5b5b] dark:text-[#aaabad] font-serif leading-relaxed mb-8">
-                        Exploring the intersection of brutalist architecture and responsive systems. Julian focuses on reducing digital friction through structural honesty.
-                    </p>
-<button class="w-full py-3 bg-white dark:bg-[#232628] border border-[#F5A500]/30 text-[#F5A500] font-label font-bold text-xs uppercase tracking-widest hover:bg-[#F5A500] hover:text-white transition-all">
-                        Follow Updates
-                    </button>
-</div>
-<div class="space-y-6">
-<h4 class="text-xs font-label font-black uppercase tracking-[0.3em] text-[#5c5b5b] dark:text-[#aaabad]">Recommended Reading</h4>
-<div class="group cursor-pointer flex gap-4">
-<div class="w-20 h-20 bg-[#f4f4f4] dark:bg-[#1d2022] border border-black/5 dark:border-none overflow-hidden flex-shrink-0">
-<img alt="Sidebar art" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCyfSvEw0pPhVU0BeiEzgG4Ob3bB9wMeImKrOFV5V9wgu8-XBc4rljkAovWTF4Q3bCRLsU73yG91ptbyfh2CGzEHeyJKfWXmv0eiWRyP3PdTzuH5zoLRx_9TE-1MrumNT_peJeo4hNNyh7xw25xxrzRTwRNdcXa_DTTYpXKb5o78e8dIBNk2pM8hENj86deNrsW2yAAOh2zpXMZMJDxMM2IzUqh7ke8eQY99LkjVj7sBZ3id8LeX9Uj0aaZQJxQmQjJK1WUuiGWBY"/>
-</div>
-<div>
-<h5 class="font-headline font-bold text-[#0c0e10] dark:text-[#f6f6f8] text-sm leading-snug group-hover:text-[#F5A500] transition-colors">The Physics of Typography in Modern Cities</h5>
-<p class="text-[10px] text-[#5c5b5b] dark:text-[#d6d4d3] font-label uppercase tracking-widest mt-1">4 min read</p>
-</div>
-</div>
-</div>
-</aside>
-</section>
-<!-- Related Posts -->
-<section class="bg-[#f4f4f4] dark:bg-[#111415] py-24 border-t border-black/5 dark:border-transparent">
-<div class="max-w-7xl mx-auto px-8">
-<div class="flex justify-between items-end mb-12">
-<h2 class="text-4xl font-headline font-extrabold tracking-tighter text-[#0c0e10] dark:text-[#f6f6f8]">Continue Reading</h2>
-<a class="text-[#F5A500] font-label font-bold text-sm uppercase tracking-widest hover:underline decoration-2 underline-offset-8" href="#">View Archive</a>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Related Card 1 -->
-<div class="group cursor-pointer">
-<div class="relative aspect-square overflow-hidden mb-6 bg-white dark:bg-[#000000] border border-black/5 dark:border-none">
-<img alt="Modern stairwell" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Symmetric modern concrete stairwell view from above" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCyfSvEw0pPhVU0BeiEzgG4Ob3bB9wMeImKrOFV5V9wgu8-XBc4rljkAovWTF4Q3bCRLsU73yG91ptbyfh2CGzEHeyJKfWXmv0eiWRyP3PdTzuH5zoLRx_9TE-1MrumNT_peJeo4hNNyh7xw25xxrzRTwRNdcXa_DTTYpXKb5o78e8dIBNk2pM8hENj86deNrsW2yAAOh2zpXMZMJDxMM2IzUqh7ke8eQY99LkjVj7sBZ3id8LeX9Uj0aaZQJxQmQjJK1WUuiGWBY"/>
-<div class="absolute top-4 left-4">
-<span class="bg-white/90 dark:bg-[#0c0e10]/90 backdrop-blur px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#F5A500]">Theory</span>
-</div>
-</div>
-<h3 class="font-headline font-bold text-2xl text-[#0c0e10] dark:text-[#f6f6f8] leading-tight group-hover:text-[#F5A500] transition-colors">
-                            The Psychology of High-Contrast Layouts
-                        </h3>
-<p class="mt-4 text-[#5c5b5b] dark:text-[#d6d4d3] text-sm font-label uppercase tracking-widest">8 Min Read</p>
-</div>
-<!-- Related Card 2 -->
-<div class="group cursor-pointer">
-<div class="relative aspect-square overflow-hidden mb-6 bg-white dark:bg-[#000000] border border-black/5 dark:border-none">
-<img alt="Office interior" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Dark moody minimalist office interior with sleek furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7XVc2v_EiS6H6gn8lDDzKu6A043RR_82pV5teIyulWWbhLwiqdeDd6WxFaOWrp5kGkkCMKLKJD7PpuplkjFl0nEAf2JNqDT4su5nHdKhiF41FMma-86hwJaTTAY_x3aFOxLQRnfyh8DwG6cv-MuMunEtV-I5axZ4fr0sTJ3RliQgg3ve6Ar4kDPSkbsu19Ma5rjz5LYwBrmo42HkwS2bA7Ws8dVdGiLdkIvrRzFELr8jUz_tG7Oh4E-dffZxtAZODMTdGsvjdgs0"/>
-<div class="absolute top-4 left-4">
-<span class="bg-white/90 dark:bg-[#0c0e10]/90 backdrop-blur px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#F5A500]">Interiors</span>
-</div>
-</div>
-<h3 class="font-headline font-bold text-2xl text-[#0c0e10] dark:text-[#f6f6f8] leading-tight group-hover:text-[#F5A500] transition-colors">
-                            Designing Focus: Why Minimalism Failed the Office
-                        </h3>
-<p class="mt-4 text-[#5c5b5b] dark:text-[#d6d4d3] text-sm font-label uppercase tracking-widest">15 Min Read</p>
-</div>
-<!-- Related Card 3 -->
-<div class="group cursor-pointer">
-<div class="relative aspect-square overflow-hidden mb-6 bg-white dark:bg-[#000000] border border-black/5 dark:border-none">
-<img alt="Concrete wall" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Extreme close up of weathered industrial concrete texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrhUUHnoX889P53sH2m1yuo2ImXNy5JLDtjXRe49T5JSf9X5wAR5vVmWjQcr4wTGhOZSxZ3HtGih1bViapnIBEJ7REikfuk_bcevZORJS6Rhq8LkPthdTp--V4r5j-tOQbh9U80n2ASrQjbbWPZo9JnVwLa9giBTA-D7uQMoCH5Bo6V7lp7lvF5yYRt80_QjujzvNqYICTwaQWrqTYLLoT3Ndr6cKenLp0_jS5uz2qey6cTRsawZSjJA6qlgkkfqu1-cVV9Q7mFQ"/>
-<div class="absolute top-4 left-4">
-<span class="bg-white/90 dark:bg-[#0c0e10]/90 backdrop-blur px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#F5A500]">Materials</span>
-</div>
-</div>
-<h3 class="font-headline font-bold text-2xl text-[#0c0e10] dark:text-[#f6f6f8] leading-tight group-hover:text-[#F5A500] transition-colors">
-                            Honest Materials: From Concrete to Pixels
-                        </h3>
-<p class="mt-4 text-[#5c5b5b] dark:text-[#d6d4d3] text-sm font-label uppercase tracking-widest">10 Min Read</p>
-</div>
-</div>
-</div>
-</section>
-</main>
-<!-- ══ FOOTER ══ -->
-<footer id="main-footer" class="w-full pt-20 pb-12 px-8">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-start gap-12 w-full">
-      <div class="flex flex-col items-start max-w-xs">
-        <span class="footer-logo text-2xl font-black font-headline mb-4 tracking-tighter">Blog<span class="text-[#F5A500]">Py</span></span>
-        <p class="footer-text text-sm leading-relaxed">
-          © 2024 The Editorial Agency.<br/>Architectural precision in web development and design strategy.
+  <!-- Hero Section -->
+  <header class="relative w-full h-[716px] flex items-end overflow-hidden bg-[#f4f4f4] dark:bg-[#000000]">
+    <div class="absolute inset-0">
+      <img alt="{{ post.title }}" class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale" src="{{ post.img_url }}"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#fbfbfb] via-[#fbfbfb]/20 to-transparent dark:from-[#0c0e10] dark:via-transparent dark:to-transparent"></div>
+    </div>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-8 pb-16">
+      <div class="flex flex-col gap-6">
+        <span class="inline-block px-4 py-1 bg-[#F5A500] dark:bg-tertiary-container/20 text-white dark:text-on-tertiary-container rounded-full text-xs font-bold tracking-widest uppercase font-label w-fit">
+          Article
+        </span>
+        <h1 class="text-5xl md:text-7xl font-headline font-extrabold tracking-tighter max-w-4xl text-[#0c0e10] dark:text-[#f6f6f8] leading-[0.9]">
+          {{ post.title }}
+        </h1>
+        <p class="text-xl md:text-2xl font-headline font-medium leading-relaxed max-w-3xl text-[#5c5b5b] dark:text-[#aaabad] mt-4">
+          {{ post.subtitle }}
         </p>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-12 md:gap-24">
-        <div class="flex flex-col gap-4">
-          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Resources</span>
-          <a class="footer-link font-inter text-sm" href="#">Privacy Policy</a>
-          <a class="footer-link font-inter text-sm" href="#">Terms of Service</a>
-          <a class="footer-link font-inter text-sm" href="#">RSS Feed</a>
-        </div>
-        <div class="flex flex-col gap-4">
-          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Follow Us</span>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
-            <span class="material-symbols-outlined text-xl accent-color">brand_awareness</span>
-            <span class="font-medium">Twitter</span>
-          </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
-            <span class="material-symbols-outlined text-xl accent-color">code</span>
-            <span class="font-medium">GitHub</span>
-          </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
-            <span class="material-symbols-outlined text-xl accent-color">work</span>
-            <span class="font-medium">LinkedIn</span>
-          </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105" href="#">
-            <span class="material-symbols-outlined text-xl accent-color">photo_camera</span>
-            <span class="font-medium">Instagram</span>
-          </a>
-        </div>
-        <div class="flex flex-col gap-4">
-          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Utility</span>
-          <div class="flex items-center gap-4">
-            <div class="footer-lang-btn w-10 h-10 rounded-full flex items-center justify-center cursor-pointer">
-              <span class="material-symbols-outlined text-lg">language</span>
+        <div class="flex items-center gap-6 mt-4">
+          <div class="flex items-center gap-3">
+            <img alt="{{ post.author.name }}" class="w-12 h-12 rounded-full grayscale hover:grayscale-0 transition-all border border-[#d2d0cf] dark:border-outline-variant/30" src="{{ post.author.email | gravatar }}"/>
+            <div>
+              <p class="font-headline font-bold text-[#0c0e10] dark:text-[#f6f6f8]">{{ post.author.name }}</p>
+              <p class="text-xs text-[#5c5b5b] dark:text-[#d6d4d3] font-label uppercase tracking-widest">{{ post.date }}</p>
             </div>
-            <button aria-label="Share website" class="ultra-clean-btn focus:outline-none">
-              <span class="material-symbols-outlined text-[20px]">share</span>
-            </button>
           </div>
         </div>
       </div>
     </div>
-    <div class="footer-divider mt-16 pt-8 text-center">
-      <p class="footer-tagline text-[0.7rem] uppercase tracking-[0.2em] font-bold">Signal over Noise • Excellence over Utility</p>
-    </div>
-  </div>
-</footer>
+  </header>
 
-<!-- ══ SCRIPTS ══ -->
-<script src="../static/js/scripts.js"></script>
-</body></html>
+  <!-- Article Content -->
+  <section class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 py-20">
+    <!-- Left: Share Sidebar (Sticky) -->
+    <aside class="hidden lg:block lg:col-span-1">
+      <div class="sticky top-32 flex flex-col items-center gap-8">
+        <button class="group flex flex-col items-center gap-2">
+          <div class="w-12 h-12 flex items-center justify-center bg-[#f4f4f4] dark:bg-[#111415] border border-black/5 dark:border-none rounded-lg group-hover:bg-[#F5A500] group-hover:text-white transition-all duration-300">
+            <span class="material-symbols-outlined">thumb_up</span>
+          </div>
+          <span class="text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">Like</span>
+        </button>
+        <button class="group flex flex-col items-center gap-2">
+          <div class="w-12 h-12 flex items-center justify-center bg-[#f4f4f4] dark:bg-[#111415] border border-black/5 dark:border-none rounded-lg group-hover:bg-[#F5A500] group-hover:text-white transition-all duration-300">
+            <span class="material-symbols-outlined">share</span>
+          </div>
+          <span class="text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">Share</span>
+        </button>
+        <button class="group flex flex-col items-center gap-2">
+          <div class="w-12 h-12 flex items-center justify-center bg-[#f4f4f4] dark:bg-[#111415] border border-black/5 dark:border-none rounded-lg group-hover:bg-[#F5A500] group-hover:text-white transition-all duration-300">
+            <span class="material-symbols-outlined">bookmark</span>
+          </div>
+          <span class="text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">Save</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Middle: Main Column -->
+    <article class="col-span-1 lg:col-span-7 max-w-none">
+      <div class="article-content">
+        {{ post.body | safe }}
+      </div>
+
+      <!-- Admin Edit/Delete Buttons -->
+      {% if logged_in and current_user.is_admin %}
+      <div class="mt-12 pt-8 border-t border-black/5 dark:border-outline-variant/10 flex gap-4">
+        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="px-6 py-3 bg-[#F5A500] text-white dark:text-[#392700] font-headline font-bold uppercase tracking-widest text-xs hover:translate-y-[-2px] transition-all duration-300">
+          Edit Post
+        </a>
+        <a href="{{ url_for('delete_post', post_id=post.id) }}" class="px-6 py-3 bg-red-500 text-white font-headline font-bold uppercase tracking-widest text-xs hover:translate-y-[-2px] transition-all duration-300">
+          Delete Post
+        </a>
+      </div>
+      {% endif %}
+
+      <!-- Comment Section -->
+      <section class="mt-24 border-t-2 border-[#F5A500]/20 border border-black/10 dark:border-outline-variant/20 p-10 bg-[#f4f4f4] dark:bg-[#111415]/30">
+        <h2 class="text-4xl font-headline font-extrabold tracking-tighter text-[#0f172a] dark:text-[#f6f6f8] mb-12 uppercase">Community Discourse</h2>
+
+        <!-- Comment Form -->
+        <div class="mb-20 bg-white dark:bg-[#111415] p-8 border-l-4 border-[#F5A500] shadow-sm dark:shadow-none">
+          <h3 class="font-headline font-bold text-xl mb-8 text-[#1e293b] dark:text-[#f6f6f8] uppercase tracking-tight">Join the Conversation</h3>
+          <form method="POST" action="{{ url_for('show_post', post_id=post.id) }}" class="space-y-6">
+            {{ form.hidden_tag() }}
+            <div class="relative">
+              {{ form.comment(class="w-full bg-[#fafafa] dark:bg-[#000000] border border-black/5 dark:border-none text-[#0f172a] dark:text-[#f6f6f8] p-6 focus:ring-1 focus:ring-[#F5A500] focus:border-transparent dark:focus:border-transparent outline-none resize-none font-serif text-lg", placeholder="Your reflections on the discourse...", rows="4") }}
+            </div>
+            <div class="flex justify-end">
+              {{ form.submit(class="px-10 py-4 bg-[#F5A500] text-white dark:text-surface font-headline font-black uppercase tracking-[0.2em] text-sm hover:translate-y-[-2px] hover:shadow-[0_8px_16px_-4px_rgba(245,165,0,0.3)] transition-all duration-300 cursor-pointer") }}
+            </div>
+          </form>
+        </div>
+
+        <!-- Comment List -->
+        <div class="space-y-12">
+          {% for comment in comments %}
+          <div class="flex flex-col gap-6 group">
+            <div class="flex gap-6">
+              <div class="flex-shrink-0">
+                <img alt="{{ comment.comment_author.name }}" class="w-12 h-12 rounded-full grayscale group-hover:grayscale-0 transition-all border border-black/10 dark:border-outline-variant/30 bg-white dark:bg-[#0c0e10]" src="{{ comment.comment_author.email | gravatar }}"/>
+              </div>
+              <div class="flex-grow">
+                <div class="flex justify-between items-baseline mb-2">
+                  <h4 class="font-headline font-bold text-[#0f172a] dark:text-[#f6f6f8]">{{ comment.comment_author.name }}</h4>
+                  <span class="text-[10px] font-label font-bold text-[#64748b] dark:text-[#d6d4d3] uppercase tracking-widest">{{ comment.created_at.strftime('%b %d, %Y') }}</span>
+                </div>
+                <p class="text-[#334155] dark:text-[#aaabad] font-serif text-lg leading-relaxed mb-4">
+                  {{ comment.text }}
+                </p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+    </article>
+
+    <!-- Right: Sidebar widgets -->
+    <aside class="col-span-1 lg:col-span-4 space-y-12">
+      <div class="bg-white dark:bg-[#171a1c] p-8 border border-black/5 dark:border-outline-variant/20 shadow-sm dark:shadow-none">
+        <h4 class="text-xs font-label font-black uppercase tracking-[0.3em] text-[#F5A500] mb-6">The Architect</h4>
+        <div class="flex items-center gap-4 mb-6">
+          <img alt="{{ post.author.name }}" class="w-16 h-16 rounded-full grayscale border-2 border-[#F5A500]/20" src="{{ post.author.email | gravatar }}"/>
+          <div>
+            <p class="font-headline font-bold text-xl text-[#0c0e10] dark:text-[#f6f6f8]">{{ post.author.name }}</p>
+            <p class="text-xs text-[#5c5b5b] dark:text-[#d6d4d3] font-label uppercase tracking-widest">Author</p>
+          </div>
+        </div>
+        <p class="text-sm text-[#5c5b5b] dark:text-[#aaabad] font-serif leading-relaxed mb-8">
+          Exploring the intersection of technology and design. Focusing on reducing digital friction through structural honesty.
+        </p>
+      </div>
+    </aside>
+  </section>
+</main>
+{% endblock %}

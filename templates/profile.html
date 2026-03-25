@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.name }} | BlogPy Profile{% endblock %}
+
+{% block body_class %}bg-[#FFFFFF] dark:bg-[#0c0e10] text-[#1E293B] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-white dark:selection:text-black min-h-screen{% endblock %}
+
+{% block content %}
+<main class="pt-24 max-w-[1440px] mx-auto px-6 profile-grid gap-12">
+  <!-- Left Sidebar: Identity & Stats -->
+  <aside class="flex flex-col gap-8 lg:sticky lg:top-24 h-fit">
+    <!-- User Identity Section -->
+    <div class="profile-card flex flex-col items-start gap-6 p-8 rounded-2xl">
+      <div class="relative group">
+        <div class="absolute -inset-1 bg-[#F5A500]/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+        <div class="profile-image-container relative w-48 h-48 rounded-full overflow-hidden p-1">
+          <img alt="{{ user.name }}" class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]" src="{{ user.email | gravatar }}"/>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <h1 class="profile-name font-headline text-4xl font-extrabold tracking-tighter leading-none">{{ user.name }}</h1>
+        <p class="font-mono text-[#F5A500] text-sm tracking-tight font-bold">{{ user.email }}</p>
+      </div>
+      <p class="profile-bio font-body leading-relaxed text-lg italic">
+        "Software architect and design critic. Building the future of digital narrative."
+      </p>
+      <button class="profile-edit-btn w-full py-3 px-6 rounded-lg font-bold uppercase tracking-widest text-xs transition-all duration-300 ease-[cubic-bezier(0.19,1,0.22,1)]">
+        Edit Profile
+      </button>
+      <div class="profile-member-date flex items-center gap-2 text-xs uppercase tracking-widest font-bold">
+        <span class="material-symbols-outlined text-sm">calendar_today</span>
+        Member
+      </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="profile-stats-card p-6 rounded-2xl space-y-4">
+      <div class="flex justify-between items-center group cursor-pointer">
+        <span class="profile-stat-label text-xs uppercase tracking-widest font-bold group-hover:text-[#F5A500] transition-colors">Posts</span>
+        <span class="font-headline text-xl font-bold text-[#F5A500]">{{ user.posts | length }}</span>
+      </div>
+      <div class="profile-stat-divider h-px"></div>
+      <div class="flex justify-between items-center group cursor-pointer">
+        <span class="profile-stat-label text-xs uppercase tracking-widest font-bold group-hover:text-[#F5A500] transition-colors">Comments</span>
+        <span class="font-headline text-xl font-bold text-[#F5A500]">{{ user.comments | length }}</span>
+      </div>
+    </div>
+
+    <!-- Side Navigation (Desktop) -->
+    <div class="hidden md:flex flex-col gap-2 py-4">
+      <div class="profile-sidenav-active flex items-center gap-4 px-4 py-3 rounded-lg mx-2 transition-all duration-200">
+        <span class="material-symbols-outlined">person</span>
+        <span class="font-headline font-semibold tracking-tight">Identity</span>
+      </div>
+      <a class="profile-sidenav-link flex items-center gap-4 px-4 py-3 mx-2 rounded-lg transition-all duration-300 hover:translate-x-1" href="#">
+        <span class="material-symbols-outlined">description</span>
+        <span class="font-headline font-semibold tracking-tight">Dispatches</span>
+      </a>
+      <a class="profile-sidenav-link flex items-center gap-4 px-4 py-3 mx-2 rounded-lg transition-all duration-300 hover:translate-x-1" href="#">
+        <span class="material-symbols-outlined">bookmark</span>
+        <span class="font-headline font-semibold tracking-tight">Bookmarks</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Right Content Area: Tabs & Posts -->
+  <section class="flex flex-col gap-8 pb-24">
+    <!-- Tabbed Navigation -->
+    <div class="profile-tabs flex gap-10 overflow-x-auto no-scrollbar">
+      <button class="profile-tab-active pb-4 font-bold whitespace-nowrap uppercase tracking-widest text-[0.7rem] font-headline">
+        Published Dispatches
+      </button>
+      <button class="profile-tab pb-4 whitespace-nowrap uppercase tracking-widest text-[0.7rem] font-headline font-bold transition-colors">
+        Comments
+      </button>
+    </div>
+
+    <!-- Post List -->
+    <div class="flex flex-col gap-4">
+      {% for post in user.posts %}
+      <!-- List Item -->
+      <div class="profile-post-item group flex items-center gap-6 py-5 px-4 rounded-xl transition-all duration-300">
+        <div class="flex-1 min-w-0 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-[0.6rem] font-black uppercase tracking-widest text-[#F5A500]">Article</span>
+            <span class="profile-post-meta text-[0.6rem] font-bold uppercase tracking-widest">• {{ post.date }}</span>
+          </div>
+          <a href="{{ url_for('show_post', post_id=post.id) }}">
+            <h3 class="profile-post-title text-xl font-bold tracking-tight font-headline leading-tight truncate group-hover:text-[#F5A500] transition-colors">{{ post.title }}</h3>
+          </a>
+          <p class="text-sm text-[#5c5b5b] dark:text-[#aaabad] mt-1 truncate">{{ post.subtitle }}</p>
+        </div>
+        <div class="flex items-center gap-2">
+          {% if current_user.is_admin %}
+          <a href="{{ url_for('edit_post', post_id=post.id) }}" class="profile-action-btn p-2 transition-colors">
+            <span class="material-symbols-outlined text-lg">edit</span>
+          </a>
+          <a href="{{ url_for('delete_post', post_id=post.id) }}" class="profile-action-btn-delete p-2 transition-colors">
+            <span class="material-symbols-outlined text-lg">delete</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+
+      {% if user.posts | length == 0 %}
+      <div class="text-center py-12">
+        <span class="material-symbols-outlined text-6xl text-[#F5A500]/30 mb-4">article</span>
+        <p class="text-[#5c5b5b] dark:text-[#aaabad]">No posts yet</p>
+      </div>
+      {% endif %}
+
+      <!-- Add New Action -->
+      {% if current_user.is_admin %}
+      <a href="{{ url_for('add_new_post') }}" class="profile-add-btn mt-8 border-2 border-dashed rounded-xl p-6 flex items-center justify-center gap-4 group transition-all duration-300">
+        <span class="profile-add-icon material-symbols-outlined transition-colors">add</span>
+        <span class="profile-add-text text-xs uppercase font-bold tracking-[0.2em] transition-colors">Create New Dispatch</span>
+      </a>
+      {% endif %}
+    </div>
+  </section>
+</main>
+
+<!-- Floating Action Button -->
+{% if current_user.is_admin %}
+<a href="{{ url_for('add_new_post') }}" class="profile-fab fixed bottom-8 right-8 w-16 h-16 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-50">
+  <span class="material-symbols-outlined text-3xl font-bold">add</span>
+</a>
+{% endif %}
+
+<!-- Bottom Navigation for Mobile -->
+<div class="profile-mobile-nav md:hidden fixed bottom-0 w-full z-50">
+  <div class="flex justify-around items-center py-4">
+    <div class="flex flex-col items-center text-[#F5A500]">
+      <span class="material-symbols-outlined">description</span>
+      <span class="text-[0.6rem] uppercase tracking-tighter font-bold">Dispatches</span>
+    </div>
+    <div class="profile-mobile-nav-item flex flex-col items-center">
+      <span class="material-symbols-outlined">bookmark</span>
+      <span class="text-[0.6rem] uppercase tracking-tighter font-bold">Saved</span>
+    </div>
+    <div class="profile-mobile-nav-item flex flex-col items-center">
+      <span class="material-symbols-outlined">person</span>
+      <span class="text-[0.6rem] uppercase tracking-tighter font-bold">Profile</span>
+    </div>
+  </div>
+</div>
+{% endblock %}

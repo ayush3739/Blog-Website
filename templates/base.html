@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{% block title %}BlogPy | The Editorial Agency{% endblock %}</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#F5A500",
+          "primary-fixed": "#F5A500",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#392700"
+        },
+        fontFamily: {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% block extra_head %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}bg-[#f6f6f8] dark:bg-[#0a0a0b] text-[#2d2f31] dark:text-[#f0f0f2] font-body antialiased selection:bg-primary selection:text-on-primary{% endblock %}">
+
+{% include 'partials/header.html' %}
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4">
+      {% for category, message in messages %}
+        <div class="flash-message mb-2 p-4 rounded-lg shadow-lg {% if category == 'error' %}bg-red-500 text-white{% elif category == 'success' %}bg-green-500 text-white{% else %}bg-[#F5A500] text-[#392700]{% endif %}">
+          <div class="flex items-center justify-between">
+            <span class="font-medium">{{ message }}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 focus:outline-none">
+              <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+{% include 'partials/footer.html' %}
+
+<!-- ══ SCRIPTS ══ -->
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

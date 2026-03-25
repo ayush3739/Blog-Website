@@ -1,112 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>BlogPy | The Editorial Agency</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          /* ── Light theme tokens ── */
-          "outline-variant": "var(--color-outline-variant)",
-          "inverse-surface": "#0c0e10",
-          "inverse-on-surface": "#9c9d9f",
-          "primary-dim": "#a36e00",
-          "on-secondary-fixed-variant": "#5c5b5b",
-          "background": "var(--color-background)",
-          "primary-fixed": "#F5A500",
-          "inverse-primary": "#F5A500",
-          "on-surface": "var(--color-on-surface)",
-          "primary-container": "#F5A500",
-          "surface-dim": "#d2d4d8",
-          "tertiary-container": "#d5f976",
-          "surface-tint": "#b87c00",
-          "error": "#b02500",
-          "outline": "var(--color-outline)",
-          "on-tertiary": "#e0ff8c",
-          "on-error-container": "#520c00",
-          "tertiary-dim": "#425700",
-          "tertiary": "#4d6300",
-          "secondary-fixed-dim": "#d6d4d3",
-          "surface-container-low": "var(--color-surface-container-low)",
-          "on-tertiary-fixed-variant": "#516900",
-          "tertiary-fixed-dim": "#c8ea69",
-          "secondary-dim": "#504f4f",
-          "primary": "#f5a500",
-          "on-tertiary-container": "#495e00",
-          "secondary-container": "#e5e2e1",
-          "on-primary-fixed-variant": "#926300",
-          "surface": "var(--color-surface)",
-          "surface-bright": "var(--color-surface)",
-          "secondary": "var(--color-secondary)",
-          "surface-container-highest": "var(--color-surface-container-highest)",
-          "on-secondary": "#f5f2f1",
-          "tertiary-fixed": "#d5f976",
-          "surface-container-lowest": "var(--color-surface-container-lowest)",
-          "on-tertiary-fixed": "#394b00",
-          "secondary-fixed": "#e5e2e1",
-          "on-secondary-container": "#525151",
-          "on-error": "#ffefec",
-          "error-container": "#f95630",
-          "on-background": "var(--color-on-surface)",
-          "on-primary-fixed": "#402b00",
-          "on-surface-variant": "var(--color-on-surface-variant)",
-          "surface-container-high": "var(--color-surface-container-high)",
-          "surface-variant": "var(--color-surface-variant)",
-          "on-primary-container": "#4d3400",
-          "on-primary": "#fff2ce",
-          "surface-container": "#e7e8ea",
-          "on-secondary-fixed": "#403f3f",
-          "error-dim": "#b92902",
-          "primary-fixed-dim": "#e09700"
-        },
-        fontFamily: {
-          "headline": ["Manrope"],
-          "body": ["Inter"],
-          "label": ["Inter"]
-        },
-        borderRadius: {
-          "DEFAULT": "0.125rem",
-          "lg": "0.25rem",
-          "xl": "0.5rem",
-          "full": "0.75rem"
-        },
-      },
-    },
-  }
-</script>
-<link rel="stylesheet" href="../static/css/styles.css">
-</head>
+{% extends 'base.html' %}
 
-<body class="bg-[#f6f6f8] dark:bg-[#0a0a0b] text-[#2d2f31] dark:text-[#f0f0f2] font-body antialiased selection:bg-primary selection:text-on-primary dark:selection:text-on-primary">
+{% block title %}BlogPy | The Editorial Agency{% endblock %}
 
-<!-- ══ NAVIGATION ══ -->
-<nav id="main-nav" class="fixed top-0 w-full z-50">
-  <div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
-    <div class="flex items-center gap-8">
-      <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="#">Blog<span class="text-[#F5A500]">Py</span></a>
-      <div class="hidden md:flex gap-6 items-center">
-        <a class="nav-link-active font-headline tracking-tight font-bold" href="#">Home</a>
-        <a class="nav-link font-headline tracking-tight font-bold" href="post.html">Posts</a>
-        <a class="nav-link font-headline tracking-tight font-bold" href="#">About</a>
-        <a class="nav-link font-headline tracking-tight font-bold" href="#">Contact</a>
-      </div>
-    </div>
-    <div class="flex items-center gap-4">
-      <span id="theme-toggle" class="material-symbols-outlined nav-icon snap-ooze transition-all" title="Toggle theme">dark_mode</span>
-      <span class="material-symbols-outlined nav-icon cursor-pointer snap-ooze transition-all">search</span>
-      <button class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">Login</button>
-      <button class="bg-[#F5A500] text-[#402b00] px-6 py-2 font-bold snap-ooze scale-95 active:scale-100 transition-transform hover:brightness-105">Register</button>
-    </div>
-  </div>
-</nav>
-
+{% block content %}
 <main class="pt-32">
 
   <!-- ══ HERO ══ -->
@@ -138,9 +34,6 @@
           <div class="absolute bottom-6 left-6 right-6">
             <p class="text-xs font-bold uppercase tracking-tighter accent-color mb-1">Featured Tech</p>
             <p class="font-headline font-bold text-lg leading-tight" style="color:var(--hero-h1-color)">Hardware Acceleration in CSS Engine Architecture</p>
-            <button aria-label="Share article" class="absolute right-0 bottom-0 ultra-clean-btn focus:outline-none">
-              <span class="material-symbols-outlined text-[20px]">share</span>
-            </button>
           </div>
         </div>
       </div>
@@ -161,60 +54,33 @@
           View Archive <span class="material-symbols-outlined text-lg accent-color group-hover:translate-x-1 transition-transform">arrow_forward</span>
         </a>
       </div>
+
+      <!-- Dynamic posts from database -->
+      {% if all_posts.items %}
       <div class="flex flex-col gap-12">
-
-        <!-- Item 01 -->
-        <div class="trending-item trending-item-border group flex items-start gap-8 md:gap-16 pb-12 cursor-pointer">
-          <div class="trending-number text-6xl md:text-8xl font-headline font-black transition-colors">01</div>
+        {% for post in all_posts.items[:3] %}
+        <a href="{{ url_for('show_post', post_id=post.id) }}" class="trending-item {% if not loop.last %}trending-item-border{% endif %} group flex items-start gap-8 md:gap-16 pb-12 cursor-pointer">
+          <div class="trending-number text-6xl md:text-8xl font-headline font-black transition-colors">{{ '%02d' % loop.index }}</div>
           <div class="flex-1">
             <div class="flex items-center gap-3 mb-3">
-              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] accent-color">Culture</span>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] accent-color">Article</span>
               <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
-              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">8 Hours Ago</span>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">{{ post.date }}</span>
             </div>
-            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 transition-colors" style="color:var(--color-on-surface)">Why Your Design System Needs a Soul</h3>
-            <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Most design systems focus on buttons and tokens, but they miss the narrative. Exploring the psychology of editorial UI.</p>
+            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 transition-colors" style="color:var(--color-on-surface)">{{ post.title }}</h3>
+            <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">{{ post.subtitle }}</p>
           </div>
           <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full circle-btn" style="border:1px solid var(--color-outline-variant)">
             <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
           </div>
-        </div>
-
-        <!-- Item 02 -->
-        <div class="trending-item trending-item-border group flex items-start gap-8 md:gap-16 pb-12 cursor-pointer">
-          <div class="trending-number text-6xl md:text-8xl font-headline font-black transition-colors">02</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-3 mb-3">
-              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] accent-color">Tutorial</span>
-              <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
-              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">Yesterday</span>
-            </div>
-            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 transition-colors" style="color:var(--color-on-surface)">A Deep Dive into Rust's Memory Management</h3>
-            <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Understanding the borrow checker without losing your mind. A visual guide for JavaScript developers.</p>
-          </div>
-          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full circle-btn" style="border:1px solid var(--color-outline-variant)">
-            <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
-          </div>
-        </div>
-
-        <!-- Item 03 -->
-        <div class="trending-item group flex items-start gap-8 md:gap-16 pb-12 cursor-pointer">
-          <div class="trending-number text-6xl md:text-8xl font-headline font-black transition-colors">03</div>
-          <div class="flex-1">
-            <div class="flex items-center gap-3 mb-3">
-              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] accent-color">Infrastructure</span>
-              <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
-              <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">2 Days Ago</span>
-            </div>
-            <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 transition-colors" style="color:var(--color-on-surface)">Serverless is Dead, Long Live the Edge</h3>
-            <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">Moving compute closer to the user is no longer a luxury. It's the standard for 2024 performance metrics.</p>
-          </div>
-          <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full circle-btn" style="border:1px solid var(--color-outline-variant)">
-            <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
-          </div>
-        </div>
-
+        </a>
+        {% endfor %}
       </div>
+      {% else %}
+      <div class="text-center py-12">
+        <p class="text-lg" style="color:var(--color-on-surface-variant)">No posts yet. Check back soon!</p>
+      </div>
+      {% endif %}
     </div>
   </section>
 
@@ -231,133 +97,47 @@
         </div>
       </div>
 
-      <!-- Primary Grid Row -->
+      <!-- Dynamic posts grid -->
+      {% if all_posts.items %}
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-        <!-- Featured Post (2 cols) -->
-        <div class="card-base md:col-span-2 p-10 rounded-xl group snap-ooze relative transition-all">
-          <div class="flex flex-col h-full">
-            <div class="mb-8 overflow-hidden rounded-lg aspect-video relative">
-              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale hover:grayscale-0"
-                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY6bBD6JzskSiLK36cFccxzALnnon5cElHvUzX4YZ2PSEhQV7hzNJucKkUeX6pgNitaiulMH6fFyEerLt5Di4bN4Elj8jEY4eOdRX9tQfJ87hNinvtuJ1ZTRZ0Wh2AdcpsiCTHBVaOY0z-DgWitFUF445vtyk2eZ3QnjUiw7x6HNikZ86fO3nUjifxQ4awcC3MOlaCAHEiNpJoi_11U0FkrCw0wkSYAI5iKh5Bv2hdX3aaIpzMBlvlYWll8YZzOLd7Ro11lPVDR1I"
-                   alt="High contrast code on a large monitor"/>
-              <div class="absolute top-3 right-3 flex gap-2">
-                <button aria-label="Share article" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm">
-                  <span class="material-symbols-outlined text-lg">share</span>
-                </button>
-              </div>
-            </div>
-            <div class="mt-auto">
-              <span class="card-tag inline-block px-2 py-0.5 rounded-sm text-[0.65rem] font-bold mb-4">ENGINEERING</span>
-              <h3 class="text-3xl md:text-4xl font-headline font-extrabold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">The Alchemy of Micro-Interactions: Elevating the Web Beyond Utility.</h3>
-              <p style="color:var(--color-on-surface-variant)" class="line-clamp-2 mb-6">Why the smallest details in your UI are actually the biggest differentiators in luxury digital products. Exploring the physics of motion and user delight.</p>
-              <div class="card-divide flex items-center gap-4 pt-6">
-                <div class="card-author-avatar w-10 h-10 rounded-full overflow-hidden">
-                  <img class="w-full h-full object-cover"
-                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrgzsxWLXXKXnzvqg0OOPKSESxTHgVnKJzO6OzlQHNUIsWRZEJjBBARdAmTg6LqL_K5J6xmaoZbjahAud3Hkkao9KTf2rFkwi_eT619sXhrvD7tWSzrfrmIHNJo_NjXeA_n1buZkVPcWKJuqKx9GUPjz6BO_A4h7WaEDXRNg2-ntMZ-LsCuf0YHsTTo-Mth0MIQzXNjeXlJqWilD6sy9Q_ETUV-Nh4M5NT67LwCCaQYOwjhmuww1cRYagRBhmA56W5TgHM9x2lRF0"
-                       alt="Portrait of the lead editorial designer"/>
-                </div>
-                <div>
-                  <p class="text-sm font-bold" style="color:var(--color-on-surface)">Arthur Vance</p>
-                  <p class="text-[0.7rem] uppercase tracking-widest" style="color:var(--color-on-surface-variant)">Chief Editor • 8 Min Read</p>
-                </div>
-              </div>
+        {% for post in all_posts.items %}
+        <a href="{{ url_for('show_post', post_id=post.id) }}" class="card-base rounded-xl overflow-hidden group transition-all">
+          <div class="aspect-square overflow-hidden relative" style="background-color:var(--color-surface-container-high)">
+            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
+                 src="{{ post.img_url }}"
+                 alt="{{ post.title }}"/>
+            <div class="absolute top-3 right-3 flex gap-2">
+              <span class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm">
+                <span class="material-symbols-outlined text-lg">north_east</span>
+              </span>
             </div>
           </div>
-        </div>
-
-        <!-- Sidebar Cards -->
-        <div class="flex flex-col gap-8">
-          <div class="card-base p-8 rounded-xl group snap-ooze flex flex-col justify-between h-full relative transition-all">
-            <div>
-              <span class="card-tag inline-block px-2 py-0.5 rounded-sm text-[0.65rem] font-bold mb-4">DESIGN SYSTEM</span>
-              <h3 class="text-xl font-headline font-bold mb-3 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">Why Borders are the Enemy of Modern Design.</h3>
-              <p class="text-sm leading-relaxed" style="color:var(--color-on-surface-variant)">Defining space through tonal hierarchy instead of literal lines for a more breathable user experience.</p>
-            </div>
-            <div class="mt-6 flex justify-between items-center">
-              <span class="text-[0.6rem] font-black tracking-widest uppercase" style="color:var(--color-on-surface)">June 12, 2024</span>
-              <button class="ultra-clean-btn"><span class="material-symbols-outlined text-[20px] accent-color">north_east</span></button>
-            </div>
-            <button aria-label="Share article" class="absolute top-6 right-6 ultra-clean-btn focus:outline-none">
-              <span class="material-symbols-outlined text-[20px]">share</span>
-            </button>
+          <div class="p-8">
+            <span class="text-[0.6rem] font-black tracking-widest uppercase mb-2 block" style="color:var(--color-on-surface-variant)">{{ post.date }}</span>
+            <h4 class="text-lg font-headline font-bold mb-4 leading-tight" style="color:var(--color-on-surface)">{{ post.title }}</h4>
+            <span class="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all accent-color">Read Story <span class="material-symbols-outlined text-sm">trending_flat</span></span>
           </div>
-
-          <div class="card-alt p-8 rounded-xl group snap-ooze flex flex-col justify-between h-full relative transition-all">
-            <div>
-              <span class="card-tag inline-block px-2 py-0.5 rounded-sm text-[0.65rem] font-bold mb-4">TRENDING</span>
-              <h3 class="text-xl font-headline font-bold mb-3 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">The Neo-Brutalist Resurgence in Fintech.</h3>
-              <p class="text-sm leading-relaxed" style="color:var(--color-on-surface-variant)">How bold typography and high-contrast palettes are winning trust in a world of pastel gradients.</p>
-            </div>
-            <div class="mt-6 flex justify-between items-center">
-              <span class="text-[0.6rem] font-black tracking-widest uppercase" style="color:var(--color-on-surface-variant)">May 30, 2024</span>
-              <button class="ultra-clean-btn"><span class="material-symbols-outlined text-[20px] accent-color">north_east</span></button>
-            </div>
-            <button aria-label="Share article" class="absolute top-6 right-6 ultra-clean-btn focus:outline-none">
-              <span class="material-symbols-outlined text-[20px]">share</span>
-            </button>
-          </div>
-        </div>
+        </a>
+        {% endfor %}
       </div>
 
-      <!-- Three Column Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-
-        <!-- Card 1 -->
-        <div class="card-base rounded-xl overflow-hidden group transition-all">
-          <div class="aspect-square overflow-hidden relative" style="background-color:var(--color-surface-container-high)">
-            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
-                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAttx-nJXa3txxf4pNoK0MRlFANk_Y9vbD6MnvlzfQUSNVOYPfuEi0SNbJRJwFwtV7Byxip-yVUJsWAr0_zyhUN7n1BE9XORPXmXKfWnieGnAdo0kFS2PvbIKeyrqVvlSSZ674QKusLgf8fJ5_BOFWQIeFw3jT9PJeo_njPhFwsnal_rNqt19z00-BO06LYc7wwxJB9Mvrgstd27BMYQgks_0XMiEjNGTiHxTRBSn4ft9nN6Lx16lr62ir1kPMASRZtPpapp_gxAvE"
-                 alt="Minimal laptop on desk"/>
-            <div class="absolute top-3 right-3 flex gap-2">
-              <button aria-label="Share" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">share</span></button>
-              <button aria-label="Open" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">north_east</span></button>
-            </div>
-          </div>
-          <div class="p-8">
-            <span class="text-[0.6rem] font-black tracking-widest uppercase mb-2 block" style="color:var(--color-on-surface-variant)">Case Study</span>
-            <h4 class="text-lg font-headline font-bold mb-4 leading-tight" style="color:var(--color-on-surface)">Revitalizing the legacy newsroom interface for the Gen Z demographic.</h4>
-            <a class="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all accent-color" href="#">Read Story <span class="material-symbols-outlined text-sm">trending_flat</span></a>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card-base rounded-xl overflow-hidden group transition-all">
-          <div class="aspect-square overflow-hidden relative" style="background-color:var(--color-surface-container-high)">
-            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
-                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzA12NXtMBGuU1p22csQ9iMGkCLn9A_2GGnbdB3dNw1zWvgyRv1LCI1b1NEmme3YUR7hQA0nQ3SX11BK1RXLbfzlK1g1NIfnfUrSnb-U1lTR51hobElNACLVOHJ9x6YeW6V4RZpbXYLmWC3tkGHJHjAq3k-AvmLOJ-f-H0dp52vrc_T6Mmy-H-2mzknoikKzUgDZeAz4j-CqWp4Y2tPoTPiHlIs6sg0EWyyXbWpg5CFL6elsZkMUwALxrkeC0acEdsBv-xyX2ndMs"
-                 alt="Mechanical keyboard close up"/>
-            <div class="absolute top-3 right-3 flex gap-2">
-              <button aria-label="Share" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">share</span></button>
-              <button aria-label="Open" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">north_east</span></button>
-            </div>
-          </div>
-          <div class="p-8">
-            <span class="text-[0.6rem] font-black tracking-widest uppercase mb-2 block" style="color:var(--color-on-surface-variant)">Opinion</span>
-            <h4 class="text-lg font-headline font-bold mb-4 leading-tight" style="color:var(--color-on-surface)">Wait, is React finally becoming a "Legacy" framework?</h4>
-            <a class="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all accent-color" href="#">Read Story <span class="material-symbols-outlined text-sm">trending_flat</span></a>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card-base rounded-xl overflow-hidden group transition-all">
-          <div class="aspect-square overflow-hidden relative" style="background-color:var(--color-surface-container-high)">
-            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
-                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYyVLLlooZ6S-WgPjT5kWiMQnjwv-yzffgmwqCQFF_WvRinyAWCgotyoVHvNKXoLdev0WLA9Wyq5Tn5BKM7H6HqWotP16oT1BYM2hrS8dvbeRjIj3c0xnGa1cMls2kixUwfXqUkOc8Dsq8mHhDiEtxo3YYX0Gk00KbUOHxLXK1Ei9TQ-TJYOxwnmY7MS0aMHJSCQ2EdaluX7rN10eW7yRc6_bm96xprkHwsHolpaQXDhIon6-LW-QySOxrBPNYVwv-no7CvoXaVCk"
-                 alt="Neon lines representing fiber optics"/>
-            <div class="absolute top-3 right-3 flex gap-2">
-              <button aria-label="Share" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">share</span></button>
-              <button aria-label="Open" class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:text-[#F5A500] transition-all shadow-sm"><span class="material-symbols-outlined text-lg">north_east</span></button>
-            </div>
-          </div>
-          <div class="p-8">
-            <span class="text-[0.6rem] font-black tracking-widest uppercase mb-2 block" style="color:var(--color-on-surface-variant)">Analysis</span>
-            <h4 class="text-lg font-headline font-bold mb-4 leading-tight" style="color:var(--color-on-surface)">Quantum Computing and the end of current Web Encryption.</h4>
-            <a class="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all accent-color" href="#">Read Story <span class="material-symbols-outlined text-sm">trending_flat</span></a>
-          </div>
-        </div>
-
+      <!-- Pagination -->
+      {% if all_posts.has_prev or all_posts.has_next %}
+      <div class="flex justify-center items-center gap-4 mt-12">
+        {% if all_posts.has_prev %}
+        <a href="{{ url_for('get_all_posts', page=all_posts.prev_num) }}" class="px-6 py-3 font-bold border transition-all hover:bg-[#F5A500] hover:text-[#392700] hover:border-[#F5A500]" style="color:var(--color-on-surface);border-color:var(--color-outline-variant)">
+          <span class="material-symbols-outlined text-sm">arrow_back</span> Previous
+        </a>
+        {% endif %}
+        <span class="text-sm font-bold" style="color:var(--color-on-surface-variant)">Page {{ all_posts.page }} of {{ all_posts.pages }}</span>
+        {% if all_posts.has_next %}
+        <a href="{{ url_for('get_all_posts', page=all_posts.next_num) }}" class="px-6 py-3 font-bold border transition-all hover:bg-[#F5A500] hover:text-[#392700] hover:border-[#F5A500]" style="color:var(--color-on-surface);border-color:var(--color-outline-variant)">
+          Next <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+        {% endif %}
       </div>
+      {% endif %}
+      {% endif %}
     </div>
   </section>
 
@@ -383,63 +163,4 @@
   </section>
 
 </main>
-
-<!-- ══ FOOTER ══ -->
-<footer id="main-footer" class="w-full pt-20 pb-12 px-8">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-start gap-12 w-full">
-      <div class="flex flex-col items-start max-w-xs">
-        <span class="footer-logo text-2xl font-black font-headline mb-4 tracking-tighter">Blog<span class="text-[#F5A500]">Py</span></span>
-        <p class="footer-text text-sm leading-relaxed">
-          © 2024 The Editorial Agency.<br/>Architectural precision in web development and design strategy.
-        </p>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-12 md:gap-24">
-        <div class="flex flex-col gap-4">
-          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Resources</span>
-          <a class="footer-link font-inter text-sm" href="#">Privacy Policy</a>
-          <a class="footer-link font-inter text-sm" href="#">Terms of Service</a>
-          <a class="footer-link font-inter text-sm" href="#">RSS Feed</a>
-        </div>
-        <div class="flex flex-col gap-4">
-          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Follow Us</span>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105 transform" href="#">
-            <span class="material-symbols-outlined text-xl accent-color">brand_awareness</span>
-            <span class="font-medium">Twitter</span>
-          </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105 transform" href="#">
-            <span class="material-symbols-outlined text-xl accent-color">code</span>
-            <span class="font-medium">GitHub</span>
-          </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105 transform" href="#">
-            <span class="material-symbols-outlined text-xl accent-color">work</span>
-            <span class="font-medium">LinkedIn</span>
-          </a>
-          <a class="footer-link flex items-center gap-2 text-sm transition-all duration-300 hover:scale-105 transform" href="#">
-            <span class="material-symbols-outlined text-xl accent-color">photo_camera</span>
-            <span class="font-medium">Instagram</span>
-          </a>
-        </div>
-        <div class="flex flex-col gap-4">
-          <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Utility</span>
-          <div class="flex items-center gap-4">
-            <div class="footer-lang-btn w-10 h-10 rounded-full flex items-center justify-center cursor-pointer">
-              <span class="material-symbols-outlined text-lg">language</span>
-            </div>
-            <button aria-label="Share website" class="ultra-clean-btn focus:outline-none">
-              <span class="material-symbols-outlined text-[20px]">share</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-divider mt-16 pt-8 text-center">
-      <p class="footer-tagline text-[0.7rem] uppercase tracking-[0.2em] font-bold">Signal over Noise • Excellence over Utility</p>
-    </div>
-  </div>
-</footer>
-
-<!-- ══ SCRIPTS ══ -->
-<script src="../static/js/scripts.js"></script>
-</body>
-</html>
+{% endblock %}

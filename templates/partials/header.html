@@ -1,0 +1,28 @@
+<!-- ══ NAVIGATION ══ -->
+<nav id="main-nav" class="fixed top-0 w-full z-50">
+  <div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
+    <div class="flex items-center gap-8">
+      <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="{{ url_for('get_all_posts') }}">Blog<span class="text-[#F5A500]">Py</span></a>
+      <div class="hidden md:flex gap-6 items-center">
+        <a class="{% if request.endpoint == 'get_all_posts' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('get_all_posts') }}">Home</a>
+        <a class="{% if request.endpoint == 'show_post' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('get_all_posts') }}">Posts</a>
+        <a class="{% if request.endpoint == 'about' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('about') }}">About</a>
+        <a class="{% if request.endpoint == 'contact' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('contact') }}">Contact</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="theme-toggle" class="material-symbols-outlined nav-icon snap-ooze transition-all cursor-pointer" title="Toggle theme">dark_mode</span>
+      <span class="material-symbols-outlined nav-icon cursor-pointer snap-ooze transition-all">search</span>
+      {% if logged_in %}
+        {% if current_user.is_admin %}
+        <a href="{{ url_for('add_new_post') }}" class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">New Post</a>
+        {% endif %}
+        <a href="{{ url_for('profile') }}" class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">{{ current_user.name }}</a>
+        <a href="{{ url_for('logout') }}" class="bg-[#F5A500] text-[#402b00] px-6 py-2 font-bold snap-ooze scale-95 active:scale-100 transition-transform hover:brightness-105">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">Login</a>
+        <a href="{{ url_for('register') }}" class="bg-[#F5A500] text-[#402b00] px-6 py-2 font-bold snap-ooze scale-95 active:scale-100 transition-transform hover:brightness-105">Register</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

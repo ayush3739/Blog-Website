@@ -262,6 +262,10 @@ def add_new_post():
         return redirect(url_for("get_all_posts"))
     return render_template("make-post.html", form=form, logged_in=current_user.is_authenticated)
 
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html',logged_in=current_user.is_authenticated, user=current_user)
 
 @app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
 @admin_only
