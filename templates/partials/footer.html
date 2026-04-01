@@ -37,7 +37,7 @@
           <span class="footer-label text-[0.6rem] font-black uppercase tracking-widest">Utility</span>
           <div class="flex items-center gap-4">
           
-            <button aria-label="Share website" class="ultra-clean-btn focus:outline-none">
+            <button aria-label="Share website" class="ultra-clean-btn focus:outline-none" id="footer-share-btn" type="button">
               <span class="material-symbols-outlined text-[20px]">share</span>
             </button>
           </div>
@@ -49,3 +49,28 @@
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const footerShareBtn = document.getElementById('footer-share-btn');
+  if (!footerShareBtn) return;
+
+  footerShareBtn.addEventListener('click', async function() {
+    const shareUrl = 'https://blogpy.vercel.app/';
+    const shareTitle = 'BlogPy | The Tech Blog';
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: shareTitle, url: shareUrl });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(shareUrl);
+        alert('Website link copied to clipboard.');
+      } else {
+        window.prompt('Copy this website link:', shareUrl);
+      }
+    } catch (err) {
+      // Ignore aborts when user closes native share sheet.
+    }
+  });
+});
+</script>

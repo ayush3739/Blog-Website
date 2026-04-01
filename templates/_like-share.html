@@ -12,9 +12,11 @@
 </form>
 
 <!-- Share -->
+{% set post_share_url = 'https://blogpy.vercel.app' ~ url_for('show_post', post_id=post.id) %}
 <button type="button"
-        onclick="navigator.share ? navigator.share({title:document.title,url:location.href}) : (navigator.clipboard.writeText(location.href))"
-        class="group flex flex-col items-center gap-2">
+  data-share-url="{{ post_share_url }}"
+  data-share-title="{{ post.title }}"
+  class="post-share-btn group flex flex-col items-center gap-2">
   <div class="w-12 h-12 flex items-center justify-center bg-[#f4f4f4] dark:bg-[#111415] border border-black/5 dark:border-none rounded-lg group-hover:bg-[#F5A500] group-hover:text-white transition-all duration-300">
     <span class="material-symbols-outlined">share</span>
   </div>
@@ -36,6 +38,27 @@
 <script>
 // Like AJAX
 document.addEventListener('DOMContentLoaded', function() {
+  const shareBtn = document.querySelector('.post-share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async function() {
+      const shareUrl = this.dataset.shareUrl || window.location.href;
+      const shareTitle = this.dataset.shareTitle || document.title;
+
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: shareTitle, url: shareUrl });
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(shareUrl);
+          alert('Post link copied to clipboard.');
+        } else {
+          window.prompt('Copy this post link:', shareUrl);
+        }
+      } catch (err) {
+        // Ignore aborts when user closes native share sheet.
+      }
+    });
+  }
+
   const likeForm = document.querySelector('.like-form');
   if (likeForm) {
     likeForm.addEventListener('submit', function(e) {

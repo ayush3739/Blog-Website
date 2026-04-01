@@ -133,7 +133,12 @@
           <div class="relative overflow-hidden rounded-xl aspect-[16/9] mb-8">
             <img alt="{{ featured.title }}" class="w-full h-full object-cover  transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" src="{{ featured.img_url }}"/>
             <div class="absolute top-4 right-4 flex gap-2">
-              <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+              <span
+                class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm cursor-pointer index-share-btn"
+                role="button"
+                tabindex="0"
+                data-share-title="{{ featured.title }}"
+                data-share-url="https://blogpy.vercel.app{{ url_for('show_post', post_id=featured.id) }}">share</span>
               
             </div>
           </div>
@@ -157,7 +162,12 @@
             <div class="relative">
               <span class="inline-block px-2 py-1 border border-[#F5A500]/30 text-[#F5A500] text-[0.6rem] font-bold rounded-sm mb-4">RECENT</span>
               <div class="absolute top-0 right-0 flex gap-2">
-                <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+                <span
+                  class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm cursor-pointer index-share-btn"
+                  role="button"
+                  tabindex="0"
+                  data-share-title="{{ sidebar1.title }}"
+                  data-share-url="https://blogpy.vercel.app{{ url_for('show_post', post_id=sidebar1.id) }}">share</span>
               </div>
               <h3 class="text-xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">{{ sidebar1.title }}</h3>
               <p class="text-sm" style="color:var(--color-on-surface-variant)">{{ sidebar1.subtitle }}</p>
@@ -174,7 +184,12 @@
             <div class="relative">
               <span class="inline-block px-2 py-1 border border-[#F5A500]/30 text-[#F5A500] text-[0.6rem] font-bold rounded-sm mb-4">RECENT</span>
               <div class="absolute top-0 right-0 flex gap-2">
-                <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+                <span
+                  class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm cursor-pointer index-share-btn"
+                  role="button"
+                  tabindex="0"
+                  data-share-title="{{ sidebar2.title }}"
+                  data-share-url="https://blogpy.vercel.app{{ url_for('show_post', post_id=sidebar2.id) }}">share</span>
               </div>
               <h3 class="text-xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">{{ sidebar2.title }}</h3>
               <p class="text-sm" style="color:var(--color-on-surface-variant)">{{ sidebar2.subtitle }}</p>
@@ -224,4 +239,42 @@
   </section>
 
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const shareNodes = document.querySelectorAll('.index-share-btn');
+
+  const sharePost = async (node) => {
+    const shareUrl = node.dataset.shareUrl || window.location.href;
+    const shareTitle = node.dataset.shareTitle || document.title;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: shareTitle, url: shareUrl });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(shareUrl);
+        alert('Post link copied to clipboard.');
+      } else {
+        window.prompt('Copy this post link:', shareUrl);
+      }
+    } catch (err) {
+      // Ignore aborts when user closes native share sheet.
+    }
+  };
+
+  shareNodes.forEach((node) => {
+    node.addEventListener('click', async function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      await sharePost(node);
+    });
+
+    node.addEventListener('keydown', async function (event) {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      event.stopPropagation();
+      await sharePost(node);
+    });
+  });
+});
+</script>
 {% endblock %}
