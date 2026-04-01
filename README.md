@@ -24,7 +24,7 @@ It includes authentication, post management, comments, likes/bookmarks, profile 
 ### Landing Page Screenshot
 Add your landing-page image at `static/assets/landing-page.png`, then replace this section with:
 
-`![Landing Page](static/assets/landing-page.png)`
+![Landing Page](static/assets/landing-page.png)
 
 ## ✨ Features
 
@@ -80,7 +80,7 @@ Add your landing-page image at `static/assets/landing-page.png`, then replace th
 
 ## 🧱 Tech Stack
 - **Backend:** Flask, SQLAlchemy, Flask-Login, Flask-WTF
-- **Database:** SQLite (local), Postgres-compatible URI support
+- **Database:** SQLite (local), PostgreSQL-compatible URI support
 - **Frontend:** Jinja templates, Bootstrap 5, Tailwind CSS tooling
 - **Editor:** Flask-CKEditor
 - **Security/Quality:** Bleach, Flask-Limiter, CSRF protections
