@@ -21,9 +21,9 @@ BlogPy is a full-stack personal blogging platform built with Flask, SQLAlchemy, 
 ![BlogPy Logo](static/assets/favicon.svg)
 
 ### Landing Page Screenshot
-> Add your landing-page image at `static/assets/landing-page.png` and it will render below.
+Add your landing-page image at `static/assets/landing-page.png` and then add this line under this section:
 
-![Landing Page](static/assets/landing-page.png)
+`![Landing Page](static/assets/landing-page.png)`
 
 ## ✨ Features (Updated)
 
