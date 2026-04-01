@@ -9,7 +9,8 @@
   [![Deployed on Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com)
 </div>
 
-BlogPy is a full-stack personal blogging platform built with Flask, SQLAlchemy, and Bootstrap/Tailwind styling support. It includes authentication, post management, comments, likes/bookmarks, profile management, newsletter subscriptions, OTP-based password reset, and production deployment support.
+BlogPy is a full-stack personal blogging platform built with Flask, SQLAlchemy, and Bootstrap/Tailwind styling support.
+It includes authentication, post management, comments, likes/bookmarks, profile management, newsletter subscriptions, OTP-based password reset, and production deployment support.
 
 ## 🔗 Links
 - Live: https://blogpy.vercel.app
@@ -25,7 +26,7 @@ Add your landing-page image at `static/assets/landing-page.png` and then add thi
 
 `![Landing Page](static/assets/landing-page.png)`
 
-## ✨ Features (Updated)
+## ✨ Features
 
 ### Authentication & User Management
 - User registration and login
@@ -112,7 +113,7 @@ Blog-Website/
    ```bash
    pip install -r requirements.txt
    ```
-3. (Optional frontend tooling)
+3. (Optional) Install frontend tooling:
    ```bash
    npm install
    npm run build:css
