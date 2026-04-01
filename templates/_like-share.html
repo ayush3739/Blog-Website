@@ -49,12 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
       throw new Error('Rate limited');
     }
 
-    if (!res.ok) {
-      throw new Error('Request failed. Please try again.');
+    if (res.redirected || contentType.includes('text/html')) {
+      window.location.href = res.url;
+      throw new Error('Redirecting');
     }
 
-    if (!contentType.includes('application/json')) {
-      throw new Error('Unexpected server response.');
+    if (!res.ok) {
+      throw new Error('Request failed. Please try again.');
     }
 
     return res.json();
