@@ -24,7 +24,7 @@ It includes authentication, post management, comments, likes/bookmarks, profile 
 ### Landing Page Screenshot
 Add your landing-page image at `static/assets/landing-page.png`, then replace this section with:
 
-![Landing Page](static/assets/landing-page.png)
+<!-- ![Landing Page](static/assets/landing-page.png) -->
 
 ## ✨ Features
 
