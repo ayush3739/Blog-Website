@@ -9,6 +9,7 @@ from flask_limiter.util import get_remote_address
 from flask_login import login_user, LoginManager, current_user, logout_user, login_required
 from models import db, BlogPost, User, Like, BookMark, Category, Tag, Comments, post_tags,NewsletterSubs
 from sqlalchemy import or_, update
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 from functools import wraps
 from flask import jsonify
@@ -74,10 +75,12 @@ def load_user(user_id):
 
 
 
-# Neon integration may set POSTGRES_URL, POSTGRES_PRISMA_URL, or DATABASE_URL
+# Neon/Vercel integrations may expose one of several DB URL env vars.
 _sqlite_fallback = f"sqlite:///{_instance_path}/posts.db"
 _db_uri = (
     os.getenv("DB_URI") or
+    os.getenv("NEON_DATABASE_URL") or
+    os.getenv("NEON_POSTGRES_URL") or
     os.getenv("POSTGRES_URL") or
     os.getenv("POSTGRES_PRISMA_URL") or
     os.getenv("DATABASE_URL") or
@@ -108,9 +111,12 @@ load_dotenv(".env")
 
 
 with app.app_context():
-    db.create_all()
-    # Seed categories and tags after tables are created
-    seed_categories_and_tags(app, db, Category, Tag)
+    try:
+        db.create_all()
+        # Seed categories and tags after tables are created
+        seed_categories_and_tags(app, db, Category, Tag)
+    except SQLAlchemyError as e:
+        app.logger.exception("Database initialization failed during startup: %s", e)
 
 
 @app.route('/register',methods=["GET","POST"])
