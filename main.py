@@ -677,6 +677,11 @@ def internal_server_error(e):
 def forbidden(e):
     return render_template("404.html", logged_in=current_user.is_authenticated), 403
 
+
+@app.route('/too-many-requests')
+def too_many_requests_page():
+    return render_template("429.html", logged_in=current_user.is_authenticated), 429
+
 @app.errorhandler(429)
 def ratelimit_handler(e):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':

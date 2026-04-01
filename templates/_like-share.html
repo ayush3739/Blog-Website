@@ -38,20 +38,15 @@
 <script>
 // Like AJAX
 document.addEventListener('DOMContentLoaded', function() {
+  const isLoggedIn = {{ 'true' if logged_in else 'false' }};
+  const rateLimitPageUrl = "{{ url_for('too_many_requests_page') }}";
+
   async function readJsonOrThrow(res) {
     const contentType = res.headers.get('content-type') || '';
 
     if (res.status === 429) {
-      let message = 'Too many requests. Please wait a minute and try again.';
-      if (contentType.includes('application/json')) {
-        try {
-          const data = await res.json();
-          message = data.message || message;
-        } catch (err) {
-          // Keep fallback message.
-        }
-      }
-      throw new Error(message);
+      window.location.href = rateLimitPageUrl;
+      throw new Error('Rate limited');
     }
 
     if (!res.ok) {
@@ -87,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   const likeForm = document.querySelector('.like-form');
-  if (likeForm) {
+  if (likeForm && isLoggedIn) {
     likeForm.addEventListener('submit', function(e) {
       e.preventDefault();
       fetch(this.action, {
@@ -123,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Bookmark AJAX
   const bookmarkForm = document.querySelector('.bookmark-form');
-  if (bookmarkForm) {
+  if (bookmarkForm && isLoggedIn) {
     bookmarkForm.addEventListener('submit', function(e) {
       e.preventDefault();
       fetch(this.action, {
