@@ -1,0 +1,15 @@
+{
+  "name": "blogpy",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tailwind build tooling for BlogPy templates",
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i ./static/css/tailwind.input.css -o ./static/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -c tailwind.config.js -i ./static/css/tailwind.input.css -o ./static/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "tailwindcss": "^3.4.13"
+  }
+}
