@@ -131,7 +131,7 @@
         {% if featured %}
         <a href="{{ url_for('show_post', post_id=featured.id) }}" class="md:col-span-2 bg-[var(--color-background)] p-8 rounded-xl border border-[var(--color-outline-variant)] flex flex-col h-full group transition-all overflow-hidden">
           <div class="relative overflow-hidden rounded-xl aspect-[16/9] mb-8">
-            <img alt="{{ featured.title }}" class="w-full h-full object-cover  transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" src="{% if featured.id == 4 %}{{ url_for('static', filename='assets/js_hero section.png') }}{% else %}{{ featured.img_url }}{% endif %}"/>
+            <img alt="{{ featured.title }}" class="w-full h-full object-cover  transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" src="{% if featured.id == 4 %}https://lh3.googleusercontent.com/aida-public/AB6AXuByapP5zkjgvHPf_zjdbC7577KiSFpKu16vvjpaPs4yx6LdEaBDky7-TBCLH9Q3cKj1Ed45JUk89AdG_GZwnBw-U2nFBE0YKTPTgQcp-qdZk2V1NhFOgX51hFtfNNzij4ledLoZJL-zSIHe8p71EGZLWQ2L-9KlAtMZoEje2N_Izalu9pjt498tOn2F838LK3q2StDRf36eJpIS6oWZCrm8K14tiYJ0z3gZi07ktc_BMR-JXxnmAGzTPGXu9TFY5KQyynKGdxNw9gQ{% else %}{{ featured.img_url }}{% endif %}"/>
             <div class="absolute top-4 right-4 flex gap-2">
               <span
                 class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm cursor-pointer index-share-btn"
