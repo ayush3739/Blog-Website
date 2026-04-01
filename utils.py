@@ -11,6 +11,7 @@ app_password = os.getenv("pass")   # App password for BlogPy email
 _redis_url = (
     os.getenv("REDIS_URL") or
     os.getenv("REDIS_KV_URL") or
+    "redis://localhost:6379/0"
 )
 redis_client = redis.from_url(_redis_url, decode_responses=True)
 
