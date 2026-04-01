@@ -1,0 +1,53 @@
+{% macro render_comment(comment, is_reply=False, post=None, form=None, logged_in=False) %}
+<div class="relative group {% if is_reply %}ml-12 pl-6{% endif %}">
+  {% if not is_reply %}
+    <div class="thread-line-vertical"></div>
+  {% else %}
+    <div class="thread-line-horizontal"></div>
+  {% endif %}
+
+  <div class="flex gap-6 relative z-10 mb-8">
+    <div class="flex-shrink-0">
+       <img alt="{{ comment.comment_author.name }}"
+         class="w-12 h-12 rounded-full border border-[#46484a]/30 bg-[#0c0e10]"
+         src="{{ comment.comment_author.email | gravatar }}"/>
+    </div>
+    <div class="flex-grow">
+      <div class="flex justify-between items-baseline mb-2">
+        <h4 class="font-headline font-bold {% if is_reply %}text-sm{% endif %} text-[#0c0e10] dark:text-[#f6f6f8]">
+          {{ comment.comment_author.name }}
+        </h4>
+        <span class="text-[10px] font-label font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">
+          {{ comment.created_at.strftime('%b %d, %Y') }}
+        </span>
+      </div>
+
+      <div class="text-[#2d2f31] dark:text-[#aaabad] font-serif {% if is_reply %}text-base{% else %}text-lg{% endif %} leading-relaxed mb-4 comment-text">
+        {{ comment.text  }}
+      </div>
+
+      {% if logged_in %}
+      <button type="button"
+              class="reply-btn text-[10px] font-headline font-black uppercase tracking-[0.2em] text-[#F5A500] hover:text-[#FFC107] transition-all flex items-center gap-1 group/btn"
+              onclick="toggleReplyForm({{ comment.id }})">
+        Reply
+        <span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">reply</span>
+      </button>
+      <!-- Inline reply form (hidden by default) -->
+      <form id="reply-form-{{ comment.id }}" method="POST" action="{{ url_for('show_post', post_id=post.id) }}" class="space-y-4 mt-4 hidden">
+        {{ form.csrf_token }}
+        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+        <textarea name="comment" maxlength="300" rows="2" required class="w-full bg-[#f4f4f4] dark:bg-[#000000] border-none text-[#0c0e10] dark:text-[#f6f6f8] p-4 focus:ring-1 focus:ring-[#F5A500] resize-none font-serif text-base" placeholder="Reply to {{ comment.comment_author.name }}..."></textarea>
+        <div class="flex justify-end">
+          <button type="submit" class="px-6 py-2 bg-[#F5A500] text-[#0c0e10] font-headline font-black uppercase tracking-[0.2em] text-xs hover:translate-y-[-2px] hover:shadow-[0_8px_16px_-4px_rgba(245,165,0,0.3)] transition-all duration-300">Reply</button>
+        </div>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+
+  {% for reply in comment.replies %}
+    {{ render_comment(reply, True, post, form, logged_in) }}
+  {% endfor %}
+</div>
+{% endmacro %}

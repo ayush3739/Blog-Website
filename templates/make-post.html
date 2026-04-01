@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if is_edit %}Edit Post{% else %}Create Post{% endif %} | BlogPy{% endblock %}
+
+{% block body_class %}bg-[#f6f6f8] dark:bg-[#0a0a0b] text-[#2d2f31] dark:text-[#f0f0f2] font-body flex flex-col min-h-screen{% endblock %}
+
+{% block content %}
+<main class="flex-grow pt-28 pb-12 px-8 max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16">
+  <!-- Editor Canvas (Asymmetric Layout) -->
+  <div class="lg:col-span-8 flex flex-col gap-12">
+    <!-- Header Section -->
+    <section class="space-y-4">
+      <span class="font-label text-xs uppercase tracking-[0.2em] text-[#F5A500] font-bold">{% if is_edit %}Edit Mode{% else %}Drafting Mode{% endif %}</span>
+    </section>
+
+    <form method="POST" action="" class="space-y-8">
+      {{ form.hidden_tag() }}
+
+      <!-- Title Input -->
+      <div class="space-y-2">
+        <label class="font-label text-xs uppercase tracking-[0.2em] text-[#F5A500] font-bold">Post Title</label>
+        {{ form.title(class="create-post-title-input w-full font-headline text-2xl md:text-3xl font-bold tracking-tight focus:ring-0 focus:outline-none", placeholder="Enter your title...") }}
+      </div>
+
+      <!-- Subtitle Input -->
+      <div class="space-y-2">
+        <label class="font-label text-xs uppercase tracking-[0.2em] text-[#F5A500] font-bold">Subtitle</label>
+        {{ form.subtitle(class="create-post-subtitle-input w-full font-headline text-xl font-bold tracking-tight focus:ring-0 focus:outline-none", placeholder="Enter a subtitle...") }}
+      </div>
+
+      <!-- Image URL Input -->
+      <div class="space-y-2">
+        <label class="font-label text-xs uppercase tracking-[0.2em] text-[#F5A500] font-bold">Cover Image URL</label>
+        {{ form.img_url(class="create-post-input w-full p-4 focus:ring-0 focus:outline-none font-body text-sm", placeholder="https://example.com/image.jpg", type="url") }}
+        {% for error in form.img_url.errors %}
+          <div class="text-red-500 text-xs mt-1">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <!-- Main Writing Area -->
+      <section class="editor-container relative group">
+        <label class="font-label text-xs uppercase tracking-[0.2em] text-[#F5A500] font-bold mb-4 block">Content</label>
+        <div class="absolute left-[-2rem] top-8 h-[calc(100%-2rem)] w-[2px] bg-[#F5A500] opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+        {{ form.body(class="ckeditor") }}
+        {% for error in form.body.errors %}
+          <div class="text-red-500 text-xs mt-1">{{ error }}</div>
+        {% endfor %}
+      </section>
+
+      <!-- Category Section (Single Select) -->
+      <div class="create-post-panel p-8 space-y-6">
+        <h3 class="create-post-panel-title font-headline text-lg font-bold tracking-tight">Category</h3>
+        <div class="space-y-3">
+          {{ form.category(class="w-full p-3 bg-[#f8f9fa] dark:bg-[#111415] border-none rounded font-label text-sm focus:ring-0") }}
+          {% if form.category.errors %}
+            {% for error in form.category.errors %}
+              <div class="text-red-500 text-xs mt-1">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Tags Section (Multi-Select Checkboxes) -->
+      <div class="create-post-panel p-8 space-y-6">
+        <h3 class="create-post-panel-title font-headline text-lg font-bold tracking-tight">Tags</h3>
+        <div class="flex flex-wrap gap-2 max-h-48 overflow-y-auto">
+          {% for subfield in form.tags %}
+            <label class="flex items-center gap-2 cursor-pointer px-3 py-1 border border-[#F5A500]/30 rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-[#F5A500]/10 transition-colors">
+              {{ subfield() }} {{ subfield.label.text }}
+            </label>
+          {% endfor %}
+          {% if form.tags.errors %}
+            {% for error in form.tags.errors %}
+              <div class="text-red-500 text-xs mt-1 w-full">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Publish Controls -->
+      <div class="create-post-panel-primary p-8 space-y-6">
+        <h3 class="create-post-panel-title font-headline text-xl font-bold tracking-tight border-b pb-4">Status & Visibility</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center py-2">
+            <span class="create-post-label text-sm uppercase tracking-widest font-label font-bold">Visibility</span>
+            <span class="text-[#F5A500] font-black text-sm uppercase">Public</span>
+          </div>
+          <div class="flex justify-between items-center py-2">
+            <span class="create-post-label text-sm uppercase tracking-widest font-label font-bold">Publish</span>
+            <span class="create-post-value text-sm font-medium">Immediately</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 pt-4">
+          <a href="{{ url_for('get_all_posts') }}" class="create-post-btn-secondary py-4 font-label font-bold uppercase tracking-widest text-xs transition-all text-center">Cancel</a>
+          {{ form.submit(class="bg-[#F5A500] text-white dark:text-black py-4 font-label font-bold uppercase tracking-widest text-xs hover:shadow-lg hover:brightness-105 hover:translate-y-[-2px] transition-all shadow-md cursor-pointer") }}
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Sidebar (Control Panel) -->
+  <aside class="lg:col-span-4 flex flex-col gap-8">
+    <!-- Quick Info -->
+    <div class="create-post-panel p-8 space-y-6">
+      <h3 class="create-post-panel-title font-headline text-lg font-bold tracking-tight">Quick Tips</h3>
+      <ul class="space-y-3 text-sm text-[#5c5b5b] dark:text-[#aaabad]">
+        <li class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-[#F5A500] text-base">check_circle</span>
+          <span>Use a compelling title that captures attention</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-[#F5A500] text-base">check_circle</span>
+          <span>Add a high-quality cover image</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-[#F5A500] text-base">check_circle</span>
+          <span>Write engaging content with proper formatting</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Featured Image Preview -->
+    <div class="create-post-panel p-8 space-y-6">
+      <h3 class="create-post-panel-title font-headline text-lg font-bold tracking-tight">Cover Preview</h3>
+      <div class="create-post-upload aspect-video flex flex-col items-center justify-center border-2 border-dashed transition-colors">
+        <span class="create-post-upload-icon material-symbols-outlined text-4xl transition-colors">image</span>
+        <p class="create-post-upload-text text-[10px] font-label font-bold uppercase tracking-widest mt-3 transition-colors">Preview Area</p>
+      </div>
+    </div>
+  </aside>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='body') }}
+<script>
+  // Apply dark mode to CKEditor when it's ready
+  if (typeof CKEDITOR !== 'undefined') {
+    CKEDITOR.on('instanceReady', function(ev) {
+      var editor = ev.editor;
+      var body = editor.document.getBody().$;
+
+      // Check if dark mode is active
+      if (document.documentElement.classList.contains('dark')) {
+        body.style.backgroundColor = '#1a1d1f';
+        body.style.color = '#f6f6f8';
+      }
+
+      // Listen for theme changes
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === 'class') {
+            if (document.documentElement.classList.contains('dark')) {
+              body.style.backgroundColor = '#1a1d1f';
+              body.style.color = '#f6f6f8';
+            } else {
+              body.style.backgroundColor = '#ffffff';
+              body.style.color = '#1a1c1e';
+            }
+          }
+        });
+      });
+
+      observer.observe(document.documentElement, { attributes: true });
+    });
+  }
+</script>
+{% endblock %}

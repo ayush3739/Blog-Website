@@ -1,0 +1,104 @@
+{# Like, Share, and Bookmark actions for post.html, expects variables: post, user_liked, user_marked, logged_in #}
+
+<!-- Like (AJAX) -->
+<form method="POST" action="{{ url_for('like_toggle', post_id=post.id) }}" class="like-form group flex flex-col items-center gap-2">
+  <button type="submit"
+    class="like-btn w-12 h-12 flex items-center justify-center border border-black/5 dark:border-none rounded-lg transition-all duration-300
+    {% if user_liked %}bg-[#F5A500] text-white{% else %}bg-[#f4f4f4] dark:bg-[#111415] group-hover:bg-[#F5A500] group-hover:text-white{% endif %}">
+    <span class="material-symbols-outlined">thumb_up</span>
+  </button>
+  <span class="text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">Like</span>
+  <span class="like-count text-xs font-bold text-[#F5A500] mt-1">{{ post.like_count }}</span>
+</form>
+
+<!-- Share -->
+<button type="button"
+        onclick="navigator.share ? navigator.share({title:document.title,url:location.href}) : (navigator.clipboard.writeText(location.href))"
+        class="group flex flex-col items-center gap-2">
+  <div class="w-12 h-12 flex items-center justify-center bg-[#f4f4f4] dark:bg-[#111415] border border-black/5 dark:border-none rounded-lg group-hover:bg-[#F5A500] group-hover:text-white transition-all duration-300">
+    <span class="material-symbols-outlined">share</span>
+  </div>
+  <span class="text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">Share</span>
+</button>
+
+<!-- Bookmark (AJAX) -->
+<form method="POST" action="{{ url_for('bookmark_toggle', post_id=post.id) }}" class="bookmark-form group flex flex-col items-center gap-2">
+  <button type="submit"
+    class="bookmark-btn w-12 h-12 flex items-center justify-center border border-black/5 dark:border-none rounded-lg transition-all duration-300
+    {% if user_marked %}bg-[#F5A500] text-white{% else %}bg-[#f4f4f4] dark:bg-[#111415] group-hover:bg-[#F5A500] group-hover:text-white{% endif %}">
+    <span class="material-symbols-outlined">bookmark</span>
+  </button>
+  <span class="bookmark-label text-[10px] font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">
+    {% if user_marked %}Saved{% else %}Save{% endif %}
+  </span>
+</form>
+
+<script>
+// Like AJAX
+document.addEventListener('DOMContentLoaded', function() {
+  const likeForm = document.querySelector('.like-form');
+  if (likeForm) {
+    likeForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch(this.action, {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': document.querySelector('[name=csrf_token]')?.value || ''
+        },
+        body: JSON.stringify({})
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Update like count
+        const count = likeForm.querySelector('.like-count');
+        if (count) count.textContent = data.like_count;
+        // Update button style
+        const btn = likeForm.querySelector('.like-btn');
+        if (btn) {
+          if (data.liked) {
+            btn.classList.add('bg-[#F5A500]', 'text-white');
+            btn.classList.remove('bg-[#f4f4f4]', 'dark:bg-[#111415]');
+          } else {
+            btn.classList.remove('bg-[#F5A500]', 'text-white');
+            btn.classList.add('bg-[#f4f4f4]', 'dark:bg-[#111415]');
+          }
+        }
+      });
+    });
+  }
+
+  // Bookmark AJAX
+  const bookmarkForm = document.querySelector('.bookmark-form');
+  if (bookmarkForm) {
+    bookmarkForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      fetch(this.action, {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': document.querySelector('[name=csrf_token]')?.value || ''
+        },
+        body: JSON.stringify({})
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Update label
+        const label = bookmarkForm.querySelector('.bookmark-label');
+        if (label) label.textContent = data.bookmarked ? 'Saved' : 'Save';
+        // Update button style
+        const btn = bookmarkForm.querySelector('.bookmark-btn');
+        if (btn) {
+          if (data.bookmarked) {
+            btn.classList.add('bg-[#F5A500]', 'text-white');
+            btn.classList.remove('bg-[#f4f4f4]', 'dark:bg-[#111415]');
+          } else {
+            btn.classList.remove('bg-[#F5A500]', 'text-white');
+            btn.classList.add('bg-[#f4f4f4]', 'dark:bg-[#111415]');
+          }
+        }
+      });
+    });
+  }
+});
+</script>

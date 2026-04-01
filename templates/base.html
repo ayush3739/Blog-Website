@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{% block title %}BlogPy | The Editorial Agency{% endblock %}</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#F5A500",
+          "primary-fixed": "#F5A500",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#392700"
+        },
+        fontFamily: {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% block extra_head %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}bg-[#f6f6f8] dark:bg-[#0a0a0b] text-[#2d2f31] dark:text-[#f0f0f2] font-body antialiased selection:bg-primary selection:text-on-primary{% endblock %}">
+
+{% include 'partials/header.html' %}
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4">
+      {% for category, message in messages %}
+        <div class="flash-message mb-2 p-4 rounded-lg shadow-lg {% if category == 'error' %}bg-red-500 text-white{% elif category == 'success' %}bg-green-500 text-white{% else %}bg-[#F5A500] text-[#392700]{% endif %}">
+          <div class="flex items-center justify-between">
+            <span class="font-medium">{{ message }}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 focus:outline-none">
+              <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+{% include 'partials/footer.html' %}
+
+<!-- ══ DELETE CONFIRMATION MODAL ══ -->
+<div id="deleteConfirmModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!-- Backdrop overlay -->
+    <div id="deleteModalBackdrop" class="fixed inset-0 bg-[#0c0e10]/80 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
+
+    <!-- Center modal trick -->
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <!-- Modal Panel -->
+    <div class="inline-block align-bottom bg-white dark:bg-[#111415] rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-black/5 dark:border-[#46484a]/20">
+      <div class="px-6 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+            <span class="material-symbols-outlined text-red-500 text-3xl">warning</span>
+          </div>
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-xl leading-6 font-headline font-extrabold tracking-tighter text-[#0c0e10] dark:text-[#f6f6f8] uppercase" id="modal-title">
+              Delete Post
+            </h3>
+            <div class="mt-2">
+              <p class="text-sm text-gray-500 dark:text-[#8b8d8f]">
+                Are you sure you want to delete this post? All of its data will be permanently removed. This action cannot be undone.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 dark:bg-[#0c0e10] px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-black/5 dark:border-[#46484a]/10">
+        <button type="button" id="confirmDeleteBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-6 py-3 bg-red-500 text-base font-headline font-bold text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm uppercase tracking-widest transition-all duration-300">
+          Delete
+        </button>
+        <button type="button" id="cancelDeleteBtn" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-[#46484a] shadow-sm px-6 py-3 bg-white dark:bg-[#111415] text-base font-headline font-bold text-[#0c0e10] dark:text-[#f6f6f8] hover:bg-gray-50 dark:hover:bg-[#1a1d1e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F5A500] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm uppercase tracking-widest transition-all duration-300">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCRIPTS ══ -->
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

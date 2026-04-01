@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block title %}BlogPy | The Tech Blog{% endblock %}
+
+{% block content %}
+<main class="pt-32">
+
+  <!-- ══ HERO ══ -->
+  <section class="max-w-7xl mx-auto px-8 mb-24">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-end">
+      <div class="md:col-span-8">
+        <span class="hero-badge inline-block px-3 py-1 rounded-sm text-[0.7rem] font-bold uppercase tracking-widest mb-6">Established 2026</span>
+        <h1 class="hero-h1 text-[clamp(3rem,8vw,5.5rem)] font-headline font-extrabold leading-[0.9] tracking-tighter mb-8">
+          Fresh Ideas for <br/>
+          <span class="bg-gradient-to-r from-[#F5A500] to-[#e09700] bg-clip-text text-transparent italic">Developers</span> <br/>
+          Who Build Things.
+        </h1>
+        <p class="text-xl max-w-xl leading-relaxed mb-8" style="color:var(--color-on-surface-variant)">
+          Thoughtful writing on web development, design, and technology. Exploring ideas that shape how we build and think, one post at a time.
+        </p>
+        <div class="flex items-center gap-4">
+          <a href="#recent-posts" class="bg-[#F5A500] text-[#402b00] dark:text-[#1e1400] px-8 py-4 font-bold rounded-sm shadow-lg hover:translate-y-[-2px] hover:brightness-110 transition-all snap-ooze block text-center">Latest Posts</a>
+          
+          <a href="{{ url_for('all_posts') }}" class="archive-btn font-bold px-8 py-4 flex items-center gap-2 transition-all duration-300 border" style="color:var(--color-on-surface)">
+            View Archive <span class="material-symbols-outlined accent-color group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+      <div class="md:col-span-4 hidden md:block">
+        <div class="hero-card aspect-[3/4] rounded-xl overflow-hidden relative group" style="box-shadow:var(--hero-card-shadow)">
+          <img class="w-full h-full object-cover grayscale contrast-125 opacity-80 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700 snap-ooze"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuByapP5zkjgvHPf_zjdbC7577KiSFpKu16vvjpaPs4yx6LdEaBDky7-TBCLH9Q3cKj1Ed45JUk89AdG_GZwnBw-U2nFBE0YKTPTgQcp-qdZk2V1NhFOgX51hFtfNNzij4ledLoZJL-zSIHe8p71EGZLWQ2L-9KlAtMZoEje2N_Izalu9pjt498tOn2F838LK3q2StDRf36eJpIS6oWZCrm8K14tiYJ0z3gZi07ktc_BMR-JXxnmAGzTPGXu9TFY5KQyynKGdxNw9gQ"
+               alt="Abstract hardware tech background"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-background)] via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <p class="text-xs font-bold uppercase tracking-tighter accent-color mb-1">Featured Tech</p>
+            <p class="font-headline font-bold text-lg leading-tight" style="color:var(--hero-h1-color)">How Modern Browsers Optimize JavaScript Rendering</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TRENDING POSTS ══ -->
+  <section class="trending-section py-24">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
+        <div>
+          <h2 class="trending-heading text-5xl md:text-6xl font-headline font-black uppercase tracking-tighter mb-4">
+            TRENDING <span class="text-[#F5A500]">POSTS</span>
+          </h2>
+          <div class="w-24 h-2 bg-[#F5A500]"></div>
+        </div>
+        <a class="flex items-center gap-2 text-sm font-bold transition-all group pb-1" style="color:var(--color-on-surface)" href="{{ url_for('all_posts') }}">
+          View All <span class="material-symbols-outlined text-lg accent-color group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+      </div>
+
+      <!-- Dynamic posts from database -->
+      {% if trending_posts and trending_posts|length > 0 %}
+        <div class="flex flex-col gap-12">
+          {% for post in trending_posts %}
+          <a href="{{ url_for('show_post', post_id=post.id) }}" class="trending-item group flex items-start gap-8 md:gap-16 pb-12 cursor-pointer">
+            <div class="trending-number text-6xl md:text-8xl font-headline font-black transition-colors">{{ '%02d' % (loop.index) }}</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] accent-color">{{ post.category.name if post.category else 'General' }}</span>
+                <span class="w-1 h-1 rounded-full" style="background:var(--color-outline-variant)"></span>
+                <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em]" style="color:var(--color-on-surface-variant)">{{ post.date }}</span>
+                <span class="text-[0.65rem] font-bold uppercase tracking-[0.2em] ml-2" style="color:var(--color-on-surface-variant)">{{ post.read_time }} min read</span>
+              </div>
+              <h3 class="text-2xl md:text-3xl font-headline font-bold mb-4 transition-colors" style="color:var(--color-on-surface)">{{ post.title }}</h3>
+              <p style="color:var(--color-on-surface-variant)" class="max-w-2xl leading-relaxed">{{ post.subtitle }}</p>
+            </div>
+            <div class="hidden sm:flex items-center justify-center w-14 h-14 rounded-full circle-btn" style="border:1px solid var(--color-outline-variant)">
+              <span class="material-symbols-outlined" style="color:var(--color-on-surface)">north_east</span>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-center py-12">
+          <p class="text-lg" style="color:var(--color-on-surface-variant)">No posts yet. Check back soon!</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ══ RECENT POSTS (Bento Grid) ══ -->
+
+  <section id="recent-posts" class="dispatches-section py-24">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
+        <h2 class="text-4xl font-headline font-bold tracking-tight" style="color:var(--color-on-surface)">Recent Posts</h2>
+        <div class="flex gap-4">
+            <a href="{{ url_for('all_posts') }}"
+               class="text-xs font-bold uppercase text-[#F5A500] border-b-2 border-[#F5A500] pb-1 cursor-pointer">
+              All Categories
+            </a>
+            {% if dev_category_id %}
+            <a href="{{ url_for('all_posts', category=dev_category_id) }}"
+               class="text-xs font-bold uppercase cursor-pointer hover:text-[#F5A500] transition-colors"
+               style="color:var(--color-on-surface-variant)">
+              Development
+            </a>
+            {% endif %}
+            {% if design_category_id %}
+            <a href="{{ url_for('all_posts', category=design_category_id) }}"
+               class="text-xs font-bold uppercase cursor-pointer hover:text-[#F5A500] transition-colors"
+               style="color:var(--color-on-surface-variant)">
+              Design
+            </a>
+            {% endif %}
+            {% if opinion_category_id %}
+            <a href="{{ url_for('all_posts', category=opinion_category_id) }}"
+               class="text-xs font-bold uppercase cursor-pointer hover:text-[#F5A500] transition-colors"
+               style="color:var(--color-on-surface-variant)">
+              Opinion
+            </a>
+            {% endif %}
+        </div>
+      </div>
+
+      {% if all_posts.items %}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Featured Post (spans 2 columns) -->
+        {% set featured = all_posts.items[0] if all_posts.items|length > 0 else None %}
+        {% set sidebar1 = all_posts.items[1] if all_posts.items|length > 1 else None %}
+        {% set sidebar2 = all_posts.items[2] if all_posts.items|length > 2 else None %}
+
+        {% if featured %}
+        <a href="{{ url_for('show_post', post_id=featured.id) }}" class="md:col-span-2 bg-[var(--color-background)] p-8 rounded-xl border border-[var(--color-outline-variant)] flex flex-col h-full group transition-all overflow-hidden">
+          <div class="relative overflow-hidden rounded-xl aspect-[16/9] mb-8">
+            <img alt="{{ featured.title }}" class="w-full h-full object-cover  transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" src="{{ featured.img_url }}"/>
+            <div class="absolute top-4 right-4 flex gap-2">
+              <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+              
+            </div>
+          </div>
+          <div class="mt-auto">
+            <span class="inline-block px-2 py-1 border border-[#F5A500]/30 text-[#F5A500] text-[0.6rem] font-bold rounded-sm mb-4">FEATURED</span>
+            <h3 class="text-3xl font-headline font-extrabold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">{{ featured.title }}</h3>
+            <p class="text-on-surface-variant mb-8 line-clamp-2" style="color:var(--color-on-surface-variant)">{{ featured.subtitle }}</p>
+            <div class="flex items-center gap-4 pt-6 border-t border-[var(--color-outline-variant)]">
+                <span class="text-sm font-bold uppercase tracking-widest" style="color:var(--color-on-surface-variant)">{{ featured.date }}</span>
+                <span class="text-sm font-bold uppercase tracking-widest ml-4" style="color:var(--color-on-surface-variant)">{{ featured.read_time }} min read</span>
+                <span class="material-symbols-outlined accent-color">trending_flat</span>
+            </div>
+          </div>
+        </a>
+        {% endif %}
+
+        <!-- Sidebar Posts -->
+        <div class="flex flex-col gap-8">
+          {% if sidebar1 %}
+          <a href="{{ url_for('show_post', post_id=sidebar1.id) }}" class="bg-[var(--color-background)] p-8 rounded-xl border border-[var(--color-outline-variant)] group flex flex-col justify-between transition-all overflow-hidden">
+            <div class="relative">
+              <span class="inline-block px-2 py-1 border border-[#F5A500]/30 text-[#F5A500] text-[0.6rem] font-bold rounded-sm mb-4">RECENT</span>
+              <div class="absolute top-0 right-0 flex gap-2">
+                <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+              </div>
+              <h3 class="text-xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">{{ sidebar1.title }}</h3>
+              <p class="text-sm" style="color:var(--color-on-surface-variant)">{{ sidebar1.subtitle }}</p>
+            </div>
+            <div class="mt-8 flex justify-between items-center text-[0.65rem] font-bold uppercase tracking-widest" style="color:var(--color-on-surface-variant)">
+                <span>{{ sidebar1.date }}</span>
+                <span class="ml-2">{{ sidebar1.read_time }} min read</span>
+                <span class="material-symbols-outlined accent-color">north_east</span>
+            </div>
+          </a>
+          {% endif %}
+          {% if sidebar2 %}
+          <a href="{{ url_for('show_post', post_id=sidebar2.id) }}" class="bg-[var(--color-background)] p-8 rounded-xl border border-[var(--color-outline-variant)] group flex flex-col justify-between transition-all overflow-hidden">
+            <div class="relative">
+              <span class="inline-block px-2 py-1 border border-[#F5A500]/30 text-[#F5A500] text-[0.6rem] font-bold rounded-sm mb-4">RECENT</span>
+              <div class="absolute top-0 right-0 flex gap-2">
+                <span class="material-symbols-outlined text-white bg-black/50 p-2 rounded-full backdrop-blur-md text-sm">share</span>
+              </div>
+              <h3 class="text-xl font-headline font-bold mb-4 group-hover:text-[#F5A500] transition-colors" style="color:var(--color-on-surface)">{{ sidebar2.title }}</h3>
+              <p class="text-sm" style="color:var(--color-on-surface-variant)">{{ sidebar2.subtitle }}</p>
+            </div>
+            <div class="mt-8 flex justify-between items-center text-[0.65rem] font-bold uppercase tracking-widest" style="color:var(--color-on-surface-variant)">
+                <span>{{ sidebar2.date }}</span>
+                <span class="ml-2">{{ sidebar2.read_time }} min read</span>
+                <span class="material-symbols-outlined accent-color">north_east</span>
+            </div>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ══ NEWSLETTER / CTA ══ -->
+  <section class="newsletter-section max-w-7xl mx-auto px-8 py-32">
+    <div class="newsletter-card p-16 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-[#F5A500]/5 rounded-full blur-[100px]"></div>
+      <div class="relative z-10 md:max-w-xl">
+        <h2 class="text-5xl font-headline font-black tracking-tight mb-6" style="color:var(--hero-h1-color)">Stay Ahead of the <span class="text-[#F5A500] italic">Curve</span>.</h2>
+        <p class="text-lg leading-relaxed" style="color:var(--color-on-surface-variant)">Subscribe to our weekly roundup of dev tips, design insights, and tech deep-dives. Straight to your inbox — no spam, just good writing.</p>
+      </div>
+      <div class="relative z-10 w-full md:w-auto">
+        <form class="flex flex-col sm:flex-row gap-0" method="POST" action="{{ url_for('news_subscriber') }}">
+          {{ newsletter_form.csrf_token }}
+          <div class="relative">
+            <div class="absolute left-0 top-0 w-1 h-full bg-[#F5A500] rounded-sm"></div>
+            {{ newsletter_form.email(class_="newsletter-input border-none focus:ring-2 focus:ring-[#F5A500] py-4 px-6 w-full sm:w-80 font-bold placeholder:text-[var(--color-outline)]", placeholder="your@email.com") }}
+          </div>
+          <button class="subscribe-btn py-4 px-10 font-bold snap-ooze uppercase tracking-widest text-sm hover:brightness-110 transition-all" type="submit">Subscribe</button>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="mt-2">
+              {% for category, message in messages %}
+                <li class="text-xs mt-1 text-{{ 'red-600' if category == 'danger' else 'green-600' if category == 'success' else 'yellow-600' }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <p class="text-[0.7rem] mt-4 uppercase tracking-widest" style="color:var(--color-on-surface-variant)">Join 40k+ developers and creators globally.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+{% endblock %}

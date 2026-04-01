@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Too Many Requests | Rate Limit Exceeded{% endblock %}
+
+{% block body_class %}bg-[#f5f5f5] dark:bg-[#0c0e10] text-[#18181b] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-on-primary{% endblock %}
+
+{% block content %}
+<main class="pt-32 pb-20 px-8 min-h-screen flex items-center justify-center">
+  <div class="max-w-xl w-full text-center bg-white dark:bg-[#18181b] rounded-2xl shadow-xl p-10 border border-[#F5A500]/20">
+    <span class="material-symbols-outlined text-7xl text-[#F5A500] mb-6">hourglass_disabled</span>
+    <h1 class="font-headline text-5xl font-extrabold mb-4" style="color:var(--color-on-surface)">Whoa, Slow Down!</h1>
+    <p class="font-label text-lg mb-6 text-[#F5A500]">429 — Too Many Requests</p>
+    <p class="mb-8 text-base text-[#666] dark:text-[#aaa]">You've hit the rate limit for this action.<br>Take a short break and try again in a minute.</p>
+    <a href="{{ url_for('get_all_posts') }}" class="inline-block mt-4 px-8 py-3 bg-[#F5A500] text-white dark:text-[#392700] font-headline font-bold rounded-lg shadow hover:translate-y-[-2px] transition-all">Back to Home</a>
+  </div>
+</main>
+{% endblock %}

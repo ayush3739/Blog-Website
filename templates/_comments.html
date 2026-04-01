@@ -1,0 +1,14 @@
+{% from "macros/comments_macro.html" import render_comment %}
+{% for comment in comments %}
+  {{ render_comment(comment, False, post, form, logged_in) }}
+{% endfor %}
+{% if comments_pagination and comments_pagination.has_next %}
+<div class="flex justify-center mt-8">
+  <button id="load-more-comments"
+          class="px-6 py-2 bg-[#F5A500] text-white font-headline font-bold uppercase tracking-widest text-xs rounded hover:bg-[#FFC107] transition-all duration-300"
+          data-next-page="{{ comments_pagination.next_num }}"
+          onclick="loadMoreComments(event)">
+    Show More Comments
+  </button>
+</div>
+{% endif %}

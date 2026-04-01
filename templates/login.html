@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}BlogPy - Login{% endblock %}
+
+{% block body_class %}bg-[#f8f9fa] dark:bg-[#0c0e10] text-[#1a1c1e] dark:text-[#f6f6f8] font-body min-h-screen flex flex-col{% endblock %}
+
+{% block content %}
+<!-- ══ BACKGROUND EFFECTS ══ -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+  <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#F5A500]/5 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-[#F5A500]/5 dark:bg-[#d5f976]/5 rounded-full blur-[100px]"></div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<main class="flex-grow flex items-center justify-center p-6 relative z-10 pt-32">
+  <div class="w-full max-w-[440px]">
+    <!-- Login Card -->
+    <div class="login-card p-10 md:p-12">
+      <header class="mb-10">
+        <h2 class="font-headline text-2xl font-bold tracking-tight" style="color:var(--color-on-surface)">Welcome Back</h2>
+        <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-on-surface-variant)">Sign in to your account to continue.</p>
+      </header>
+
+      <form method="POST" action="{{ url_for('login') }}" class="space-y-8">
+        {{ form.hidden_tag() }}
+
+        <!-- Email Input -->
+        <div class="space-y-1 group">
+          <label class="font-label text-[10px] uppercase tracking-widest font-bold block mb-2" style="color:var(--color-on-surface-variant)" for="email">
+            Email Address
+          </label>
+          <div class="relative login-input-wrapper transition-all duration-300">
+            {{ form.email(class="login-input w-full border-none rounded-none py-4 px-4 focus:ring-0 text-sm transition-all", placeholder="you@example.com") }}
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="space-y-1 group">
+          <div class="flex justify-between items-end mb-2">
+            <label class="font-label text-[10px] uppercase tracking-widest font-bold" style="color:var(--color-on-surface-variant)" for="password">
+              Password
+            </label>
+            <a class="text-[10px] uppercase tracking-widest text-[#F5A500] font-bold hover:opacity-80 transition-opacity" href="{{ url_for('forgot_pass') }}">
+              Forgot Password?
+            </a>
+          </div>
+          <div class="relative login-input-wrapper transition-all duration-300">
+            {{ form.password(class="login-input w-full border-none rounded-none py-4 px-4 focus:ring-0 text-sm transition-all", placeholder="••••••••") }}
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4">
+          {{ form.submit(class="w-full bg-[#F5A500] text-[#2B1D00] font-headline font-bold py-4 uppercase tracking-widest text-xs hover:shadow-lg hover:shadow-[#F5A500]/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer") }}
+        </div>
+      </form>
+
+      <!-- Create Account Link -->
+      <div class="login-divider mt-10 pt-8 text-center">
+        <p class="text-xs font-medium" style="color:var(--color-on-surface-variant)">
+          Don't have an account?
+          <a class="text-[#F5A500] font-bold ml-1 uppercase tracking-tighter hover:underline" href="{{ url_for('register') }}">
+            Create Account
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Alternative Login Methods -->
+    <div class="mt-8 flex justify-center items-center gap-8">
+      <div class="login-alt-method flex items-center gap-2 grayscale opacity-60 dark:opacity-40 hover:opacity-100 hover:grayscale-0 transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-sm">terminal</span>
+        <span class="text-[10px] font-label uppercase tracking-widest">SSH Access</span>
+      </div>
+      <div class="login-alt-method flex items-center gap-2 grayscale opacity-60 dark:opacity-40 hover:opacity-100 hover:grayscale-0 transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-sm">key</span>
+        <span class="text-[10px] font-label uppercase tracking-widest">OAuth 2.0</span>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.name }} | BlogPy Profile{% endblock %}
+
+{% block body_class %}bg-[#FFFFFF] dark:bg-[#0c0e10] text-[#1E293B] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-white dark:selection:text-black min-h-screen{% endblock %}
+
+{% block content %}
+<main class="pt-24 max-w-[1440px] mx-auto px-6 profile-grid gap-12">
+  <!-- Left Sidebar: Identity & Stats -->
+  <aside class="flex flex-col gap-8 lg:sticky lg:top-24 h-fit">
+    <!-- User Identity Section -->
+    <div class="profile-card flex flex-col items-start gap-6 p-8 rounded-2xl">
+      <div class="relative">
+        <div class="profile-image-container relative w-48 h-48 rounded-full overflow-hidden p-1">
+          <img alt="{{ user.name }}" class="w-full h-full object-cover rounded-full transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]" src="{{ user.email | gravatar }}"/>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <h1 class="profile-name font-headline text-4xl font-extrabold tracking-tighter leading-none flex items-center gap-3">
+          {{ user.name }}
+          {% if user.is_admin %}
+            <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold border border-green-300">Admin</span>
+          {% endif %}
+        </h1>
+        <p class="font-mono text-[#F5A500] text-sm tracking-tight font-bold">{{ user.email }}</p>
+      </div>
+      <p class="profile-bio font-body leading-relaxed text-lg italic">
+        {% if user.bio %}
+          "{{ user.bio }}"
+        {% else %}
+          This user hasn't added a bio yet.
+        {% endif %}
+      </p>
+      <a href="{{ url_for('edit_profile') }}" class="profile-edit-btn w-full py-3 px-6 rounded-lg font-bold uppercase  tracking-widest text-xs transition-all duration-300 ease-[cubic-bezier(0.19,1,0.22,1)]">
+        Edit Profile
+      </a>
+      <div class="profile-member-date flex items-center gap-2 text-xs uppercase tracking-widest font-bold">
+        <span class="material-symbols-outlined text-sm">calendar_today</span>
+        {% if user.created_at %}
+          Member Since {{ user.created_at.strftime('%b %Y') }}
+        {% else %}
+          Member
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="profile-stats-card p-6 rounded-2xl space-y-4">
+      <div class="flex justify-between items-center group cursor-pointer">
+        <span class="profile-stat-label text-xs uppercase tracking-widest font-bold group-hover:text-[#F5A500] transition-colors">Posts</span>
+        <span class="font-headline text-xl font-bold text-[#F5A500]">{{ user.posts | length }}</span>
+      </div>
+      <div class="profile-stat-divider h-px"></div>
+      <div class="flex justify-between items-center group cursor-pointer">
+        <span class="profile-stat-label text-xs uppercase tracking-widest font-bold group-hover:text-[#F5A500] transition-colors">Comments</span>
+        <span class="font-headline text-xl font-bold text-[#F5A500]">{{ user.comments | length }}</span>
+      </div>
+    </div>
+
+    <!-- Side Navigation (Desktop) -->
+    <div class="hidden md:flex flex-col gap-2 py-4">
+      <div class="profile-sidenav-active flex items-center gap-4 px-4 py-3 rounded-lg mx-2 transition-all duration-200">
+        <span class="material-symbols-outlined">person</span>
+        <span class="font-headline font-semibold tracking-tight">Profile</span>
+      </div>
+      <button type="button" class="profile-sidenav-link flex items-center gap-4 px-4 py-3 mx-2 rounded-lg transition-all duration-300 hover:translate-x-1 bg-transparent border-0 outline-none cursor-pointer" onclick="showTab('posts')">
+        <span class="material-symbols-outlined">description</span>
+        <span class="font-headline font-semibold tracking-tight">Posts</span>
+      </button>
+      <button type="button" class="profile-sidenav-link flex items-center gap-4 px-4 py-3 mx-2 rounded-lg transition-all duration-300 hover:translate-x-1 bg-transparent border-0 outline-none cursor-pointer" onclick="showTab('bookmarks')">
+        <span class="material-symbols-outlined">bookmark</span>
+        <span class="font-headline font-semibold tracking-tight">Bookmarks</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Right Content Area: Tabs & Posts -->
+  <section class="flex flex-col gap-8 pb-24">
+    <!-- Tabbed Navigation -->
+    <div class="profile-tabs flex gap-10 overflow-x-auto no-scrollbar">
+      <button id="tab-posts" class="profile-tab-active pb-4 font-bold whitespace-nowrap uppercase tracking-widest text-[0.7rem] font-headline" onclick="showTab('posts')">
+        Published Posts
+      </button>
+      <button id="tab-bookmarks" class="profile-tab pb-4 whitespace-nowrap uppercase tracking-widest text-[0.7rem] font-headline font-bold transition-colors" onclick="showTab('bookmarks')">
+        Bookmarked
+      </button>
+      <button id="tab-comments" class="profile-tab pb-4 whitespace-nowrap uppercase tracking-widest text-[0.7rem] font-headline font-bold transition-colors" onclick="showTab('comments')">
+        Comments
+      </button>
+    </div>
+
+    <!-- Published Posts List -->
+    <div id="tab-content-posts" class="flex flex-col gap-4">
+      {% for post in user.posts %}
+      <!-- List Item -->
+      <div class="profile-post-item group flex items-center gap-6 py-5 px-4 rounded-xl transition-all duration-300">
+        <div class="flex-1 min-w-0 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-[0.6rem] font-black uppercase tracking-widest text-[#F5A500]">{{post.category.name}}</span>
+            <span class="profile-post-meta text-[0.6rem] font-bold uppercase tracking-widest">• {{ post.date }}</span>
+          </div>
+          <a href="{{ url_for('show_post', post_id=post.id) }}">
+            <h3 class="profile-post-title text-xl font-bold tracking-tight font-headline leading-tight truncate group-hover:text-[#F5A500] transition-colors">{{ post.title }}</h3>
+          </a>
+          <p class="text-sm text-[#5c5b5b] dark:text-[#aaabad] mt-1 truncate">{{ post.subtitle }}</p>
+        </div>
+        <div class="flex items-center gap-2">
+          {% if current_user.is_authenticated %}
+          <a href="{{ url_for('edit_post', post_id=post.id) }}" class="profile-action-btn p-2 transition-colors">
+            <span class="material-symbols-outlined text-lg">edit</span>
+          </a>
+          <!-- Custom modal delete form -->
+          <form method="POST" action="{{ url_for('delete_post', post_id=post.id) }}" class="delete-post-form" style="display:inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button type="submit" class="profile-action-btn-delete p-2 transition-colors border-0 bg-transparent cursor-pointer">
+              <span class="material-symbols-outlined text-lg">delete</span>
+            </button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+
+      {% if user.posts | length == 0 %}
+      <div class="text-center py-12">
+        <span class="material-symbols-outlined text-6xl text-[#F5A500]/30 mb-4">article</span>
+        <p class="text-[#5c5b5b] dark:text-[#aaabad]">No posts yet</p>
+      </div>
+      {% endif %}
+
+      <!-- Add New Action -->
+      {% if current_user.is_authenticated %}
+      <a href="{{ url_for('add_new_post') }}" class="profile-add-btn mt-8 border-2 border-dashed rounded-xl p-6 flex items-center justify-center gap-4 group transition-all duration-300">
+        <span class="profile-add-icon material-symbols-outlined transition-colors">add</span>
+        <span class="profile-add-text text-xs uppercase font-bold tracking-[0.2em] transition-colors">Write a New Post</span>
+      </a>
+      {% endif %}
+    </div>
+
+    <!-- Bookmarked Posts List -->
+    <div id="tab-content-bookmarks" class="flex flex-col gap-4" style="display:none;">
+      {% set bookmarked_posts = user.bookmarks | map(attribute='post') | list %}
+      {% for post in bookmarked_posts %}
+      <div class="profile-post-item group flex items-center gap-6 py-5 px-4 rounded-xl transition-all duration-300">
+        <div class="flex-1 min-w-0 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-1">
+            <span class="text-[0.6rem] font-black uppercase tracking-widest text-[#F5A500]">Bookmarked</span>
+            <span class="profile-post-meta text-[0.6rem] font-bold uppercase tracking-widest">• {{ post.date }}</span>
+          </div>
+          <a href="{{ url_for('show_post', post_id=post.id) }}">
+            <h3 class="profile-post-title text-xl font-bold tracking-tight font-headline leading-tight truncate group-hover:text-[#F5A500] transition-colors">{{ post.title }}</h3>
+          </a>
+          <p class="text-sm text-[#5c5b5b] dark:text-[#aaabad] mt-1 truncate">{{ post.subtitle }}</p>
+        </div>
+      </div>
+      {% endfor %}
+      {% if bookmarked_posts|length == 0 %}
+      <div class="text-center py-12">
+        <span class="material-symbols-outlined text-6xl text-[#F5A500]/30 mb-4">bookmark</span>
+        <p class="text-[#5c5b5b] dark:text-[#aaabad]">No bookmarks yet</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Comments Tab Placeholder (optional) -->
+    <div id="tab-content-comments" class="flex flex-col gap-4" style="display:none;">
+      {% for comment in user.comments | sort(attribute='created_at', reverse=True) %}
+      <div class="profile-post-item group flex items-start gap-4 py-5 px-4 rounded-xl transition-all duration-300">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[0.6rem] font-black uppercase tracking-widest text-[#F5A500]">
+              On: {{ comment.parent_post.title[:40] }}{% if comment.parent_post.title|length > 40 %}…{% endif %}
+            </span>
+            <span class="profile-post-meta text-[0.6rem] font-bold uppercase tracking-widest">
+              • {{ comment.created_at.strftime('%b %d, %Y') }}
+            </span>
+          </div>
+          <p class="text-sm text-[#5c5b5b] dark:text-[#aaabad] mt-1">{{ comment.text[:120] }}{% if comment.text|length > 120 %}…{% endif %}</p>
+          <a href="{{ url_for('show_post', post_id=comment.post_id) }}#comments-list"
+            class="text-[10px] text-[#F5A500] font-bold uppercase tracking-widest mt-2 inline-block hover:underline">
+            View Thread →
+          </a>
+        </div>
+      </div>
+      {% else %}
+      <div class="text-center py-12">
+        <span class="material-symbols-outlined text-6xl text-[#F5A500]/30 mb-4">comment</span>
+        <p class="text-[#5c5b5b] dark:text-[#aaabad]">No comments yet</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <script>
+      function showTab(tab) {
+        document.getElementById('tab-content-posts').style.display = tab === 'posts' ? '' : 'none';
+        document.getElementById('tab-content-bookmarks').style.display = tab === 'bookmarks' ? '' : 'none';
+        document.getElementById('tab-content-comments').style.display = tab === 'comments' ? '' : 'none';
+        document.getElementById('tab-posts').classList.toggle('profile-tab-active', tab === 'posts');
+        document.getElementById('tab-bookmarks').classList.toggle('profile-tab-active', tab === 'bookmarks');
+        document.getElementById('tab-comments').classList.toggle('profile-tab-active', tab === 'comments');
+        // Scroll to top of main content area
+        const main = document.querySelector('main');
+        if (main) {
+          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    </script>
+  </section>
+</main>
+
+<!-- Floating Action Button -->
+{% if current_user.is_authenticated %}
+<a href="{{ url_for('add_new_post') }}" class="profile-fab fixed bottom-8 right-8 w-16 h-16 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-50">
+  <span class="material-symbols-outlined text-3xl font-bold">add</span>
+</a>
+{% endif %}
+
+<!-- Bottom Navigation for Mobile -->
+<div class="profile-mobile-nav md:hidden fixed bottom-0 w-full z-50">
+  <div class="flex justify-around items-center py-4">
+    <button onclick="showTab('posts')"
+            class="flex flex-col items-center text-[#F5A500] border-0 bg-transparent cursor-pointer">
+      <span class="material-symbols-outlined">description</span>
+      <span class="text-[0.6rem] uppercase tracking-tighter font-bold">Posts</span>
+    </button>
+    <button onclick="showTab('bookmarks')"
+            class="profile-mobile-nav-item flex flex-col items-center border-0 bg-transparent cursor-pointer">
+      <span class="material-symbols-outlined">bookmark</span>
+      <span class="text-[0.6rem] uppercase tracking-tighter font-bold">Saved</span>
+    </button>
+    <button onclick="showTab('comments')"
+            class="profile-mobile-nav-item flex flex-col items-center border-0 bg-transparent cursor-pointer">
+      <span class="material-symbols-outlined">comment</span>
+      <span class="text-[0.6rem] uppercase tracking-tighter font-bold">Comments</span>
+    </button>
+  </div>
+</div>
+{% endblock %}

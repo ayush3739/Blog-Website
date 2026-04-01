@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}404 - Page Not Found | BlogPy{% endblock %}
+
+{% block body_class %}bg-[#FDFDFD] dark:bg-[#0c0e10] text-[#171A1C] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-on-primary min-h-screen flex flex-col{% endblock %}
+
+{% block content %}
+<main class="flex-grow flex flex-col items-center justify-center relative overflow-hidden px-6 pt-20">
+  <!-- Background Elements -->
+  <div class="error-bg-elements absolute inset-0 z-0 pointer-events-none">
+    <div class="error-bg-panel absolute top-0 right-0 w-1/2 h-screen"></div>
+    <div class="error-bg-line-vertical absolute bottom-0 left-10 w-px h-64"></div>
+    <div class="error-bg-line-horizontal absolute top-1/2 left-0 w-full h-px"></div>
+  </div>
+
+  <!-- Content Canvas -->
+  <section class="relative z-10 w-full max-w-5xl flex flex-col md:flex-row items-center gap-12 md:gap-24">
+    <!-- Hero Graphic -->
+    <div class="flex-1 flex justify-center md:justify-end">
+      <h1 class="error-code font-headline text-[10rem] md:text-[16rem] font-extrabold leading-none tracking-tighter text-[#F5A500] select-none">
+        404
+      </h1>
+    </div>
+
+    <!-- Content Details -->
+    <div class="flex-1 text-center md:text-left">
+      <div class="error-badge inline-flex items-center gap-2 px-3 py-1 rounded-full mb-8">
+        <span class="material-symbols-outlined text-sm">error</span>
+        <span class="font-label text-xs uppercase tracking-widest font-bold">Page Not Found</span>
+      </div>
+      <h2 class="error-title font-headline text-4xl md:text-6xl font-bold mb-6 leading-tight tracking-tight">
+        Looks Like You're Lost.
+      </h2>
+      <p class="error-description text-lg md:text-xl max-w-md mb-12 leading-relaxed">
+        The page you're looking for doesn't exist or may have been moved. Let's get you back on track.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+        <a class="error-btn-primary group relative px-10 py-5 bg-gradient-to-br from-[#F5A500] to-[#D99200] text-white dark:text-[#392700] font-headline font-extrabold uppercase tracking-tighter text-lg scale-100 active:scale-95 transition-transform duration-300" href="{{ url_for('get_all_posts') }}">
+          Go Home
+          <span class="absolute bottom-0 left-0 w-full h-1 bg-white/20 dark:bg-black/20 transition-all group-hover:h-2"></span>
+        </a>
+        <a class="error-btn-secondary px-10 py-5 font-headline font-bold uppercase tracking-tighter text-lg transition-colors duration-300" href="{{ url_for('all_posts') }}">
+          Browse Posts
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vertical Text Anchor -->
+  <div class="absolute bottom-12 left-12 hidden lg:block">
+    <p class="error-vertical-text font-label text-[10px] uppercase tracking-[0.5em] rotate-90 origin-left">
+      Nothing Here // Error 404
+    </p>
+  </div>
+
+  <!-- Glow -->
+  <div class="error-glow absolute -bottom-48 -right-48 w-96 h-96 blur-3xl rounded-full"></div>
+</main>
+{% endblock %}

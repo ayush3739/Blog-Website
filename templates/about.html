@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}About BlogPy | Who We Are{% endblock %}
+
+{% block body_class %}bg-[#f8f9fa] dark:bg-[#0c0e10] text-[#121416] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-on-primary{% endblock %}
+
+{% block content %}
+<main class="pt-20">
+  <!-- Hero Section -->
+  <section class="px-8 py-24 md:py-40 flex flex-col items-start overflow-hidden">
+    <h1 class="about-hero-text font-headline font-extrabold tracking-tighter select-none">
+      ABOUT
+    </h1>
+    <div class="-mt-12 md:-mt-24 max-w-4xl relative z-10">
+      <p class="font-headline text-4xl md:text-7xl font-extrabold text-[#F5A500] leading-none tracking-tight">
+        BUILDING THINGS, <br/>WRITING ABOUT THEM.
+      </p>
+      <div class="mt-12 h-1 w-32 bg-[#F5A500]"></div>
+    </div>
+  </section>
+
+  <!-- Mission Statement -->
+  <section class="about-mission-section px-8 py-32">
+    <div class="editorial-grid max-w-7xl mx-auto">
+      <div class="col-span-12 md:col-span-4 flex flex-col gap-6">
+        <span class="font-label text-xs uppercase tracking-[0.3em] text-[#F5A500] font-bold">The Mission</span>
+        <h2 class="font-headline text-3xl font-bold leading-tight" style="color:var(--color-on-surface)">
+          A place to document what I learn — honestly, clearly, and without the fluff.
+        </h2>
+      </div>
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
+        <div class="flex flex-col gap-8">
+          <p class="font-body text-xl leading-relaxed" style="color:var(--color-on-surface-variant)">
+            BlogPy was started in 2026 as a personal space to write about <span class="font-bold" style="color:var(--color-on-surface)">AI/ML, LLM engineering, and full-stack web development</span> — the things I'm actively learning and building every day.
+          </p>
+          <p class="font-body text-lg leading-relaxed opacity-80" style="color:var(--color-on-surface-variant)">
+            I learn best by doing — and writing forces me to think clearly about what I actually understand. Every post here is a reflection of something I've built, broken, debugged, or figured out. If it helps even one other developer, that's a win.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Author Bio Section -->
+  <section class="px-8 py-32 max-w-7xl mx-auto">
+    <div class="editorial-grid items-end">
+      <div class="col-span-12 md:col-span-6 relative">
+        <div class="about-portrait aspect-[4/5] overflow-hidden">
+          <img alt="Portrait of the Author" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="/static/assets/about-image.png"/>
+        </div>
+        <!-- Decorative Element -->
+        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-[#F5A500] flex items-center justify-center p-8 hidden md:flex shadow-xl">
+          <span class="material-symbols-outlined text-white dark:text-[#533a00] text-5xl font-light">code</span>
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-5 md:col-start-8 py-12">
+        <span class="about-author-label font-label text-xs uppercase tracking-[0.3em] mb-4 block">Founder & Author</span>
+        <h3 class="font-headline text-5xl font-extrabold mb-8 tracking-tighter" style="color:var(--color-on-surface)">Ayush Maurya</h3>
+        <div class="space-y-6">
+          <p class="font-body leading-relaxed italic border-l-2 border-[#F5A500] pl-6" style="color:var(--color-on-surface-variant)">
+            "I learn by doing — 100 days of Python, multiple hackathons, and a lot of late nights debugging things that shouldn't have broken."
+          </p>
+          <p class="font-body leading-relaxed" style="color:var(--color-on-surface-variant)">
+            B.Tech Computer Science student at NIET, Greater Noida. Focused on AI/ML, LLM engineering, and full-stack development. I've built and deployed projects on Vercel, Railway, Render, PythonAnywhere, and Netlify — and I'm always working on something new.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <span class="px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest border border-[#F5A500]/40 text-[#F5A500] rounded-sm">Python</span>
+            <span class="px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest border border-[#F5A500]/40 text-[#F5A500] rounded-sm">LangChain</span>
+            <span class="px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest border border-[#F5A500]/40 text-[#F5A500] rounded-sm">LangGraph</span>
+            <span class="px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest border border-[#F5A500]/40 text-[#F5A500] rounded-sm">Flask</span>
+            <span class="px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest border border-[#F5A500]/40 text-[#F5A500] rounded-sm">FastAPI</span>
+            <span class="px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest border border-[#F5A500]/40 text-[#F5A500] rounded-sm">RAG</span>
+          </div>
+          <div class="flex gap-4 pt-4">
+            <a class="about-social-btn w-12 h-12 flex items-center justify-center transition-all duration-300" href="https://www.linkedin.com/in/ayush-maurya-b39914315/" target="_blank">
+              <span class="material-symbols-outlined">work</span>
+            </a>
+            <a class="about-social-btn w-12 h-12 flex items-center justify-center transition-all duration-300" href="https://mail.google.com/mail/?view=cm&to=ayushmaurya21806@gmail.com" target="_blank" rel="noopener noreferrer">
+              <span class="material-symbols-outlined">mail</span>
+            </a>
+            <a class="about-social-btn w-12 h-12 flex items-center justify-center transition-all duration-300" href="https://github.com/ayush3739" target="_blank" aria-label="GitHub">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.49 2.87 8.3 6.84 9.64.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.17-1.1-1.48-1.1-1.48-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.84c.85.004 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" fill="#F5A500"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  
+</main>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}500 - Server Error | BlogPy{% endblock %}
+
+{% block body_class %}bg-[#f2f2f2] dark:bg-[#0c0e10] text-[#171a1c] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-white dark:selection:text-[#392700] min-h-screen flex flex-col overflow-x-hidden{% endblock %}
+
+{% block content %}
+<main class="flex-grow flex items-center justify-center pt-20 px-6">
+  <div class="max-w-6xl w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-16 items-center">
+      <div class="lg:col-span-7 flex flex-col gap-8">
+        <div class="flex flex-col gap-2">
+          <span class="font-label text-[#F5A500] font-bold tracking-[0.3em] uppercase text-xs">Server Error</span>
+          <h1 class="error-500-code font-headline text-[clamp(4rem,15vw,8rem)] leading-[0.85] font-black tracking-tighter">
+            500<span class="text-[#F5A500]">.</span>
+          </h1>
+        </div>
+        <div class="space-y-6 max-w-xl">
+          <h2 class="error-500-title font-headline text-3xl font-bold leading-tight">Something Went Wrong on Our End.</h2>
+          <p class="error-500-description text-lg leading-relaxed">
+            Our server ran into an unexpected error while processing your request. We've been notified and are working on a fix. Please try again in a moment.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <button class="error-500-btn-primary bg-[#F5A500] px-8 py-4 font-headline font-extrabold text-sm uppercase tracking-widest hover:translate-y-[-4px] transition-all duration-300 active:scale-95 flex items-center gap-2 shadow-lg shadow-[#F5A500]/20" onclick="window.location.reload()">
+            <span class="material-symbols-outlined text-lg">refresh</span>
+            Try Again
+          </button>
+          <a href="{{ url_for('get_all_posts') }}" class="error-500-btn-secondary px-8 py-4 font-headline font-extrabold text-sm uppercase tracking-widest transition-all duration-300 flex items-center gap-2">
+            <span class="material-symbols-outlined text-lg">home</span>
+            Go Home
+          </a>
+        </div>
+      </div>
+
+      <!-- Decorative Panel -->
+      <div class="hidden lg:block lg:col-span-5 relative">
+        <div class="error-500-panel aspect-[4/5] relative overflow-hidden group">
+          <div class="error-500-grid absolute inset-0 bg-[radial-gradient(#F5A500_1px,transparent_1px)] [background-size:20px_20px]"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-full h-full p-12 flex flex-col justify-between">
+              <div class="error-500-line w-full h-px"></div>
+              <div class="flex justify-between h-full">
+                <div class="error-500-line w-px h-full"></div>
+                <div class="relative flex-grow flex items-center justify-center">
+                  <div class="absolute w-48 h-48 border border-[#F5A500]/20 rotate-45"></div>
+                  <div class="absolute w-64 h-64 border border-[#F5A500]/10"></div>
+                  <div class="absolute w-32 h-32 border-4 border-[#F5A500] animate-pulse shadow-[0_0_20px_rgba(245,165,0,0.3)] dark:shadow-[0_0_20px_rgba(245,165,0,0.5)]"></div>
+                  <span class="error-500-trace font-label text-[10px] font-bold absolute top-4 left-4">INTERNAL_SERVER_ERROR</span>
+                  <span class="error-500-trace font-label text-[10px] font-bold absolute bottom-4 right-4">CODE: 500</span>
+                </div>
+                <div class="error-500-line w-px h-full"></div>
+              </div>
+              <div class="error-500-line w-full h-px"></div>
+            </div>
+          </div>
+          <div class="error-500-gradient absolute inset-0"></div>
+        </div>
+        <div class="error-500-node absolute -bottom-6 -left-6 p-6 shadow-xl">
+          <div class="flex flex-col gap-1">
+            <span class="error-500-node-label font-label text-[10px] uppercase tracking-widest font-bold">Status</span>
+            <span class="error-500-node-value font-headline text-lg font-bold">Server Unavailable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

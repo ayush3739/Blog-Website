@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}BlogPy | Create an Account{% endblock %}
+
+{% block body_class %}bg-[#f4f5f7] dark:bg-[#0c0e10] text-[#1a1c1e] dark:text-[#f6f6f8] font-body selection:bg-primary selection:text-on-primary dark:selection:text-on-primary{% endblock %}
+
+{% block content %}
+<main class="min-h-screen flex items-center justify-center p-6 bg-mesh relative overflow-hidden pt-32">
+  <!-- Abstract Background Accent -->
+  <div class="absolute top-0 right-0 w-[40vw] h-[40vw] bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/3"></div>
+  <div class="absolute bottom-0 left-0 w-[30vw] h-[30vw] bg-black/5 dark:bg-tertiary/5 blur-[100px] rounded-full translate-y-1/2 -translate-x-1/4"></div>
+
+  <div class="w-full max-w-5xl grid md:grid-cols-12 gap-0 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_24px_48px_-12px_rgba(220,220,220,0.08)] bg-white dark:bg-[#111415] overflow-hidden relative z-10 border border-black/5 dark:border-none">
+    <!-- Left Branding Column -->
+    <div class="md:col-span-5 bg-black dark:bg-[#000000] p-12 flex flex-col justify-between dark:border-r dark:border-outline-variant/10">
+      <div>
+        <h1 class="text-2xl font-black tracking-tighter text-primary uppercase font-headline mb-16">
+          BlogPy
+        </h1>
+        <h2 class="text-4xl lg:text-5xl font-extrabold font-headline leading-[1.1] tracking-tight mb-6 text-white">
+          A Blog Worth <span class="text-primary italic">Reading.</span>
+        </h2>
+        <p class="text-white/60 dark:text-[#aaabad] leading-relaxed max-w-xs">
+          Join a community of developers, designers, and curious readers. Good writing, no fluff.
+        </p>
+      </div>
+      <div class="space-y-6">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 flex items-center justify-center bg-white/10 dark:bg-[#1d2022]">
+            <span class="material-symbols-outlined text-primary">edit_note</span>
+          </div>
+          <span class="text-sm font-label uppercase tracking-widest text-white/80 dark:text-[#e5e2e1]">In-Depth Writing</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 flex items-center justify-center bg-white/10 dark:bg-[#1d2022]">
+            <span class="material-symbols-outlined text-primary">auto_stories</span>
+          </div>
+          <span class="text-sm font-label uppercase tracking-widest text-white/80 dark:text-[#e5e2e1]">No Ads, Ever</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Form Column -->
+    <div class="md:col-span-7 p-12 lg:p-20 bg-white dark:bg-[#0c0e10] flex flex-col justify-center">
+      <div class="mb-10">
+        <h3 class="text-xl font-bold font-headline mb-2 text-black dark:text-white">Create Account</h3>
+        <p class="text-[#5f6368] dark:text-[#aaabad] text-sm">Start reading and contributing today.</p>
+      </div>
+
+      <form method="POST" action="{{ url_for('register') }}" class="space-y-8">
+        {{ form.hidden_tag() }}
+
+        <!-- Full Name Field -->
+        <div class="group relative">
+          <label class="block text-[10px] uppercase tracking-[0.2em] font-bold text-[#747775] dark:text-[#d6d4d3] mb-2 transition-colors group-focus-within:text-primary">Full Name</label>
+          <div class="relative flex items-center">
+            <div class="absolute left-0 w-[2px] h-0 bg-primary transition-all duration-300 group-focus-within:h-full"></div>
+            {{ form.name(class="w-full bg-[#f8f9fa] dark:bg-[#111415] border-none focus:ring-0 p-4 pl-6 placeholder:text-[#79747e]/30 dark:placeholder:text-outline/50 font-headline font-bold text-lg uppercase tracking-tight snap-ooze text-black dark:text-white", placeholder="YOUR FULL NAME") }}
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="group relative">
+          <label class="block text-[10px] uppercase tracking-[0.2em] font-bold text-[#747775] dark:text-[#d6d4d3] mb-2 transition-colors group-focus-within:text-primary">Email Address</label>
+          <div class="relative flex items-center">
+            <div class="absolute left-0 w-[2px] h-0 bg-primary transition-all duration-300 group-focus-within:h-full"></div>
+            {{ form.email(class="w-full bg-[#f8f9fa] dark:bg-[#111415] border-none focus:ring-0 p-4 pl-6 placeholder:text-[#79747e]/30 dark:placeholder:text-outline/50 font-headline font-bold text-lg uppercase tracking-tight snap-ooze text-black dark:text-white", placeholder="YOU@EXAMPLE.COM") }}
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="group relative">
+          <label class="block text-[10px] uppercase tracking-[0.2em] font-bold text-[#747775] dark:text-[#d6d4d3] mb-2 transition-colors group-focus-within:text-primary">Create Password</label>
+          <div class="relative flex items-center">
+            <div class="absolute left-0 w-[2px] h-0 bg-primary transition-all duration-300 group-focus-within:h-full"></div>
+            {{ form.password(class="w-full bg-[#f8f9fa] dark:bg-[#111415] border-none focus:ring-0 p-4 pl-6 placeholder:text-[#79747e]/30 dark:placeholder:text-outline/50 font-headline font-bold text-lg tracking-tight snap-ooze text-black dark:text-white", placeholder="••••••••••••") }}
+          </div>
+          <p class="mt-2 text-[10px] text-[#79747e] dark:text-outline uppercase tracking-widest">Minimum 8 characters required</p>
+          {% for error in form.password.errors %}
+            <div class="text-red-500 text-xs mt-1">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="pt-4 flex flex-col gap-6">
+          {{ form.submit(class="w-full bg-[#F5A500] text-black dark:text-on-primary py-5 font-headline font-extrabold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:-translate-y-1 transition-all snap-ooze active:scale-95 shadow-lg shadow-primary/20 dark:shadow-none cursor-pointer") }}
+
+          <div class="flex items-center gap-4">
+            <div class="h-px flex-grow bg-[#dee2e6] dark:bg-outline-variant/20"></div>
+            <span class="text-[10px] font-bold text-[#79747e] dark:text-outline uppercase tracking-[0.3em]">OR CONNECT</span>
+            <div class="h-px flex-grow bg-[#dee2e6] dark:bg-outline-variant/20"></div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <button class="flex items-center justify-center gap-3 bg-white dark:bg-[#111415] py-4 border border-[#dee2e6] dark:border-outline-variant/10 hover:border-black dark:hover:bg-[#1d2022] transition-colors snap-ooze" type="button">
+              <span class="material-symbols-outlined text-lg text-black dark:text-white">terminal</span>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-black dark:text-white">Github</span>
+            </button>
+            <button class="flex items-center justify-center gap-3 bg-white dark:bg-[#111415] py-4 border border-[#dee2e6] dark:border-outline-variant/10 hover:border-black dark:hover:bg-[#1d2022] transition-colors snap-ooze" type="button">
+              <span class="material-symbols-outlined text-lg text-black dark:text-white">fingerprint</span>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-black dark:text-white">Google</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center mt-8">
+          <p class="text-sm text-[#747775] dark:text-[#d6d4d3]">
+            Already a member?
+            <a class="text-[#F5A500] font-bold hover:underline underline-offset-4 ml-2 transition-all" href="{{ url_for('login') }}">SIGN IN</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer Anchor -->
+  <div class="absolute bottom-8 w-full text-center pointer-events-none">
+    <span class="text-[10px] font-headline font-bold uppercase tracking-[0.5em] text-black/20 dark:text-outline/30">BlogPy // 2026</span>
+  </div>
+</main>
+{% endblock %}

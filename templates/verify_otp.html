@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Verify OTP{% endblock %}
+{% block body_class %}bg-[#f8f9fa] dark:bg-[#0c0e10] text-[#1a1c1e] dark:text-[#f6f6f8] font-body min-h-screen flex flex-col{% endblock %}
+{% block content %}
+<main class="flex-grow flex items-center justify-center p-6 relative z-10 pt-32">
+  <div class="w-full max-w-[440px]">
+    <div class="login-card p-10 md:p-12">
+      <header class="mb-10">
+        <h2 class="font-headline text-2xl font-bold tracking-tight">Verify OTP</h2>
+        <p class="mt-2 text-sm leading-relaxed">Enter the OTP sent to your email to continue.</p>
+      </header>
+      <form method="POST" action="{{ url_for('verify_otp_route', email=email) }}" class="space-y-8">
+        {{ form.hidden_tag() }}
+        <div class="space-y-1 group">
+          <label class="font-label text-[10px] uppercase tracking-widest font-bold block mb-2" for="otp">OTP</label>
+          <div class="relative login-input-wrapper transition-all duration-300">
+            {{ form.otp(class="login-input w-full border-none rounded-none py-4 px-4 focus:ring-0 text-sm transition-all", placeholder="Enter OTP") }}
+          </div>
+        </div>
+        <div class="pt-4">
+          {{ form.submit(class="w-full bg-[#F5A500] text-[#2B1D00] font-headline font-bold py-4 uppercase tracking-widest text-xs hover:shadow-lg hover:shadow-[#F5A500]/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer", value="Verify OTP") }}
+        </div>
+      </form>
+      <div class="login-divider mt-10 pt-8 text-center">
+        <p class="text-xs font-medium">Didn't receive the OTP?
+          <a class="text-[#F5A500] font-bold ml-1 uppercase tracking-tighter hover:underline" href="{{ url_for('forgot_pass') }}">Resend</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
