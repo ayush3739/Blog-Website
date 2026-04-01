@@ -22,7 +22,7 @@ It includes authentication, post management, comments, likes/bookmarks, profile 
 ![BlogPy Logo](static/assets/favicon.svg)
 
 ### Landing Page Screenshot
-Add your landing-page image at `static/assets/landing-page.png` and then add this line under this section:
+Add your landing-page image at `static/assets/landing-page.png`, then replace this section with:
 
 `![Landing Page](static/assets/landing-page.png)`
 
@@ -109,6 +109,14 @@ Blog-Website/
 
 ## 🚀 Local Setup
 1. Create and activate virtual environment
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ```
+   For Windows:
+   ```bash
+   venv\Scripts\activate
+   ```
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
