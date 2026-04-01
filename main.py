@@ -78,7 +78,6 @@ def load_user(user_id):
 # Neon/Vercel integrations may expose one of several DB URL env vars.
 _sqlite_fallback = f"sqlite:///{_instance_path}/posts.db"
 _db_uri = (
-    os.getenv("DB_URI") or
     os.getenv("NEON_DATABASE_URL") or
     os.getenv("NEON_POSTGRES_URL") or
     os.getenv("POSTGRES_URL") or
