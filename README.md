@@ -1,7 +1,7 @@
 # BlogPy — Full-Stack Flask Blog Website
 
 <div align="center">
-  <img src="static/assets/favicon.svg" alt="BlogPy Logo" width="110" />
+  <img src="static/assets/favicon.svg" alt="BlogPy Logo" width="72" height="72" />
 
   [![Live Demo](https://img.shields.io/badge/Live_Demo-blogpy.vercel.app-0085A1?style=flat-square)](https://blogpy.vercel.app)
   [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
@@ -19,7 +19,7 @@ It includes authentication, post management, comments, likes/bookmarks, profile 
 ## 🖼️ Branding & Screenshots
 
 ### Website Logo (SVG)
-![BlogPy Logo](static/assets/favicon.svg)
+<img src="static/assets/favicon.svg" alt="BlogPy Logo" width="56" height="56" />
 
 ### Landing Page Screenshot
 Add your landing-page image at `static/assets/landing-page.png`, then replace this section with:
@@ -77,6 +77,45 @@ Add your landing-page image at `static/assets/landing-page.png`, then replace th
 - Vercel deployment configuration
 - Flexible DB environment support (SQLite/Postgres)
 - Automatic category/tag seeding at startup
+
+## 🌐 Application Routes
+
+| Method | Route | Access | Notes |
+|---|---|---|---|
+| GET | `/` | Public | Home feed + trending |
+| GET | `/all-posts` | Public | Search/sort/filter + pagination |
+| GET/POST | `/register` | Public | User signup |
+| GET/POST | `/login` | Public | User login |
+| GET | `/logout` | Login required | Ends session |
+| GET/POST | `/forgot-password` | Public | Request OTP |
+| GET/POST | `/verify-password` | Public | Verify OTP |
+| GET/POST | `/reset-password` | Public (session-gated) | Reset password after OTP |
+| GET/POST | `/post/<post_id>` | Public (comment: login required) | Post view + comments/replies |
+| GET/POST | `/new-post` | Login required | Post creation form |
+| GET/POST | `/edit-post/<post_id>` | Login + owner/admin | Edit post |
+| POST | `/delete/<post_id>` | Login + owner/admin | Delete post |
+| POST | `/like/<post_id>` | Login required | Toggle like |
+| POST | `/bookmark/<post_id>` | Login required | Toggle bookmark |
+| GET | `/profile` | Login required | Current user profile |
+| GET/POST | `/edit-profile` | Login required | Update profile |
+| GET | `/about` | Public | About page |
+| GET/POST | `/contact` | Public | Contact form |
+| POST | `/newsletter-subs` | Public | Newsletter subscription |
+| GET | `/favicon.ico` | Public | Redirects favicon asset |
+| GET | `/too-many-requests` | Public | 429 page |
+| GET | `/debug/user/<user_id>` | Admin only | Debug endpoint |
+
+## 🗃️ Database Models
+
+- `User`: `id`, `email`, `password`, `name`, `bio`, `is_admin`, `created_at`
+- `BlogPost`: `id`, `author_id`, `title`, `subtitle`, `body`, `img_url`, `date`, `read_time`, `like_count`, `category_id`
+- `Comments`: `id`, `parent_id`, `author_id`, `post_id`, `text`, `created_at`
+- `Like`: composite key (`user_id`, `post_id`)
+- `BookMark`: composite key (`user_id`, `post_id`)
+- `Category`: `id`, `name`
+- `Tag`: `id`, `name`
+- `NewsletterSubs`: `id`, `email`, `date_subscribed`
+- Association table: `post_tags` for BlogPost ↔ Tag many-to-many mapping
 
 ## 🧱 Tech Stack
 - **Backend:** Flask, SQLAlchemy, Flask-Login, Flask-WTF
