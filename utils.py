@@ -7,7 +7,11 @@ import random
 blogpy_email = os.getenv("email")  # Your BlogPy email address
 app_password = os.getenv("pass")   # App password for BlogPy email
 
-_redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+# Vercel Upstash may expose REDIS_URL or REDIS_KV_URL.
+_redis_url = (
+    os.getenv("REDIS_URL") or
+    os.getenv("REDIS_KV_URL") or
+)
 redis_client = redis.from_url(_redis_url, decode_responses=True)
 
 

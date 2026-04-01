@@ -52,10 +52,17 @@ Bootstrap5(app)
 login_manager=LoginManager()
 login_manager.init_app(app)
 
+# Vercel Upstash may expose REDIS_URL or REDIS_KV_URL.
+_redis_storage_uri = (
+    os.getenv("REDIS_URL") or
+    os.getenv("REDIS_KV_URL") or
+    "memory://"
+)
+
 limiter=Limiter(key_func=get_remote_address,
                 app=app,
                 default_limits=["60 per minute"],
-                storage_uri=os.getenv("REDIS_URL", "memory://"),
+                storage_uri=_redis_storage_uri,
                 )
 
 @login_manager.user_loader
@@ -67,14 +74,13 @@ def load_user(user_id):
 
 
 
-# Neon integration may set POSTGRES_URL, POSTGRES_PRISMA_URL, DATABASE_URL, or STORAGE_URL
+# Neon integration may set POSTGRES_URL, POSTGRES_PRISMA_URL, or DATABASE_URL
 _sqlite_fallback = f"sqlite:///{_instance_path}/posts.db"
 _db_uri = (
     os.getenv("DB_URI") or
     os.getenv("POSTGRES_URL") or
     os.getenv("POSTGRES_PRISMA_URL") or
     os.getenv("DATABASE_URL") or
-    os.getenv("STORAGE_URL") or
     _sqlite_fallback
 )
 # SQLAlchemy requires 'postgresql://' not 'postgres://'
