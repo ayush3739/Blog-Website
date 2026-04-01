@@ -8,7 +8,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_login import login_user, LoginManager, current_user, logout_user, login_required
 from models import db, BlogPost, User, Like, BookMark, Category, Tag, Comments, post_tags,NewsletterSubs
-from sqlalchemy import or_, update
+from sqlalchemy import or_, func
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 from functools import wraps
@@ -241,6 +241,11 @@ def reset_password():
 def logout():
     logout_user()
     return redirect(url_for('get_all_posts'))
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return redirect(url_for('static', filename='assets/favicon.ico'), code=301)
 
 
 
@@ -571,7 +576,7 @@ def debug_user(user_id):
 
 #like functionality
 @app.route("/like/<int:post_id>",methods=["POST"])
-@limiter.limit("10 per minute")
+@limiter.limit("5 per minute")
 def like_toggle(post_id):
     if not current_user.is_authenticated:
         flash("You need to login to like posts.")
@@ -579,13 +584,13 @@ def like_toggle(post_id):
     user_id = current_user.id
 
     is_ajax = request.headers.get('X-Requested-With') == "XMLHttpRequest"
+    post = db.session.get(BlogPost, post_id)
+    if not post:
+        abort(404)
+
     like = Like.query.filter_by(user_id=user_id, post_id=post_id).first()
     if like:
         db.session.delete(like)
-        db.session.execute(
-            update(BlogPost).where(BlogPost.id == post_id)
-            .values(like_count=BlogPost.like_count - 1)
-        )
         liked = False
     else:
         like = Like(
@@ -593,22 +598,25 @@ def like_toggle(post_id):
             post_id=post_id
         )
         db.session.add(like)
-        db.session.execute(
-            update(BlogPost).where(BlogPost.id == post_id)
-            .values(like_count=BlogPost.like_count + 1)
-        )
         liked = True
+
+    # Flush toggle first, then derive count from source of truth to avoid race drift.
+    db.session.flush()
+    actual_like_count = db.session.execute(
+        db.select(func.count()).select_from(Like).where(Like.post_id == post_id)
+    ).scalar_one()
+    post.like_count = max(0, int(actual_like_count))
     db.session.commit()
 
     # Get updated like count
-    like_count = db.session.get(BlogPost, post_id).like_count
+    like_count = post.like_count
 
     if is_ajax:
         return jsonify({"like_count": like_count, "liked": liked})
     return redirect(url_for('show_post', post_id=post_id))
 
 @app.route("/bookmark/<int:post_id>",methods=["POST"])
-@limiter.limit("10 per minute")
+@limiter.limit("5 per minute")
 def bookmark_toggle(post_id):
     if not current_user.is_authenticated:
         flash("You need to login to bookmark posts.")
@@ -671,6 +679,8 @@ def forbidden(e):
 
 @app.errorhandler(429)
 def ratelimit_handler(e):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify({"error": "rate_limited", "message": "Too many requests. Please wait and try again."}), 429
     return render_template("429.html", logged_in=current_user.is_authenticated), 429
 
 

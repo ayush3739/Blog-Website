@@ -38,6 +38,33 @@
 <script>
 // Like AJAX
 document.addEventListener('DOMContentLoaded', function() {
+  async function readJsonOrThrow(res) {
+    const contentType = res.headers.get('content-type') || '';
+
+    if (res.status === 429) {
+      let message = 'Too many requests. Please wait a minute and try again.';
+      if (contentType.includes('application/json')) {
+        try {
+          const data = await res.json();
+          message = data.message || message;
+        } catch (err) {
+          // Keep fallback message.
+        }
+      }
+      throw new Error(message);
+    }
+
+    if (!res.ok) {
+      throw new Error('Request failed. Please try again.');
+    }
+
+    if (!contentType.includes('application/json')) {
+      throw new Error('Unexpected server response.');
+    }
+
+    return res.json();
+  }
+
   const shareBtn = document.querySelector('.post-share-btn');
   if (shareBtn) {
     shareBtn.addEventListener('click', async function() {
@@ -71,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         body: JSON.stringify({})
       })
-      .then(res => res.json())
+      .then(readJsonOrThrow)
       .then(data => {
         // Update like count
         const count = likeForm.querySelector('.like-count');
@@ -87,6 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.classList.add('bg-[#f4f4f4]', 'dark:bg-[#111415]');
           }
         }
+      })
+      .catch((err) => {
+        alert(err.message || 'Could not update like right now.');
       });
     });
   }
@@ -104,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         body: JSON.stringify({})
       })
-      .then(res => res.json())
+      .then(readJsonOrThrow)
       .then(data => {
         // Update label
         const label = bookmarkForm.querySelector('.bookmark-label');
@@ -120,6 +150,9 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.classList.add('bg-[#f4f4f4]', 'dark:bg-[#111415]');
           }
         }
+      })
+      .catch((err) => {
+        alert(err.message || 'Could not update bookmark right now.');
       });
     });
   }
