@@ -201,7 +201,7 @@
           </div>
         </div>
         <p class="text-sm text-[#5c5b5b] dark:text-[#aaabad] font-serif leading-relaxed">
-          {{ post.author.bio }}
+          {% if post.author.bio %}{{ post.author.bio }}{% else %}This author prefers to keep an air of mystery about them.{% endif %}
         </p>
       </div>
     </aside>
