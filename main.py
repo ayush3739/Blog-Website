@@ -253,6 +253,7 @@ def favicon():
 # Global storage for caching trending posts and category IDs
 trending_cache = {"posts": [], "last_updated": 0}
 category_id_cache = {}
+TRENDING_CACHE_TTL = 900  # 15 minutes in seconds
 
 @app.route('/')
 def get_all_posts():
@@ -261,8 +262,8 @@ def get_all_posts():
     global trending_cache, category_id_cache
     current_time = time.time()
     
-    # Update the cache if it's empty or 24 hours (86400 seconds) have passed
-    if not trending_cache["posts"] or (current_time - trending_cache["last_updated"] > 86400):
+    # Update the cache if it's empty or 15 minutes have passed
+    if not trending_cache["posts"] or (current_time - trending_cache["last_updated"] > TRENDING_CACHE_TTL):
         top_posts = db.session.execute(
             db.select(BlogPost).order_by(BlogPost.like_count.desc().nullslast(), BlogPost.id.desc()).limit(3)
         ).scalars().all()
