@@ -18,6 +18,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from forms import CreatePostForm,RegisterForm,LoginForm,CommentForm,ProfileForm,newsletterForm,reset_emailForm,Password_Form,OTP_Form
 import os , bleach
 import math
+import time
 from dotenv import load_dotenv
 from utils import send_contact_email, seed_categories_and_tags,generate_otp,verify_otp,send_otp
 
@@ -249,20 +250,48 @@ def favicon():
 
 
 
+# Global storage for caching trending posts and category IDs
+trending_cache = {"posts": [], "last_updated": 0}
+category_id_cache = {}
+
 @app.route('/')
 def get_all_posts():
     result = db.paginate(db.select(BlogPost).order_by(BlogPost.id.desc()), per_page=10)
-    trending_posts = db.session.execute(
-        db.select(BlogPost).order_by(BlogPost.like_count.desc().nullslast(), BlogPost.id.desc()).limit(3)
-    ).scalars().all()
+    
+    global trending_cache, category_id_cache
+    current_time = time.time()
+    
+    # Update the cache if it's empty or 24 hours (86400 seconds) have passed
+    if not trending_cache["posts"] or (current_time - trending_cache["last_updated"] > 86400):
+        top_posts = db.session.execute(
+            db.select(BlogPost).order_by(BlogPost.like_count.desc().nullslast(), BlogPost.id.desc()).limit(3)
+        ).scalars().all()
+        
+        # Store as dictionaries to prevent SQLAlchemy "DetachedInstanceError" when the DB session closes
+        trending_cache["posts"] = [
+            {
+                "id": p.id,
+                "title": p.title,
+                "subtitle": p.subtitle,
+                "date": p.date,
+                "read_time": p.read_time,
+                "category": {"name": p.category.name} if p.category else None
+            } for p in top_posts
+        ]
+        trending_cache["last_updated"] = current_time
 
-    # Fetch category IDs for homepage links
-    dev_category = db.session.execute(db.select(Category).where(Category.name == 'Web Development')).scalar_one_or_none()
-    design_category = db.session.execute(db.select(Category).where(Category.name == 'Design & UI/UX')).scalar_one_or_none()
-    opinion_category = db.session.execute(db.select(Category).where(Category.name == 'Opinion & Essays')).scalar_one_or_none()
-    dev_category_id = dev_category.id if dev_category else None
-    design_category_id = design_category.id if design_category else None
-    opinion_category_id = opinion_category.id if opinion_category else None
+    trending_posts = trending_cache["posts"]
+
+    # Use cached category IDs or fetch them once if the cache is empty
+    if not category_id_cache:
+        categories = db.session.execute(
+            db.select(Category).where(Category.name.in_(['Web Development', 'Design & UI/UX', 'Opinion & Essays']))
+        ).scalars().all()
+        category_id_cache.update({c.name: c.id for c in categories})
+    
+    dev_category_id = category_id_cache.get('Web Development')
+    design_category_id = category_id_cache.get('Design & UI/UX')
+    opinion_category_id = category_id_cache.get('Opinion & Essays')
     newsletter_form = newsletterForm()
 
     # AJAX request — return only the posts partial, not the full page

@@ -1,28 +1,28 @@
 {% macro render_comment(comment, is_reply=False, post=None, form=None, logged_in=False) %}
-<div class="relative group {% if is_reply %}ml-12 pl-6{% endif %}">
+<div class="relative group {% if is_reply %}ml-4 sm:ml-8 lg:ml-12 pl-2 sm:pl-4 lg:pl-6{% endif %}">
   {% if not is_reply %}
     <div class="thread-line-vertical"></div>
   {% else %}
     <div class="thread-line-horizontal"></div>
   {% endif %}
 
-  <div class="flex gap-6 relative z-10 mb-8">
+  <div class="flex gap-3 sm:gap-4 lg:gap-6 relative z-10 mb-8 min-w-0">
     <div class="flex-shrink-0">
        <img alt="{{ comment.comment_author.name }}"
          class="w-12 h-12 rounded-full border border-[#46484a]/30 bg-[#0c0e10]"
          src="{{ comment.comment_author.email | gravatar }}"/>
     </div>
-    <div class="flex-grow">
-      <div class="flex justify-between items-baseline mb-2">
-        <h4 class="font-headline font-bold {% if is_reply %}text-sm{% endif %} text-[#0c0e10] dark:text-[#f6f6f8]">
+    <div class="flex-grow min-w-0">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-2 min-w-0">
+        <h4 class="font-headline font-bold {% if is_reply %}text-sm{% endif %} text-[#0c0e10] dark:text-[#f6f6f8] break-words">
           {{ comment.comment_author.name }}
         </h4>
-        <span class="text-[10px] font-label font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest">
+        <span class="text-[10px] font-label font-bold text-[#5c5b5b] dark:text-[#d6d4d3] uppercase tracking-widest whitespace-normal break-words">
           {{ comment.created_at.strftime('%b %d, %Y') }}
         </span>
       </div>
 
-      <div class="text-[#2d2f31] dark:text-[#aaabad] font-serif {% if is_reply %}text-base{% else %}text-lg{% endif %} leading-relaxed mb-4 comment-text">
+      <div class="text-[#2d2f31] dark:text-[#aaabad] font-serif {% if is_reply %}text-base{% else %}text-lg{% endif %} leading-relaxed mb-4 comment-text [overflow-wrap:anywhere]">
         {{ comment.text  }}
       </div>
 

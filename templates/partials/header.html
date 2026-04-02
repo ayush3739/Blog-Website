@@ -1,30 +1,89 @@
 <!-- ══ NAVIGATION ══ -->
 <nav id="main-nav" class="fixed top-0 w-full z-50">
-  <div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
+  <div class="flex justify-between items-center px-4 sm:px-8 py-4 sm:py-6 max-w-7xl mx-auto w-full gap-4">
     <div class="flex items-center gap-8">
       <a id="nav-logo" class="text-2xl font-black tracking-tighter font-headline" href="{{ url_for('get_all_posts') }}">Blog<span class="text-[#F5A500]">Py</span></a>
-      <div class="hidden md:flex gap-6 items-center">
+      <div class="hidden lg:flex gap-6 items-center">
         <a class="{% if request.endpoint == 'get_all_posts' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('get_all_posts') }}">Home</a>
         <a class="{% if request.endpoint == 'show_post' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('all_posts') }}">Posts</a>
         <a class="{% if request.endpoint == 'about' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('about') }}">About</a>
         <a class="{% if request.endpoint == 'contact' %}nav-link-active{% else %}nav-link{% endif %} font-headline tracking-tight font-bold" href="{{ url_for('contact') }}">Contact</a>
       </div>
     </div>
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-3 sm:gap-4">
       <span id="theme-toggle" class="material-symbols-outlined nav-icon snap-ooze transition-all cursor-pointer" title="Toggle theme">dark_mode</span>
       <span class="material-symbols-outlined nav-icon cursor-pointer snap-ooze transition-all"
       onclick="window.location.href='{{ url_for('all_posts') }}?q='"
       title="Search posts">search</span>      
+      <button id="mobile-menu-toggle" type="button" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-white/10 bg-black/10 dark:bg-white/5 text-[#f0f0f2] hover:bg-black/20 transition-all" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
       {% if logged_in %}
+        <div class="hidden lg:flex items-center gap-4">
         {% if logged_in or current_user.isadmin %}
         <a href="{{ url_for('add_new_post') }}" class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">New Post</a>
         {% endif %}
         <a href="{{ url_for('profile') }}" class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">{{ current_user.name }}</a>
         <a href="{{ url_for('logout') }}" class="bg-[#F5A500] text-[#402b00] px-6 py-2 font-bold snap-ooze scale-95 active:scale-100 transition-transform hover:brightness-105">Logout</a>
+        </div>
       {% else %}
+        <div class="hidden lg:flex items-center gap-4">
         <a href="{{ url_for('login') }}" class="nav-link px-5 py-2 text-sm font-bold hover:opacity-80 transition-all duration-300">Login</a>
         <a href="{{ url_for('register') }}" class="bg-[#F5A500] text-[#402b00] px-6 py-2 font-bold snap-ooze scale-95 active:scale-100 transition-transform hover:brightness-105">Register</a>
+        </div>
       {% endif %}
     </div>
   </div>
+
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-white/10 bg-[rgba(10,10,11,0.98)] backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex flex-col gap-3">
+      <a class="nav-link font-headline font-bold py-3 px-2 rounded-lg {% if request.endpoint == 'get_all_posts' %}nav-link-active{% endif %}" href="{{ url_for('get_all_posts') }}">Home</a>
+      <a class="nav-link font-headline font-bold py-3 px-2 rounded-lg {% if request.endpoint == 'show_post' %}nav-link-active{% endif %}" href="{{ url_for('all_posts') }}">Posts</a>
+      <a class="nav-link font-headline font-bold py-3 px-2 rounded-lg {% if request.endpoint == 'about' %}nav-link-active{% endif %}" href="{{ url_for('about') }}">About</a>
+      <a class="nav-link font-headline font-bold py-3 px-2 rounded-lg {% if request.endpoint == 'contact' %}nav-link-active{% endif %}" href="{{ url_for('contact') }}">Contact</a>
+
+      <div class="pt-3 mt-2 border-t border-white/10 flex flex-col gap-3">
+        {% if logged_in %}
+          {% if logged_in or current_user.isadmin %}
+          <a href="{{ url_for('add_new_post') }}" class="bg-[#F5A500] text-[#402b00] px-4 py-3 rounded-lg font-bold text-center">New Post</a>
+          {% endif %}
+          <a href="{{ url_for('profile') }}" class="nav-link px-4 py-3 rounded-lg font-bold text-center">{{ current_user.name }}</a>
+          <a href="{{ url_for('logout') }}" class="bg-[#F5A500] text-[#402b00] px-4 py-3 rounded-lg font-bold text-center">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="nav-link px-4 py-3 rounded-lg font-bold text-center">Login</a>
+          <a href="{{ url_for('register') }}" class="bg-[#F5A500] text-[#402b00] px-4 py-3 rounded-lg font-bold text-center">Register</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
+
+  const closeMenu = () => {
+    menu.classList.add('hidden');
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+
+  toggle.addEventListener('click', function () {
+    const isOpen = !menu.classList.contains('hidden');
+    if (isOpen) closeMenu();
+    else {
+      menu.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  menu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+  document.addEventListener('click', function (event) {
+    if (menu.classList.contains('hidden')) return;
+    if (menu.contains(event.target) || toggle.contains(event.target)) return;
+    closeMenu();
+  });
+});
+</script>

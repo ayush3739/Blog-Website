@@ -36,121 +36,109 @@
 </form>
 
 <script>
-// Like AJAX
-document.addEventListener('DOMContentLoaded', function() {
-  const isLoggedIn = {{ 'true' if logged_in else 'false' }};
-  const rateLimitPageUrl = "{{ url_for('too_many_requests_page') }}";
+// Prevent double execution if included multiple times
+if (typeof window._likeShareScriptLoaded === 'undefined') {
+  window._likeShareScriptLoaded = true;
 
-  async function readJsonOrThrow(res) {
-    const contentType = res.headers.get('content-type') || '';
+  document.addEventListener('DOMContentLoaded', function() {
+    const isLoggedIn = {{ 'true' if logged_in else 'false' }};
+    const rateLimitPageUrl = "{{ url_for('too_many_requests_page') }}";
 
-    if (res.status === 429) {
-      window.location.href = rateLimitPageUrl;
-      throw new Error('Rate limited');
-    }
-
-    if (res.redirected || contentType.includes('text/html')) {
-      window.location.href = res.url;
-      throw new Error('Redirecting');
-    }
-
-    if (!res.ok) {
-      throw new Error('Request failed. Please try again.');
-    }
-
-    return res.json();
-  }
-
-  const shareBtn = document.querySelector('.post-share-btn');
-  if (shareBtn) {
-    shareBtn.addEventListener('click', async function() {
-      const shareUrl = this.dataset.shareUrl || window.location.href;
-      const shareTitle = this.dataset.shareTitle || document.title;
-
-      try {
-        if (navigator.share) {
-          await navigator.share({ title: shareTitle, url: shareUrl });
-        } else if (navigator.clipboard) {
-          await navigator.clipboard.writeText(shareUrl);
-          alert('Post link copied to clipboard.');
-        } else {
-          window.prompt('Copy this post link:', shareUrl);
-        }
-      } catch (err) {
-        // Ignore aborts when user closes native share sheet.
+    async function readJsonOrThrow(res) {
+      if (res.status === 429) {
+        window.location.href = rateLimitPageUrl;
+        throw new Error('Rate limited');
       }
-    });
-  }
+      const contentType = res.headers.get('content-type') || '';
+      if (res.redirected || contentType.includes('text/html')) {
+        window.location.href = res.url;
+        throw new Error('Redirecting');
+      }
+      if (!res.ok) throw new Error('Request failed. Please try again.');
+      return res.json();
+    }
 
-  const likeForm = document.querySelector('.like-form');
-  if (likeForm && isLoggedIn) {
-    likeForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      fetch(this.action, {
-        method: 'POST',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRFToken': document.querySelector('[name=csrf_token]')?.value || ''
-        },
-        body: JSON.stringify({})
-      })
-      .then(readJsonOrThrow)
-      .then(data => {
-        // Update like count
-        const count = likeForm.querySelector('.like-count');
-        if (count) count.textContent = data.like_count;
-        // Update button style
-        const btn = likeForm.querySelector('.like-btn');
-        if (btn) {
-          if (data.liked) {
-            btn.classList.add('bg-[#F5A500]', 'text-white');
-            btn.classList.remove('bg-[#f4f4f4]', 'dark:bg-[#111415]');
-          } else {
-            btn.classList.remove('bg-[#F5A500]', 'text-white');
-            btn.classList.add('bg-[#f4f4f4]', 'dark:bg-[#111415]');
-          }
-        }
-      })
-      .catch((err) => {
-        alert(err.message || 'Could not update like right now.');
+    // Apply to ALL share buttons
+    document.querySelectorAll('.post-share-btn').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const shareUrl = this.dataset.shareUrl || window.location.href;
+        const shareTitle = this.dataset.shareTitle || document.title;
+        try {
+          if (navigator.share) await navigator.share({ title: shareTitle, url: shareUrl });
+          else if (navigator.clipboard) { await navigator.clipboard.writeText(shareUrl); alert('Post link copied to clipboard.'); }
+        } catch (err) {}
       });
     });
-  }
 
-  // Bookmark AJAX
-  const bookmarkForm = document.querySelector('.bookmark-form');
-  if (bookmarkForm && isLoggedIn) {
-    bookmarkForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      fetch(this.action, {
-        method: 'POST',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRFToken': document.querySelector('[name=csrf_token]')?.value || ''
-        },
-        body: JSON.stringify({})
-      })
-      .then(readJsonOrThrow)
-      .then(data => {
-        // Update label
-        const label = bookmarkForm.querySelector('.bookmark-label');
-        if (label) label.textContent = data.bookmarked ? 'Saved' : 'Save';
-        // Update button style
-        const btn = bookmarkForm.querySelector('.bookmark-btn');
-        if (btn) {
-          if (data.bookmarked) {
-            btn.classList.add('bg-[#F5A500]', 'text-white');
-            btn.classList.remove('bg-[#f4f4f4]', 'dark:bg-[#111415]');
-          } else {
-            btn.classList.remove('bg-[#F5A500]', 'text-white');
-            btn.classList.add('bg-[#f4f4f4]', 'dark:bg-[#111415]');
-          }
-        }
-      })
-      .catch((err) => {
-        alert(err.message || 'Could not update bookmark right now.');
+    if (isLoggedIn) {
+      // Apply to ALL like forms
+      document.querySelectorAll('.like-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          fetch(this.action, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': document.querySelector('[name=csrf_token]')?.value || ''
+            },
+            body: JSON.stringify({})
+          })
+          .then(readJsonOrThrow)
+          .then(data => {
+            // Update BOTH mobile and desktop visual states simultaneously
+            document.querySelectorAll('.like-form').forEach(f => {
+              const count = f.querySelector('.like-count');
+              if (count) count.textContent = data.like_count;
+              const btn = f.querySelector('.like-btn');
+              if (btn) {
+                if (data.liked) {
+                  btn.classList.add('bg-[#F5A500]', 'text-white');
+                  btn.classList.remove('bg-[#f4f4f4]', 'dark:bg-[#111415]');
+                } else {
+                  btn.classList.remove('bg-[#F5A500]', 'text-white');
+                  btn.classList.add('bg-[#f4f4f4]', 'dark:bg-[#111415]');
+                }
+              }
+            });
+          })
+          .catch(err => { if(err.message !== 'Redirecting') alert('Could not update like right now.'); });
+        });
       });
-    });
-  }
-});
+
+      // Apply to ALL bookmark forms
+      document.querySelectorAll('.bookmark-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          fetch(this.action, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': document.querySelector('[name=csrf_token]')?.value || ''
+            },
+            body: JSON.stringify({})
+          })
+          .then(readJsonOrThrow)
+          .then(data => {
+            // Update BOTH mobile and desktop visual states simultaneously
+            document.querySelectorAll('.bookmark-form').forEach(f => {
+              const label = f.querySelector('.bookmark-label');
+              if (label) label.textContent = data.bookmarked ? 'Saved' : 'Save';
+              const btn = f.querySelector('.bookmark-btn');
+              if (btn) {
+                if (data.bookmarked) {
+                  btn.classList.add('bg-[#F5A500]', 'text-white');
+                  btn.classList.remove('bg-[#f4f4f4]', 'dark:bg-[#111415]');
+                } else {
+                  btn.classList.remove('bg-[#F5A500]', 'text-white');
+                  btn.classList.add('bg-[#f4f4f4]', 'dark:bg-[#111415]');
+                }
+              }
+            });
+          })
+          .catch(err => { if(err.message !== 'Redirecting') alert('Could not update save right now.'); });
+        });
+      });
+    }
+  });
+}
 </script>
