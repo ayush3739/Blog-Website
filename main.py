@@ -15,7 +15,7 @@ from functools import wraps
 from flask import jsonify
 from flask_wtf.csrf import generate_csrf
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import CreatePostForm,RegisterForm,LoginForm,CommentForm,ProfileForm,newsletterForm,reset_emailForm,Password_Form,OTP_Form
+from forms import CreatePostForm,RegisterForm,LoginForm,CommentForm,ProfileForm,newsletterForm,reset_emailForm,Password_Form,OTP_Form,ContactForm
 import os , bleach
 import math
 import time
@@ -253,7 +253,7 @@ def favicon():
 # Global storage for caching trending posts and category IDs
 trending_cache = {"posts": [], "last_updated": 0}
 category_id_cache = {}
-TRENDING_CACHE_TTL = 900  # 15 minutes in seconds
+TRENDING_CACHE_TTL = 900  # 15 min
 
 @app.route('/')
 def get_all_posts():
@@ -571,7 +571,6 @@ def about():
 
 
 
-from forms import ContactForm
 
 @app.route("/contact", methods=["GET", "POST"])
 @limiter.limit("5 per minute")
