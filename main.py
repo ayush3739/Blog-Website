@@ -1,5 +1,5 @@
 from datetime import date,datetime
-from flask import Flask, abort, render_template, redirect, url_for, flash, request, session
+from flask import Flask, abort, render_template, redirect, url_for, flash, request, session, send_from_directory
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
@@ -247,6 +247,11 @@ def logout():
 @app.route('/favicon.ico')
 def favicon():
     return redirect(url_for('static', filename='assets/favicon.ico'), code=301)
+
+
+@app.route('/google7b0cbf552929cd5a.html')
+def google_verification_file():
+    return send_from_directory('.', 'google7b0cbf552929cd5a.html')
 
 
 
