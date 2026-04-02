@@ -593,15 +593,6 @@ def contact():
     return render_template("contact.html", form=form, logged_in=current_user.is_authenticated, msg_sent=False)
 
 
-@app.route("/debug/user/<int:user_id>")
-@admin_only
-def debug_user(user_id):
-    user = db.get_or_404(User, user_id)
-    return {
-        "user": {"id": user.id, "email": user.email, "name": user.name},
-        "posts": [{"id": p.id, "title": p.title, "date": p.date} for p in user.posts],
-        "post_count": len(user.posts),
-    }
 
 #like functionality
 @app.route("/like/<int:post_id>",methods=["POST"])

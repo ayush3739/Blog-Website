@@ -25,15 +25,9 @@
             <p class="font-headline text-xl transition-colors snap-ooze group-hover:text-[#F5A500]" style="color:var(--color-on-surface-variant)">blogpy.contact@gmail.com</p>
           </div>
           <div class="pt-8 flex gap-6">
-            <div class="contact-icon-btn w-12 h-12 flex items-center justify-center snap-ooze transition-all cursor-pointer">
-              <span class="material-symbols-outlined text-sm">alternate_email</span>
-            </div>
-            <div class="contact-icon-btn w-12 h-12 flex items-center justify-center snap-ooze transition-all cursor-pointer">
-              <span class="material-symbols-outlined text-sm">call</span>
-            </div>
-            <div class="contact-icon-btn w-12 h-12 flex items-center justify-center snap-ooze transition-all cursor-pointer">
+            <button aria-label="Share website" class="contact-icon-btn w-12 h-12 flex items-center justify-center snap-ooze transition-all cursor-pointer focus:outline-none" id="contact-share-btn" type="button">
               <span class="material-symbols-outlined text-sm">share</span>
-            </div>
+            </button>
           </div>
         </div>
       </div>
@@ -101,4 +95,29 @@
     </div>
   </div>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const contactShareBtn = document.getElementById('contact-share-btn');
+  if (!contactShareBtn) return;
+
+  contactShareBtn.addEventListener('click', async function() {
+    const shareUrl = 'https://blogpy.vercel.app/';
+    const shareTitle = 'BlogPy | The Tech Blog';
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: shareTitle, url: shareUrl });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(shareUrl);
+        alert('Website link copied to clipboard.');
+      } else {
+        window.prompt('Copy this website link:', shareUrl);
+      }
+    } catch (err) {
+      // Ignore aborts when user closes native share sheet.
+    }
+  });
+});
+</script>
 {% endblock %}

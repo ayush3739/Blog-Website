@@ -14,7 +14,7 @@ BlogPy is a Flask-based blogging platform that combines authentication, post pub
 ## Links
 
 - Live demo: https://blogpy.vercel.app
-- Repository: https://github.com/ayush3739/Blog-Website
+- Repository: https://github.com/ayush3739/blog-website
 
 ## Landing Page Screenshot
 
