@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+Disallow: /edit-profile
+Disallow: /edit-post
+Disallow: /delete
+Disallow: /new-post
+Disallow: /profile
+
+# Rate limiting - balanced for Vercel Free tier
+Request-rate: 1/2
+
+# Sitemap location
+Sitemap: https://blogpy.vercel.app/sitemap.xml

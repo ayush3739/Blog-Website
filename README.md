@@ -154,7 +154,7 @@ erDiagram
 | POST | `/newsletter-subs` | Public | `newsletterForm`, duplicate protection |
 | GET | `/favicon.ico` | Public | Redirects to the favicon asset |
 | GET | `/too-many-requests` | Public | Manual 429 page |
-| GET | `/debug/user/<user_id>` | Admin only | Debug JSON payload for a user and their posts |
+
 
 ## Forms And Utilities
 

@@ -682,6 +682,58 @@ def news_subscriber():
     return redirect(request.referrer or url_for('get_all_posts'))
 
 
+# Sitemap - Dynamic XML generation
+@app.route('/sitemap.xml')
+def sitemap():
+    """Generate sitemap.xml dynamically from database"""
+    from flask import make_response
+    
+    # Start XML
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    
+    # Homepage - highest priority, changes weekly
+    xml += '  <url>\n'
+    xml += '    <loc>https://blogpy.vercel.app/</loc>\n'
+    xml += f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>\n'
+    xml += '    <changefreq>weekly</changefreq>\n'
+    xml += '    <priority>1.0</priority>\n'
+    xml += '  </url>\n'
+    
+    # Static pages
+    static_pages = [
+        ('/all-posts', 'weekly', '0.9'),
+        ('/about', 'monthly', '0.8'),
+        ('/contact', 'monthly', '0.7'),
+    ]
+    
+    for path, freq, priority in static_pages:
+        xml += '  <url>\n'
+        xml += f'    <loc>https://blogpy.vercel.app{path}</loc>\n'
+        xml += f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>\n'
+        xml += f'    <changefreq>{freq}</changefreq>\n'
+        xml += f'    <priority>{priority}</priority>\n'
+        xml += '  </url>\n'
+    
+    # All published blog posts - from database
+    posts = db.session.execute(db.select(BlogPost).order_by(BlogPost.id.desc())).scalars().all()
+    for post in posts:
+        xml += '  <url>\n'
+        xml += f'    <loc>https://blogpy.vercel.app/post/{post.id}</loc>\n'
+        # Using current date since post.date is stored as a string, not datetime
+        xml += f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>\n'
+        xml += '    <changefreq>weekly</changefreq>\n'
+        xml += '    <priority>0.8</priority>\n'
+        xml += '  </url>\n'
+    
+    xml += '</urlset>'
+    
+    response = make_response(xml)
+    response.headers['Content-Type'] = 'application/xml'
+    response.headers['Content-Disposition'] = 'inline'
+    return response
+
+
 # Error Handlers
 @app.errorhandler(404)
 def page_not_found(e):
